@@ -66,8 +66,8 @@ public class Button {
     }
 
     public void update() {
-        boolean horizontalHover = Gdx.input.getX() > this.x && Gdx.input.getX() < this.x + this.width;
-        boolean verticalHover = Gdx.graphics.getBackBufferHeight()-Gdx.input.getY() > this.y && Gdx.graphics.getBackBufferHeight()-Gdx.input.getY() < this.y + this.height;
+        boolean horizontalHover = Gdx.input.getX()/FindYourWay.WINDOW_VIEWPORT_X_PROP > this.x && Gdx.input.getX()/FindYourWay.WINDOW_VIEWPORT_X_PROP < this.x + this.width;
+        boolean verticalHover = 270-(Gdx.input.getY()/FindYourWay.WINDOW_VIEWPORT_Y_PROP) > this.y && 270-(Gdx.input.getY()/FindYourWay.WINDOW_VIEWPORT_Y_PROP) < this.y + this.height;
 
         if(horizontalHover && verticalHover) {
             texture = hoverTexture;
