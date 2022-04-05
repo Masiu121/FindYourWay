@@ -2,6 +2,7 @@ package com.oxology.findyourway.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
@@ -10,7 +11,7 @@ import com.oxology.findyourway.utils.Button;
 
 public class MainMenuScreen implements Screen {
     FindYourWay game;
-    BitmapFont font;
+    OrthographicCamera camera;
 
     Button playButton;
     Button creditsButton;
@@ -22,32 +23,37 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
-        font = new BitmapFont(Gdx.files.internal("Menu/PixelFont.fnt"));
+        camera = new OrthographicCamera(480, 270);
+        camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
+        camera.update();
 
-        playButton = new Button(game, 0, 0, 4, "Play", new MainGameScreen());
-        creditsButton = new Button(game, 0, 0, 4, "Credits", new CreditsScreen(game));
-        exitButton = new Button(game, 0, 0, 4, "Exit", null);
+        playButton = new Button(game, 0, 0, 1f, "Play", new MainGameScreen(game));
+        creditsButton = new Button(game, 0, 0, 1f, "Credits", new CreditsScreen(game));
+        exitButton = new Button(game, 0, 0, 1f, "Exit", null);
 
-        int buttonX = Gdx.graphics.getBackBufferWidth()/2-playButton.getWidth()/2;
+        int buttonX = (int) camera.viewportWidth/2-playButton.getWidth()/2;
 
-        playButton.move(buttonX, 350);
-        creditsButton.move(buttonX, 200);
-        exitButton.move(buttonX, 50);
+        playButton.move(buttonX, 80);
+        creditsButton.move(buttonX, 45);
+        exitButton.move(buttonX, 10);
     }
 
     @Override
     public void render(float delta) {
         update();
+
+        camera.update();
+        game.batch.setProjectionMatrix(camera.combined);
+
         ScreenUtils.clear(0, 0, 0, 1);
 
         game.batch.begin();
 
-        game.batch.draw(GameTexture.MENU_BACKGROUND, 0, 0, FindYourWay.WINDOW_WIDTH, FindYourWay.WINDOW_HEIGHT);
+        game.batch.draw(GameTexture.MENU_BACKGROUND, 0, 0);
 
         playButton.draw(game.batch);
         creditsButton.draw(game.batch);
         exitButton.draw(game.batch);
-        font.draw(game.batch, "Version: " + FindYourWay.VERSION, 1, 25);
 
         game.batch.end();
     }
