@@ -18,17 +18,19 @@ public class Entity extends GameObject {
     public Entity(int x, int y, Texture texture) {
         super(x, y, texture);
 
-        this.defaultXSpeed = 5f;
-        this.defaultYSpeed = 5f;
+        this.defaultXSpeed = 100f;
+        this.defaultYSpeed = 500f;
+
+        xSpeed = 0;
 
         this.jump = false;
     }
 
     public void update(float deltaTime) {
         if(Gdx.input.isKeyPressed(Input.Keys.A)) {
-            this.xSpeed = -defaultXSpeed;
-        } if(Gdx.input.isKeyPressed(Input.Keys.D)) {
-            this.xSpeed = defaultXSpeed;
+                this.xSpeed = -defaultXSpeed;
+        } else if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+                this.xSpeed = defaultXSpeed;
         } else {
             this.xSpeed = 0;
         }
@@ -37,6 +39,8 @@ public class Entity extends GameObject {
             this.jump = true;
         }
 
-        move((int) (super.getX() + xSpeed*deltaTime), (int) (super.getY() + ySpeed*deltaTime));
+        move((int) (getX() + xSpeed*deltaTime), (int) (getY() + ySpeed*deltaTime));
+
+        System.out.println(xSpeed*deltaTime);
     }
 }
