@@ -9,12 +9,15 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameTexture;
 import com.oxology.findyourway.world.entities.Entity;
+import com.oxology.findyourway.world.entities.Player;
 
 public class MainGameScreen implements Screen {
     FindYourWay game;
     OrthographicCamera camera;
 
-    Entity player;
+    Player player;
+    Entity barrel;
+    Entity fire;
 
     public MainGameScreen(FindYourWay game) {
         this.game = game;
@@ -22,11 +25,13 @@ public class MainGameScreen implements Screen {
 
     @Override
     public void show() {
-        camera = new OrthographicCamera(480, 270);
+        camera = new OrthographicCamera(240, 135);
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
 
-        player = new Entity(10, 10, GameTexture.MAIN_CHAR_IDLE, 1.5f);
+        player = new Player(10, 10, GameTexture.MAIN_CHAR_IDLE, 1f);
+        barrel = new Entity(50, 10, GameTexture.BARREL, 1f, false, 1);
+        fire = new Entity(48, 29, GameTexture.FIRE, 1f, true, 5);
     }
 
     @Override
@@ -41,11 +46,14 @@ public class MainGameScreen implements Screen {
 
         game.batch.begin();
         player.draw(game.batch);
+        barrel.draw(game.batch);
+        fire.draw(game.batch);
         game.batch.end();
     }
 
     public void update(float deltaTime) {
         player.update(deltaTime);
+        fire.update(deltaTime);
     }
 
     @Override
