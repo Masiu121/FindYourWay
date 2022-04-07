@@ -15,9 +15,6 @@ public class MainGameScreen implements Screen {
     OrthographicCamera camera;
 
     Entity player;
-    TextureRegion[][] animationFrames;
-    Animation<TextureRegion> animation;
-    float timeElapsed;
 
     public MainGameScreen(FindYourWay game) {
         this.game = game;
@@ -29,15 +26,11 @@ public class MainGameScreen implements Screen {
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
 
-        player = new Entity(10, 10, GameTexture.MAIN_CHAR_IDLE);
-
-        animationFrames = TextureRegion.split(player.getTexture(), 14, 45);
-        animation = new Animation<TextureRegion>(1f/4f, animationFrames[0]);
+        player = new Entity(10, 10, GameTexture.MAIN_CHAR_IDLE, 1.5f);
     }
 
     @Override
     public void render(float deltaTime) {
-        timeElapsed += Gdx.graphics.getDeltaTime();
 
         update(Gdx.graphics.getDeltaTime());
 
@@ -47,7 +40,7 @@ public class MainGameScreen implements Screen {
         ScreenUtils.clear(0, 0, 0, 1);
 
         game.batch.begin();
-        game.batch.draw(animation.getKeyFrame(timeElapsed, true), player.getX(), player.getY());
+        player.draw(game.batch);
         game.batch.end();
     }
 
