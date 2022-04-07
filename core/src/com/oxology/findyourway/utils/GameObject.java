@@ -4,15 +4,17 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameObject {
-    int x, y;
-    Texture texture;
-    boolean visible;
+    private float x, y;
+    private Texture texture;
+    private boolean visible;
+    private final float scale;
 
-    public GameObject(int x, int y, Texture texture) {
+    public GameObject(float x, float y, Texture texture, float scale) {
         this.x = x;
         this.y = y;
         this.texture = texture;
         this.visible = true;
+        this.scale = scale;
     }
 
     public boolean isVisible() {
@@ -20,7 +22,7 @@ public class GameObject {
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(texture, x, y);
+        batch.draw(texture, x, y, texture.getWidth()*scale, texture.getHeight()*scale);
     }
 
     public void move(int x, int y) {
@@ -28,11 +30,16 @@ public class GameObject {
         this.y = y;
     }
 
-    public int getX() {
+    public void move(float xOffset, float yOffset) {
+        this.x += xOffset;
+        this.y += yOffset;
+    }
+
+    public float getX() {
         return x;
     }
 
-    public int getY() {
+    public float getY() {
         return y;
     }
 
@@ -41,5 +48,13 @@ public class GameObject {
     }
 
     public void update() {}
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public float getScale() {
+        return scale;
+    }
 }
 
