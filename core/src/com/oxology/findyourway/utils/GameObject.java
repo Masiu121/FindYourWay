@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GameObject {
     private float x, y;
+    private int width, height;
     private Texture texture;
     private boolean visible;
     private final float scale;
@@ -47,7 +48,7 @@ public class GameObject {
         return texture;
     }
 
-    public void update() {}
+    public void update(float deltaTime) {}
 
     public void setVisible(boolean visible) {
         this.visible = visible;
@@ -55,6 +56,19 @@ public class GameObject {
 
     public float getScale() {
         return scale;
+    }
+
+    public void setSize(int width, int height) {
+        this.width = width;
+        this.height = height;
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }
 
