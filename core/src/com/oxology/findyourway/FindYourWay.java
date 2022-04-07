@@ -9,13 +9,13 @@ public class FindYourWay extends Game {
 	public static final int VIEWPORT_WIDTH = 480;
 	public static final int VIEWPORT_HEIGHT = 270;
 
-	public static final int WINDOW_WIDTH = 480;
-	public static final int WINDOW_HEIGHT = 340;
+	public static final int WINDOW_WIDTH = 960;
+	public static final int WINDOW_HEIGHT = 680;
 
 	public static final float WINDOW_VIEWPORT_Y_PROP = (float) WINDOW_HEIGHT/VIEWPORT_HEIGHT;
 	public static final float WINDOW_VIEWPORT_X_PROP = (float) WINDOW_WIDTH/VIEWPORT_WIDTH;
 
-	public static final float GRAVITY = 20f;
+	public static final float GRAVITY = 15f;
 
 	public static final String VERSION = "0.01a";
 
