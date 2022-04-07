@@ -10,68 +10,40 @@ import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.utils.GameObject;
 
 public class Entity extends GameObject {
+    private final boolean animate;
 
-    private boolean jump;
-    private boolean touchingGround;
+    private TextureRegion[][] animationFrames;
+    private Animation<TextureRegion> animation;
+    private float timeElapsed;
 
-    private float xSpeed;
-    private float ySpeed;
+    private final int frameWidth;
+    private final int frameHeight;
 
-    private final float defaultXSpeed;
-    private final float defaultYSpeed;
-
-    TextureRegion[][] animationFrames;
-    Animation<TextureRegion> animation;
-    float timeElapsed;
-
-    public Entity(int x, int y, Texture texture, float scale) {
+    public Entity(int x, int y, Texture texture, float scale, boolean animate, int frames) {
         super(x, y, texture, scale);
 
-        this.defaultXSpeed = 100f*scale;
-        this.defaultYSpeed = 200f*scale;
+        this.animate = animate;
 
-        xSpeed = 0;
+        this.frameWidth = getTexture().getWidth()/frames;
+        this.frameHeight = getTexture().getHeight();
 
-        this.jump = false;
-
-        animationFrames = TextureRegion.split(super.getTexture(), 14, 45);
-        animation = new Animation<TextureRegion>(1f/4f, animationFrames[0]);
+        if(animate) {
+            animationFrames = TextureRegion.split(super.getTexture(), frameWidth, frameHeight);
+            animation = new Animation<TextureRegion>(1f / 4f, animationFrames[0]);
+        }
     }
 
     public void update(float deltaTime) {
-        timeElapsed += deltaTime;
-
-        if(Gdx.input.isKeyPressed(Input.Keys.A)) {
-            this.xSpeed = -defaultXSpeed;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.D)) {
-            this.xSpeed = defaultXSpeed;
-        } else {
-            this.xSpeed = 0;
+        if(animate) {
+            timeElapsed += deltaTime;
         }
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.W) && touchingGround) {
-            ySpeed = defaultYSpeed;
-            this.jump = true;
-        }
-
-        if(super.getY() == 10) {
-            touchingGround = true;
-        }
-
-        if(jump) {
-            touchingGround = false;
-            ySpeed = ySpeed - FindYourWay.GRAVITY;
-            if(super.getY()+ySpeed*deltaTime < 10) {
-                jump = false;
-                move((int) super.getX(), 10);
-                ySpeed = 0;
-            }
-        }
-
-        move(xSpeed*deltaTime, ySpeed*deltaTime);
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(animation.getKeyFrame(timeElapsed, true), super.getX(), super.getY(), 14*super.getScale(), 45*super.getScale());
+        if(animate) {
+            batch.draw(animation.getKeyFrame(timeElapsed, true), super.getX(), super.getY(), frameWidth * super.getScale(), frameHeight * super.getScale());
+        } else {
+            batch.draw(getTexture(), getX(), getY());
+        }
     }
 }
