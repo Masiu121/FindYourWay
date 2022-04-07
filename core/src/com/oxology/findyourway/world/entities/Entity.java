@@ -1,12 +1,9 @@
 package com.oxology.findyourway.world.entities;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.utils.GameObject;
 
 public class Entity extends GameObject {
@@ -16,34 +13,131 @@ public class Entity extends GameObject {
     private Animation<TextureRegion> animation;
     private float timeElapsed;
 
-    private final int frameWidth;
-    private final int frameHeight;
+    private boolean moving;
 
-    public Entity(int x, int y, Texture texture, float scale, boolean animate, int frames) {
+    private int frameWidth;
+    private int frameHeight;
+
+    private float xSpeed;
+    private float ySpeed;
+
+    private boolean animationPaused;
+
+    private final float defaultXSpeed;
+    private final float defaultYSpeed;
+
+    private boolean looping;
+
+    public Entity(int x, int y, Texture texture, float scale, int frames, boolean looping) {
         super(x, y, texture, scale);
 
-        this.animate = animate;
+        this.moving = false;
+
+        this.defaultXSpeed = 50f*scale;
+        this.defaultYSpeed = 150f*scale;
+
+        this.animationPaused = true;
+
+        xSpeed = 0;
+
+        this.animate = true;
 
         this.frameWidth = getTexture().getWidth()/frames;
         this.frameHeight = getTexture().getHeight();
 
-        if(animate) {
-            animationFrames = TextureRegion.split(super.getTexture(), frameWidth, frameHeight);
-            animation = new Animation<TextureRegion>(1f / 4f, animationFrames[0]);
-        }
+        animationFrames = TextureRegion.split(super.getTexture(), frameWidth, frameHeight);
+        animation = new Animation<TextureRegion>(1f / 4f, animationFrames[0]);
+
+        super.setSize(animationFrames[0][0].getRegionWidth(), animationFrames[0][0].getRegionHeight());
+
+        this.looping = looping;
+    }
+
+    public Entity(int x, int y, Texture texture, float scale) {
+        super(x, y, texture, scale);
+
+        this.moving = false;
+
+        this.animate = false;
+
+        this.defaultXSpeed = 80f*scale;
+        this.defaultYSpeed = 150f*scale;
+
+        this.xSpeed = 0;
     }
 
     public void update(float deltaTime) {
         if(animate) {
             timeElapsed += deltaTime;
         }
+
+        if(this.getxSpeed() != 0 || this.getySpeed() != 0) {
+            moving = true;
+        } else {
+            moving = false;
+        }
     }
 
     public void draw(SpriteBatch batch) {
         if(animate) {
-            batch.draw(animation.getKeyFrame(timeElapsed, true), super.getX(), super.getY(), frameWidth * super.getScale(), frameHeight * super.getScale());
+            batch.draw(animation.getKeyFrame(timeElapsed, this.looping), super.getX(), super.getY(), frameWidth * super.getScale(), frameHeight * super.getScale());
         } else {
             batch.draw(getTexture(), getX(), getY());
         }
+    }
+
+    public void setAnimation(Animation<TextureRegion> animation, int frameWidth, int frameHeight, boolean looping) {
+        this.animation = animation;
+        this.frameWidth = frameWidth;
+        this.frameHeight = frameHeight;
+        this.looping = looping;
+    }
+
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public float getxSpeed() {
+        return xSpeed;
+    }
+
+    public float getySpeed() {
+        return ySpeed;
+    }
+
+    public float getDefaultXSpeed() {
+        return defaultXSpeed;
+    }
+
+    public float getDefaultYSpeed() {
+        return defaultYSpeed;
+    }
+
+    public void setxSpeed(float xSpeed) {
+        this.xSpeed = xSpeed;
+    }
+
+    public void setySpeed(float ySpeed) {
+        this.ySpeed = ySpeed;
+    }
+
+    public Animation<TextureRegion> getAnimation() {
+        return animation;
+    }
+
+    public float getTimeElapsed() {
+        return timeElapsed;
+    }
+
+    public void pauseAnimation() {
+        animationPaused = true;
+    }
+
+    public void resumeAnimation() {
+        animationPaused = false;
+    }
+
+    public void setTimeElapsed(float timeElapsed) {
+        this.timeElapsed = timeElapsed;
     }
 }
