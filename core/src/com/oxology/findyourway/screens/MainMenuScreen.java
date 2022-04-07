@@ -8,12 +8,14 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameTexture;
 import com.oxology.findyourway.utils.Button;
+import com.oxology.findyourway.utils.GameObject;
 
 public class MainMenuScreen implements Screen {
     FindYourWay game;
     OrthographicCamera camera;
 
     Button playButton;
+    Button characterButton;
     Button creditsButton;
     Button exitButton;
 
@@ -28,12 +30,14 @@ public class MainMenuScreen implements Screen {
         camera.update();
 
         playButton = new Button(game, 0, 0, 1f, "Play", new MainGameScreen(game));
+        characterButton = new Button(game, 0, 0, 1f, "Character", new MainGameScreen(game));
         creditsButton = new Button(game, 0, 0, 1f, "Credits", new CreditsScreen(game));
         exitButton = new Button(game, 0, 0, 1f, "Exit", null);
 
         int buttonX = (int) camera.viewportWidth/2-playButton.getWidth()/2;
 
-        playButton.move(buttonX, 80);
+        playButton.move(buttonX, 115);
+        characterButton.move(buttonX, 80);
         creditsButton.move(buttonX, 45);
         exitButton.move(buttonX, 10);
     }
@@ -52,6 +56,7 @@ public class MainMenuScreen implements Screen {
         game.batch.draw(GameTexture.MENU_BACKGROUND, 0, 0);
 
         playButton.draw(game.batch);
+        characterButton.draw(game.batch);
         creditsButton.draw(game.batch);
         exitButton.draw(game.batch);
 
@@ -60,6 +65,7 @@ public class MainMenuScreen implements Screen {
 
     public void update() {
         playButton.update();
+        characterButton.update();
         creditsButton.update();
         exitButton.update();
     }
