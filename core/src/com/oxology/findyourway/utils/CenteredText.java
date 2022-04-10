@@ -1,9 +1,9 @@
 package com.oxology.findyourway.utils;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.oxology.findyourway.GameData;
 
 public class CenteredText {
     private int x, y;
@@ -19,7 +19,7 @@ public class CenteredText {
         this.scale = scale;
         this.text = text;
 
-        this.font = new BitmapFont(Gdx.files.internal("Menu/PixelFont.fnt"));
+        this.font = new BitmapFont(GameData.FONT);
         font.getData().setScale(this.scale/2.5f);
 
         GlyphLayout layout = new GlyphLayout();
