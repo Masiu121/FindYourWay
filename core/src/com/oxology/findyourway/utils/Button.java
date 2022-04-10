@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.oxology.findyourway.FindYourWay;
-import com.oxology.findyourway.GameTexture;
+import com.oxology.findyourway.GameData;
 
 public class Button {
     private final FindYourWay game;
@@ -34,13 +34,13 @@ public class Button {
         this.y = y;
         this.scale = scale;
 
-        this.defaultTexture = GameTexture.MENU_BUTTON;
-        this.hoverTexture = GameTexture.MENU_BUTTON_HOVER;
+        this.defaultTexture = GameData.MENU_BUTTON;
+        this.hoverTexture = GameData.MENU_BUTTON_HOVER;
         this.texture = defaultTexture;
 
         calculateSize();
 
-        this.font = new BitmapFont(Gdx.files.internal("Menu/PixelFont.fnt"));
+        this.font = new BitmapFont(GameData.FONT);
         font.getData().setScale(this.scale/2.5f);
 
         this.text = text;
@@ -66,8 +66,8 @@ public class Button {
     }
 
     public void update() {
-        boolean horizontalHover = Gdx.input.getX()/FindYourWay.WINDOW_VIEWPORT_X_PROP > this.x && Gdx.input.getX()/FindYourWay.WINDOW_VIEWPORT_X_PROP < this.x + this.width;
-        boolean verticalHover = 270-(Gdx.input.getY()/FindYourWay.WINDOW_VIEWPORT_Y_PROP) > this.y && 270-(Gdx.input.getY()/FindYourWay.WINDOW_VIEWPORT_Y_PROP) < this.y + this.height;
+        boolean horizontalHover = Gdx.input.getX()/game.windowViewportXProp > this.x && Gdx.input.getX()/game.windowViewportXProp < this.x + this.width;
+        boolean verticalHover = 270-(Gdx.input.getY()/game.windowViewportYProp) > this.y && 270-(Gdx.input.getY()/game.windowViewportYProp) < this.y + this.height;
 
         if(horizontalHover && verticalHover) {
             texture = hoverTexture;
