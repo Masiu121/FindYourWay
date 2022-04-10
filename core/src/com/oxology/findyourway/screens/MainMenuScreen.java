@@ -1,14 +1,13 @@
 package com.oxology.findyourway.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
-import com.oxology.findyourway.GameTexture;
+import com.oxology.findyourway.GameData;
 import com.oxology.findyourway.utils.Button;
-import com.oxology.findyourway.utils.GameObject;
 
 public class MainMenuScreen implements Screen {
     FindYourWay game;
@@ -18,6 +17,9 @@ public class MainMenuScreen implements Screen {
     Button characterButton;
     Button creditsButton;
     Button exitButton;
+
+
+    Animation<TextureRegion> background;
 
     public MainMenuScreen(FindYourWay game) {
         this.game = game;
@@ -29,8 +31,8 @@ public class MainMenuScreen implements Screen {
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
 
-        playButton = new Button(game, 0, 0, 1f, "Play", new MainGameScreen(game));
-        characterButton = new Button(game, 0, 0, 1f, "Character", new MainGameScreen(game));
+        playButton = new Button(game, 0, 0, 1f, "Play", new GameIntroScreen(game));
+        characterButton = new Button(game, 0, 0, 1f, "Character", new CharacterScreen(game));
         creditsButton = new Button(game, 0, 0, 1f, "Credits", new CreditsScreen(game));
         exitButton = new Button(game, 0, 0, 1f, "Exit", null);
 
@@ -53,12 +55,13 @@ public class MainMenuScreen implements Screen {
 
         game.batch.begin();
 
-        game.batch.draw(GameTexture.MENU_BACKGROUND, 0, 0);
+        game.batch.draw(GameData.MENU_BACKGROUND, 0, 0);
 
         playButton.draw(game.batch);
         characterButton.draw(game.batch);
         creditsButton.draw(game.batch);
         exitButton.draw(game.batch);
+        game.batch.draw(GameData.LOGO, camera.viewportWidth/2f - GameData.LOGO.getWidth()*1.8f/2f, 155, GameData.LOGO.getWidth() * 1.8f, GameData.LOGO.getHeight() * 1.8f);
 
         game.batch.end();
     }
@@ -72,7 +75,7 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        game.setup();
     }
 
     @Override
