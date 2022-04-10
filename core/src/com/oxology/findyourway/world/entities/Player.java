@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.oxology.findyourway.FindYourWay;
-import com.oxology.findyourway.GameTexture;
+import com.oxology.findyourway.GameData;
 
 public class Player extends Entity {
     private boolean jump;
@@ -40,22 +40,22 @@ public class Player extends Entity {
     1 - left
      */
 
-    public Player(int x, int y, Texture texture, float scale) {
-        super(x, y, texture, scale, 9, true);
+    public Player(int x, int y, Texture texture, float scale, FindYourWay game) {
+        super(x, y, texture, scale, 9, true, game);
 
         this.animationStatus = 0;
         this.direction = 0;
 
-        this.idleAnimationFrames1 = TextureRegion.split(GameTexture.MAIN_CHAR_IDLE_1, 14, 45);
+        this.idleAnimationFrames1 = TextureRegion.split(GameData.MAIN_CHAR_IDLE_1, 14, 45);
         this.idleAnimation1 = new Animation<TextureRegion>(1f/4f, idleAnimationFrames1[0]);
 
-        this.idleAnimationFrames2 = TextureRegion.split(GameTexture.MAIN_CHAR_IDLE_2, 14, 45);
+        this.idleAnimationFrames2 = TextureRegion.split(GameData.MAIN_CHAR_IDLE_2, 14, 45);
         this.idleAnimation2 = new Animation<TextureRegion>(1f/4f, idleAnimationFrames2[0]);
 
-        this.walkAnimationFrames1 = TextureRegion.split(GameTexture.MAIN_CHAR_WALK_1, 20, 45);
+        this.walkAnimationFrames1 = TextureRegion.split(GameData.MAIN_CHAR_WALK_1, 20, 45);
         this.walkAnimation1 = new Animation<TextureRegion>(1f/8f, walkAnimationFrames1[0]);
 
-        this.walkAnimationFrames2 = TextureRegion.split(GameTexture.MAIN_CHAR_WALK_2, 20, 45);
+        this.walkAnimationFrames2 = TextureRegion.split(GameData.MAIN_CHAR_WALK_2, 20, 45);
         this.walkAnimation2 = new Animation<TextureRegion>(1f/8f, walkAnimationFrames2[0]);
 
         this.jump = false;
@@ -72,7 +72,7 @@ public class Player extends Entity {
             super.setxSpeed(0);
         }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.W) && touchingGround) {
+        if(Gdx.input.isKeyPressed(Input.Keys.W) && touchingGround) {
             super.setySpeed(super.getDefaultYSpeed());
             this.jump = true;
         }
@@ -83,7 +83,7 @@ public class Player extends Entity {
 
         if(jump) {
             touchingGround = false;
-            super.setySpeed(super.getySpeed() - FindYourWay.GRAVITY);
+            super.setySpeed(super.getySpeed() - game.gravity);
             if(super.getY()+super.getySpeed()*deltaTime < 3) {
                 jump = false;
                 move((int) super.getX(), 3);
@@ -105,7 +105,6 @@ public class Player extends Entity {
             }
         }
 
-        move(super.getxSpeed()*deltaTime, super.getySpeed()*deltaTime);
 
         super.update(deltaTime);
     }
