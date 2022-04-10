@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.utils.GameObject;
 
 public class Entity extends GameObject {
@@ -28,13 +29,13 @@ public class Entity extends GameObject {
 
     private boolean looping;
 
-    public Entity(int x, int y, Texture texture, float scale, int frames, boolean looping) {
-        super(x, y, texture, scale);
+    public Entity(int x, int y, Texture texture, float scale, int frames, boolean looping, FindYourWay game) {
+        super(x, y, texture, scale, game);
 
         this.moving = false;
 
         this.defaultXSpeed = 50f*scale;
-        this.defaultYSpeed = 150f*scale;
+        this.defaultYSpeed = 200f*scale;
 
         this.animationPaused = true;
 
@@ -53,8 +54,8 @@ public class Entity extends GameObject {
         this.looping = looping;
     }
 
-    public Entity(int x, int y, Texture texture, float scale) {
-        super(x, y, texture, scale);
+    public Entity(int x, int y, Texture texture, float scale, FindYourWay game) {
+        super(x, y, texture, scale, game);
 
         this.moving = false;
 
@@ -76,10 +77,12 @@ public class Entity extends GameObject {
         } else {
             moving = false;
         }
+
+        move(getxSpeed()*deltaTime, getySpeed()*deltaTime);
     }
 
     public void draw(SpriteBatch batch) {
-        if(animate) {
+        if(animate && animation != null) {
             batch.draw(animation.getKeyFrame(timeElapsed, this.looping), super.getX(), super.getY(), frameWidth * super.getScale(), frameHeight * super.getScale());
         } else {
             batch.draw(getTexture(), getX(), getY());
