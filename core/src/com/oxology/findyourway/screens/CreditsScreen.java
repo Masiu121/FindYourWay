@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
-import com.oxology.findyourway.GameTexture;
+import com.oxology.findyourway.GameData;
 import com.oxology.findyourway.utils.Button;
 import com.oxology.findyourway.utils.CenteredText;
 
@@ -67,7 +67,7 @@ public class CreditsScreen implements Screen {
 
         game.batch.begin();
 
-        game.batch.draw(GameTexture.MENU_BACKGROUND, 0, 0);
+        game.batch.draw(GameData.MENU_BACKGROUND, 0, 0);
 
         backButton.draw(game.batch);
 
@@ -94,7 +94,7 @@ public class CreditsScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        game.setup();
     }
 
     @Override
