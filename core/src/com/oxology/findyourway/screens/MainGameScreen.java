@@ -1,21 +1,34 @@
 package com.oxology.findyourway.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
-import com.oxology.findyourway.GameTexture;
+import com.oxology.findyourway.GameData;
+import com.oxology.findyourway.utils.Message;
+import com.oxology.findyourway.utils.Quest;
+import com.oxology.findyourway.utils.blocksystem.Paper;
 import com.oxology.findyourway.world.World;
 import com.oxology.findyourway.world.entities.Barrel;
-import com.oxology.findyourway.world.entities.Player;
+import com.oxology.findyourway.world.entities.Npc;
 
 public class MainGameScreen implements Screen {
     FindYourWay game;
     OrthographicCamera camera;
     World world;
+
+    int cameraXOffset;
+    int cameraYOffset;
+
+    int cameraMaxXOffset;
+    int cameraMaxYOffset;
+
+    Npc npc;
+
+    Paper paper;
 
     public MainGameScreen(FindYourWay game) {
         this.game = game;
@@ -27,11 +40,21 @@ public class MainGameScreen implements Screen {
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
 
-        Barrel barrel = new Barrel(50, 7, GameTexture.BARREL, 1f);
+        cameraXOffset = 0;
+        cameraYOffset = 0;
 
-        world = new World();
+        cameraMaxXOffset = 30;
+        cameraMaxYOffset = 30;
+
+        paper = new Paper();
+
+        Barrel barrel = new Barrel(50, 7, GameData.BARREL, 1f, game);
+
+        world = new World(game);
 
         world.addGameObject(barrel);
+
+        npc = new Npc(20, 3, GameData.MAIN_CHAR_IDLE_1, 1f, game, new Quest());
     }
 
     @Override
@@ -45,13 +68,30 @@ public class MainGameScreen implements Screen {
         ScreenUtils.clear(1, 1, 1, 1);
 
         game.batch.begin();
-        game.batch.draw(GameTexture.GAME_BACKGROUND, 0, 0);
+        game.batch.draw(GameData.GAME_BACKGROUND, 0, 0);
         world.draw(game.batch);
+        game.batch.draw(GameData.VIGNETTE, camera.position.x-GameData.VIGNETTE.getWidth()/2f, camera.position.y-GameData.VIGNETTE.getHeight()/2f);
+        npc.draw(game.batch);
+        paper.draw(game.batch);
         game.batch.end();
     }
 
     public void update(float deltaTime) {
         world.update(deltaTime);
+        npc.update(deltaTime);
+
+        if(Math.abs(world.getPlayer().getX()-camera.position.x) < cameraMaxXOffset) {
+            if(world.getPlayer().getX()-camera.position.x > 0)
+                cameraXOffset = -cameraMaxXOffset;
+            else
+                cameraXOffset = cameraMaxXOffset;
+        } else {
+            camera.position.set(world.getPlayer().getX()+cameraXOffset, camera.position.y, 0);
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            game.setScreen(new PauseScreen(game));
+        }
     }
 
     @Override
@@ -77,5 +117,9 @@ public class MainGameScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    public OrthographicCamera getCamera() {
+        return camera;
     }
 }
