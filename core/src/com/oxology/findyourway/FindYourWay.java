@@ -2,30 +2,49 @@ package com.oxology.findyourway;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.oxology.findyourway.screens.MainGameScreen;
 import com.oxology.findyourway.screens.MainMenuScreen;
 
 public class FindYourWay extends Game {
-	public static final int VIEWPORT_WIDTH = 480;
-	public static final int VIEWPORT_HEIGHT = 270;
-
-	public static final int WINDOW_WIDTH = 960;
-	public static final int WINDOW_HEIGHT = 680;
-
-	public static final float WINDOW_VIEWPORT_Y_PROP = (float) WINDOW_HEIGHT/VIEWPORT_HEIGHT;
-	public static final float WINDOW_VIEWPORT_X_PROP = (float) WINDOW_WIDTH/VIEWPORT_WIDTH;
-
-	public static final float GRAVITY = 15f;
-
-	public static final String VERSION = "0.01a";
-
+	public Music music;
 	public SpriteBatch batch;
+
+	public int menuViewportWidth;
+	public int menuViewportHeight;
+
+	public float windowViewportXProp;
+	public float windowViewportYProp;
+
+	public int mainCharacter;
+
+	public float gravity;
+
+	public MainGameScreen mainGameScreen;
 
 	@Override
 	public void create () {
-		//Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+		music = Gdx.audio.newMusic(GameData.BACKGROUND_MUSIC);
+		music.setLooping(true);
+		music.setVolume(0.5f);
+		music.play();
 		batch = new SpriteBatch();
+
+		menuViewportWidth = 480;
+		menuViewportHeight = 270;
+		setup();
+
+		mainCharacter = 0;
+
+		gravity = 15f;
+
 		this.setScreen(new MainMenuScreen(this));
+	}
+
+	public void setup() {
+		windowViewportXProp = (float) Gdx.graphics.getBackBufferWidth()/ menuViewportWidth;
+		windowViewportYProp = (float) Gdx.graphics.getBackBufferHeight()/ menuViewportHeight;
 	}
 
 	@Override
