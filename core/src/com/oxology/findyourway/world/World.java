@@ -3,7 +3,9 @@ package com.oxology.findyourway.world;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.oxology.findyourway.GameTexture;
+import com.oxology.findyourway.FindYourWay;
+import com.oxology.findyourway.GameData;
+import com.oxology.findyourway.screens.MainGameScreen;
 import com.oxology.findyourway.utils.GameObject;
 import com.oxology.findyourway.world.entities.Barrel;
 import com.oxology.findyourway.world.entities.Player;
@@ -12,12 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class World {
+    private FindYourWay game;
     private List<GameObject> gameObjects;
     private final Player player;
 
-    public World() {
+    public World(FindYourWay game) {
+        this.game = game;
         this.gameObjects = new ArrayList<>();
-        player = new Player(10, 3, GameTexture.MAIN_CHAR_IDLE_1, 1f);
+        player = new Player(10, 3, GameData.MAIN_CHAR_IDLE_1, 1f, this.game);
     }
 
     public void addGameObject(GameObject gameObject) {
@@ -34,11 +38,16 @@ public class World {
     public void update(float deltaTime) {
         for(GameObject gameObject : gameObjects) {
             gameObject.update(deltaTime);
-            if(player.getX() + player.getWidth() > gameObject.getX() && player.getX() < gameObject.getX()+ gameObject.getWidth()) {
-                if(gameObject instanceof Barrel) {
+            if(gameObject instanceof Barrel) {
+                Barrel barrel = (Barrel) gameObject;
+                if(player.getX() + player.getWidth() + 5 > gameObject.getX() && player.getX() < gameObject.getX() + gameObject.getWidth() + 5) {
+                    barrel.showText();
+
                     if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
-                        ((Barrel) gameObject).toggleFire();
+                        barrel.toggleFire();
                     }
+                } else {
+                    barrel.hideText();
                 }
             }
         }
@@ -47,5 +56,9 @@ public class World {
 
     public List<GameObject> getGameObjects() {
         return gameObjects;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }
