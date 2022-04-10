@@ -2,20 +2,23 @@ package com.oxology.findyourway.utils;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.oxology.findyourway.FindYourWay;
 
 public class GameObject {
+    public FindYourWay game;
     private float x, y;
     private int width, height;
     private Texture texture;
     private boolean visible;
     private final float scale;
 
-    public GameObject(float x, float y, Texture texture, float scale) {
+    public GameObject(float x, float y, Texture texture, float scale, FindYourWay game) {
         this.x = x;
         this.y = y;
         this.texture = texture;
         this.visible = true;
         this.scale = scale;
+        this.game = game;
     }
 
     public boolean isVisible() {
