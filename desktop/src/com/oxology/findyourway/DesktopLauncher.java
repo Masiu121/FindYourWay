@@ -10,10 +10,10 @@ import com.oxology.findyourway.FindYourWay;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setResizable(false);
-		//config.setFullscreenMode(Gdx.graphics.getDisplayMode());
-		config.setWindowedMode(FindYourWay.WINDOW_WIDTH, FindYourWay.WINDOW_HEIGHT);
 		config.setForegroundFPS(60);
+		config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
+		config.setResizable(false);
 		new Lwjgl3Application(new FindYourWay(), config);
+
 	}
 }
