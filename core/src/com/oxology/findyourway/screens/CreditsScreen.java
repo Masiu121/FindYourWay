@@ -42,7 +42,7 @@ public class CreditsScreen implements Screen {
         int buttonX = (int) camera.viewportWidth/2-backButton.getWidth()/2;
         backButton.move(buttonX, 10);
 
-        font = new BitmapFont(Gdx.files.internal("Menu/PixelFont.fnt"));
+        font = new BitmapFont(GameData.FONT);
 
         creditsText1 = new CenteredText((int) camera.viewportWidth/2, 260, 1.5f, "Developer:");
         creditsText2 = new CenteredText((int) camera.viewportWidth/2, 235, 1, "Maksymilian Kapolka");
