@@ -106,10 +106,15 @@ public class MainGameScreen implements Screen {
                 else
                     cameraXOffset = cameraMaxXOffset;
             } else {
-                float offset = camera.position.x - world.getPlayer().getX();
+                float offset = camera.position.x - world.getPlayer().getX()-cameraXOffset;
+
                 if(camera.position.x - offset > left_bg.getBgPositionX() / 2f && camera.position.x - offset < right_bg.getBgPositionX() + 120) {
                     camera.position.set(world.getPlayer().getX() + cameraXOffset, camera.position.y, 0);
+                } else {
+                    camera.position.x = left_bg.getBgPositionX() /2f;
                 }
+
+                System.out.println(offset);
             }
 
             if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
