@@ -24,8 +24,8 @@ public class MainGameScreen implements Screen {
     World world;
 
     Texture middleBg;
-    Texture leftBg;
-    Texture rightBg;
+    public Texture leftBg;
+    public Texture rightBg;
 
 
     int cameraXOffset;
@@ -37,13 +37,13 @@ public class MainGameScreen implements Screen {
 
     Background middle_bg = new Background(0 , 0 , GameData.GAME_BACKGROUND);
 
-    Background left_bg = new Background(-240 , 0 , GameData.GAME_BACKGROUND);
+    public Background left_bg = new Background(-240 , 0 , GameData.GAME_BACKGROUND);
 
-    Background right_bg = new Background(240 , 0 , GameData.GAME_BACKGROUND);
+    public Background right_bg = new Background(240 , 0 , GameData.GAME_BACKGROUND);
 
     Npc npc;
 
-    // Paper paper;
+    Paper paper;
 
     public MainGameScreen(FindYourWay game) {
         this.game = game;
@@ -61,7 +61,7 @@ public class MainGameScreen implements Screen {
         cameraMaxXOffset = 30;
         cameraMaxYOffset = 30;
 
-        // paper = new Paper();
+        paper = new Paper();
 
         Barrel barrel = new Barrel(50, 7, GameData.BARREL, 1f, game);
 
@@ -91,7 +91,7 @@ public class MainGameScreen implements Screen {
         world.draw(game.batch);
         game.batch.draw(GameData.VIGNETTE, camera.position.x-GameData.VIGNETTE.getWidth()/2f, camera.position.y-GameData.VIGNETTE.getHeight()/2f);
         npc.draw(game.batch);
-        // paper.draw(game.batch);
+        paper.draw(game.batch);
         game.batch.end();
     }
 

@@ -27,6 +27,9 @@ public class CharacterScreen implements Screen {
 
         game.batch.draw(GameData.MENU_BACKGROUND, 0, 0);
 
+        game.batch.draw(GameData.ARROW_PREVIOUS , 0 , 0);
+        game.batch.draw(GameData.ARROW_NEXT , 50 , 0);
+
         game.batch.end();
     }
 

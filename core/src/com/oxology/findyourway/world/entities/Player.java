@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
+import com.oxology.findyourway.screens.MainGameScreen;
 
 public class Player extends Entity {
     private boolean jump;
@@ -62,10 +63,10 @@ public class Player extends Entity {
     }
 
     public void update(float deltaTime) {
-        if(Gdx.input.isKeyPressed(Input.Keys.A)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.A)  && ((MainGameScreen) game.getScreen()).left_bg.getBgPositionX() + 30 <= getX()) {
             super.setxSpeed(-super.getDefaultXSpeed());
             direction = 0;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.D)) {
+        } else if(Gdx.input.isKeyPressed(Input.Keys.D) && ((MainGameScreen) game.getScreen()).right_bg.getBgPositionX() * 2 - 45 >= getX()) {
             super.setxSpeed(super.getDefaultXSpeed());
             direction = 1;
         } else {
@@ -104,6 +105,7 @@ public class Player extends Entity {
                 setAnimation(idleAnimation2, 14, 45, true);
             }
         }
+
 
 
         super.update(deltaTime);

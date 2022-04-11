@@ -9,7 +9,7 @@ public interface GameData {
     Texture MENU_BUTTON = new Texture("Menu/Buttons/MenuButton.png");
     Texture MENU_BUTTON_HOVER = new Texture("Menu/Buttons/MenuButtonHover.png");
     Texture GAME_BACKGROUND = new Texture("Game/Background.png");
-    Texture MAIN_CHAR_IDLE_1 = new Texture("Game/Sprites/MainCharacterIdle.png");
+    Texture MAIN_CHAR_IDLE_1 = new Texture("Game/Sprites/MainCharacterIdle1.png");
     Texture MAIN_CHAR_IDLE_2 = new Texture("Game/Sprites/MainCharacterIdle2.png");
     Texture MAIN_CHAR_WALK_1 = new Texture("Game/Sprites/MainCharacterWalk.png");
     Texture MAIN_CHAR_WALK_2 = new Texture("Game/Sprites/MainCharacterWalk2.png");
@@ -23,6 +23,8 @@ public interface GameData {
     Texture MESSAGE_RIGHT = new Texture("Game/Sprites/Message/MessageRight.png");
     Texture MESSAGE_MIDDLE = new Texture("Game/Sprites/Message/MessageMiddle.png");
     Texture LOGO = new Texture("Menu/Logo.png");
+    Texture ARROW_NEXT = new Texture("Menu/Buttons/next.png");
+    Texture ARROW_PREVIOUS = new Texture("Menu/Buttons/previous.png");
     FileHandle FONT = Gdx.files.internal("Menu/Font/PixelFont.fnt");
 
     FileHandle BACKGROUND_MUSIC = Gdx.files.internal("Menu/Audio/MenuMusic.mp3");
