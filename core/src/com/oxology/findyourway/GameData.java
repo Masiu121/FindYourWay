@@ -38,6 +38,7 @@ public interface GameData {
     Texture MESSAGE_MIDDLE = new Texture("Game/Sprites/Message/MessageMiddle.png");
 
     Texture START_BLOCK = new Texture("Game/Blocks/blockStart.png");
+    Texture STOP_BLOCK = new Texture("Game/Blocks/blockStop.png");
 
     Texture PAPER = new Texture("Game/Sprites/Paper.png");
 }
