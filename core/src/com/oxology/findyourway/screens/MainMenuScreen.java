@@ -31,7 +31,7 @@ public class MainMenuScreen implements Screen {
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
 
-        playButton = new Button(game, 0, 0, 1f, "Play", new GameIntroScreen(game));
+        playButton = new Button(game, 0, 0, 1f, "Play", new MainGameScreen(game));
         characterButton = new Button(game, 0, 0, 1f, "Character", new CharacterScreen(game));
         creditsButton = new Button(game, 0, 0, 1f, "Credits", new CreditsScreen(game));
         exitButton = new Button(game, 0, 0, 1f, "Exit", null);
