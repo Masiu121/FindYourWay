@@ -2,6 +2,7 @@ package com.oxology.findyourway;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.oxology.findyourway.screens.MainGameScreen;
@@ -50,5 +51,10 @@ public class FindYourWay extends Game {
 	@Override
 	public void render () {
 		super.render();
+
+
+		if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
+			Gdx.app.exit();
+		}
 	}
 }
