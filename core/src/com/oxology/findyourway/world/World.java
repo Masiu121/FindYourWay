@@ -43,7 +43,7 @@ public class World {
                 if(player.getX() + player.getWidth() + 5 > gameObject.getX() && player.getX() < gameObject.getX() + gameObject.getWidth() + 5) {
                     barrel.showText();
 
-                    if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                    if(Gdx.input.isKeyJustPressed(Input.Keys.F)) {
                         barrel.toggleFire();
                     }
                 } else {
