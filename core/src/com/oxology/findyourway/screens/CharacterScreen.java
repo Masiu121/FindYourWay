@@ -1,6 +1,5 @@
 package com.oxology.findyourway.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
@@ -8,20 +7,19 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
-import com.oxology.findyourway.utils.Arrow;
 import com.oxology.findyourway.utils.Button;
+import com.oxology.findyourway.utils.Clickable;
 
 public class CharacterScreen implements Screen {
     FindYourWay game;
     OrthographicCamera camera;
-    Button goToMenu;
 
-    Arrow arrow_next;
-    Arrow arrow_previous;
+    Button back;
+    Button arrowNext;
+    Button arrowPrevious;
 
     Texture player;
 
-    public int textureNum = 1;
     public int heroCount = 3;
 
     public CharacterScreen(FindYourWay game) {
@@ -34,10 +32,37 @@ public class CharacterScreen implements Screen {
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
 
-        arrow_next = new Arrow(game, game.menuViewportWidth / 2 + 65, game.menuViewportHeight / 2 - 25, 1f, "", new CharacterScreen(game) , true);
-        arrow_previous = new Arrow(game, game.menuViewportWidth / 2 - 100, game.menuViewportHeight / 2 - 25, 1f, "", new CharacterScreen(game) , false);
+        back = new Button(game, 0, 0, 1f, "Back", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
+            @Override
+            public void onClick() {
+                Gdx.app.exit();
+            }
+        });
 
-        goToMenu = new Button(game , game.menuViewportWidth / 2 - 60 , game.menuViewportHeight / 14 , 1f , "Menu" , new MainMenuScreen(game));
+        int buttonX = (int) camera.viewportWidth/2-back.getWidth()/2;
+
+        back.move(buttonX, 10);
+
+        arrowNext = new Button(game, 0, 0, 1f, GameData.ARROW_RIGHT, GameData.ARROW_RIGHT_HOVER, new Clickable() {
+            @Override
+            public void onClick() {
+                next();
+            }
+        });
+
+        arrowPrevious = new Button(game, 0, 0, 1f, GameData.ARROW_LEFT, GameData.ARROW_LEFT_HOVER, new Clickable() {
+            @Override
+            public void onClick() {
+                previous();
+            }
+        });
+
+        int buttonY = (int) camera.viewportHeight/2-arrowNext.getHeight()/2;
+
+        arrowNext.move(20, buttonY);
+        arrowPrevious.move((int) camera.viewportWidth-20, buttonY);
+
+        //goToMenu = new Button(game , game.menuViewportWidth / 2 - 60 , game.menuViewportHeight / 14 , 1f , "Menu" , new MainMenuScreen(game));
         player = GameData.MAIN_CHAR_IDLE_CHOOSE_1;
     }
 
@@ -50,48 +75,43 @@ public class CharacterScreen implements Screen {
 
         game.batch.draw(GameData.MENU_BACKGROUND, 0, 0);
 
-        arrow_next.draw(game.batch);
-        arrow_previous.draw(game.batch);
-        goToMenu.draw(game.batch);
+        arrowNext.draw(game.batch);
+        arrowPrevious.draw(game.batch);
+        back.draw(game.batch);
 
         game.batch.draw(player , game.menuViewportWidth / 2f - player.getWidth() / 2f , game.menuViewportHeight / 2f - player.getHeight() / 2f);
 
         game.batch.end();
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.D)){
-            if(textureNum < heroCount){
-                textureNum++;
-            } else {
-                textureNum = 1;
-            }
+            next();
         }
         if(Gdx.input.isKeyJustPressed(Input.Keys.A)){
-            if(textureNum <= heroCount && textureNum > 1){
-                textureNum--;
-            } else {
-                textureNum = heroCount;
-            }
+            previous();
         }
 
-        if(Gdx.input.justTouched()){
-            textureNum = arrow_next.changeHero(textureNum , heroCount);
-            textureNum = arrow_previous.changeHero(textureNum , heroCount);
-        }
-
-        if(textureNum == 1){
+        if(game.mainCharacter == 1){
             player = GameData.MAIN_CHAR_IDLE_CHOOSE_1;
-        } else if(textureNum == 2){
+        } else if(game.mainCharacter == 2){
             player = GameData.MAIN_CHAR_IDLE_CHOOSE_2;
-        } else if(textureNum == 3){
+        } else if(game.mainCharacter == 3){
             player = GameData.MAIN_CHAR_IDLE_CHOOSE_3;
         }
 
     }
 
+    public void next() {
+
+    }
+
+    public void previous() {
+
+    }
+
     public void update(){
-        arrow_next.update();
-        arrow_previous.update();
-        goToMenu.update();
+        arrowNext.update();
+        arrowPrevious.update();
+        back.update();
     }
 
     @Override
