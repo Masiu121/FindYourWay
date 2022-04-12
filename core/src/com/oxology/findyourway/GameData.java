@@ -25,6 +25,13 @@ public interface GameData {
     Texture GAME_BACKGROUND = new Texture("Game/Background.png");
     Texture MENU_BACKGROUND = new Texture("Menu/MenuBackground.png");
 
+    Texture BG_RAILINGS = new Texture("Game/Background/Railings.png");
+    Texture BG_BUILDING_3 = new Texture("Game/Background/Building3.png");
+    Texture BG_BUILDING_2 = new Texture("Game/Background/Building2.png");
+    Texture BG_BUILDING_1 = new Texture("Game/Background/Building1.png");
+    Texture BG_GRADIENT = new Texture("Game/Background/Gradient.png");
+    Texture BG_SUN = new Texture("Game/Background/Sun.png");
+
     Texture MAIN_CHAR_IDLE_1 = new Texture("Game/Sprites/MainCharacterIdle1.png");
     Texture MAIN_CHAR_IDLE_2 = new Texture("Game/Sprites/MainCharacterIdle2.png");
     Texture MAIN_CHAR_WALK_1 = new Texture("Game/Sprites/MainCharacterWalk.png");
