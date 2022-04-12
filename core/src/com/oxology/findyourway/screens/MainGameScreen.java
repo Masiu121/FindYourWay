@@ -14,6 +14,7 @@ import com.oxology.findyourway.utils.Clickable;
 import com.oxology.findyourway.utils.Message;
 import com.oxology.findyourway.utils.Quest;
 import com.oxology.findyourway.utils.blocksystem.Paper;
+import com.oxology.findyourway.utils.blocksystem.TextCard;
 import com.oxology.findyourway.world.Background;
 import com.oxology.findyourway.world.World;
 import com.oxology.findyourway.world.entities.Barrel;
@@ -28,7 +29,7 @@ public class MainGameScreen implements Screen {
     Texture middleBg;
     public Texture leftBg;
     public Texture rightBg;
-
+    TextCard card;
 
     int cameraXOffset;
     int cameraYOffset;
@@ -73,6 +74,7 @@ public class MainGameScreen implements Screen {
 
         world.addGameObject(barrel);
 
+        card = new TextCard(game , -105 , game.menuViewportHeight / 2 - 70 , 1f , GameData.TEXT_CARD);
         npc = new Npc(20, 3, GameData.MAIN_CHAR_IDLE_1, 1f, game, new Quest());
     }
 
@@ -93,16 +95,17 @@ public class MainGameScreen implements Screen {
         world.draw(game.batch);
         game.batch.draw(GameData.VIGNETTE, camera.position.x-GameData.VIGNETTE.getWidth()/2f, camera.position.y-GameData.VIGNETTE.getHeight()/2f);
         npc.draw(game.batch);
-        if(Gdx.input.isKeyPressed(Input.Keys.P)){
-            paper.drawPaper = true;
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.G)){
-            paper.drawPaper = false;
+        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+            if(paper.isDrawPaper() == true){
+                paper.drawPaper = false;
+            } else {
+                paper.drawPaper = true;
+            }
         }
 
         if(paper.isDrawPaper() == true){
             paper.draw(game.batch);
+            card.draw(game.batch);
         }
         game.batch.end();
     }

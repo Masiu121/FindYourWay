@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
 import com.oxology.findyourway.utils.GameObject;
+import com.oxology.findyourway.utils.Quest;
 import com.oxology.findyourway.world.entities.Barrel;
 import com.oxology.findyourway.world.entities.Player;
 
