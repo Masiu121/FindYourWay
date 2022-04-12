@@ -25,7 +25,7 @@ public class Book extends Entity {
 
     public void update(float deltaTime){
 
-        if(Gdx.input.isButtonJustPressed(Input.Keys.O)){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.O)){
             animationStart = true;
         }
 
