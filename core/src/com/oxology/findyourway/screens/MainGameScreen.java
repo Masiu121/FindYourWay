@@ -94,6 +94,8 @@ public class MainGameScreen implements Screen {
             if(world.getPlayer().getX() > 310) {
                 game.setScreen(new MetroScreen(game));
             }
+        } else if(!world.getPlayer().jump) {
+            world.getPlayer().setY(3);
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
@@ -104,7 +106,7 @@ public class MainGameScreen implements Screen {
         }
 
         if(paper.drawPaper){
-            paper.draw(game.batch , camera.position.x , camera.position.y - GameData.PAPER.getHeight() / 2);
+            paper.draw(game.batch , camera.position.x + 1 , 2);
             card.draw(game.batch , camera.position.x - 110 , camera.position.y);
         }
         game.batch.end();
