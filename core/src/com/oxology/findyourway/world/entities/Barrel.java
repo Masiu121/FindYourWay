@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
-import com.oxology.findyourway.utils.CenteredText;
 import com.oxology.findyourway.utils.Message;
 
 public class Barrel extends Entity {
