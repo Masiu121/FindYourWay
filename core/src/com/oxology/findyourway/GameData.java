@@ -51,9 +51,9 @@ public interface GameData {
     Texture QUEST_MARK = new Texture("Game/Sprites/QuestMark.png");
 
     Texture BARREL = new Texture("Game/Sprites/Barrel.png");
-    Texture FIRE_START = new Texture("Game/Sprites/firestartburning.png");
-    Texture FIRE_END = new Texture("Game/Sprites/fireendburning.png");
-    Texture FIRE = new Texture("Game/Sprites/fire.png");
+    Texture FIRE_START = new Texture("Game/Sprites/FireStart.png");
+    Texture FIRE_END = new Texture("Game/Sprites/FireEnd.png");
+    Texture FIRE = new Texture("Game/Sprites/Fire.png");
 
     Texture MESSAGE_RIGHT = new Texture("Game/Sprites/Message/MessageRight.png");
     Texture MESSAGE_MIDDLE = new Texture("Game/Sprites/Message/MessageMiddle.png");
