@@ -35,7 +35,7 @@ public class CharacterScreen implements Screen {
         back = new Button(game, 0, 0, 1f, "Back", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
             @Override
             public void onClick() {
-                Gdx.app.exit();
+                game.setScreen(new MainMenuScreen(game));
             }
         });
 

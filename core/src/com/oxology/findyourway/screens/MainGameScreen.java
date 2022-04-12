@@ -45,7 +45,7 @@ public class MainGameScreen implements Screen {
 
     Npc npc;
 
-    //Paper paper;
+    Paper paper;
 
     public MainGameScreen(FindYourWay game) {
         this.game = game;
@@ -63,7 +63,7 @@ public class MainGameScreen implements Screen {
         cameraMaxXOffset = 30;
         cameraMaxYOffset = 30;
 
-        //paper = new Paper();
+        paper = new Paper(false);
 
         Barrel barrel = new Barrel(50, 7, GameData.BARREL, 1f, game);
 
@@ -93,11 +93,24 @@ public class MainGameScreen implements Screen {
         world.draw(game.batch);
         game.batch.draw(GameData.VIGNETTE, camera.position.x-GameData.VIGNETTE.getWidth()/2f, camera.position.y-GameData.VIGNETTE.getHeight()/2f);
         npc.draw(game.batch);
-        //paper.draw(game.batch);
+        if(Gdx.input.isKeyPressed(Input.Keys.P)){
+            paper.drawPaper = true;
+        }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.G)){
+            paper.drawPaper = false;
+        }
+
+        if(paper.isDrawPaper() == true){
+            paper.draw(game.batch);
+        }
         game.batch.end();
     }
 
     public void update(float deltaTime) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E))
+            game.setScreen(new MainMenuScreen(game));
+
         world.update(deltaTime);
         npc.update(deltaTime);
 
