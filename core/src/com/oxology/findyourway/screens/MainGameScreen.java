@@ -4,21 +4,16 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.TextureData;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
-import com.oxology.findyourway.utils.Button;
-import com.oxology.findyourway.utils.Clickable;
-import com.oxology.findyourway.utils.Message;
 import com.oxology.findyourway.utils.Quest;
 import com.oxology.findyourway.utils.blocksystem.Paper;
 import com.oxology.findyourway.utils.Background;
+import com.oxology.findyourway.utils.blocksystem.TextCard;
 import com.oxology.findyourway.world.World;
 import com.oxology.findyourway.world.entities.Barrel;
 import com.oxology.findyourway.world.entities.Npc;
-import com.badlogic.gdx.graphics.Texture;
 
 public class MainGameScreen implements Screen {
     FindYourWay game;
@@ -33,15 +28,10 @@ public class MainGameScreen implements Screen {
 
     Background background;
 
-    //Background middle_bg = new Background(0, 0, GameData.GAME_BACKGROUND);
-
-    //public Background left_bg = new Background(-240, 0, GameData.GAME_BACKGROUND);
-
-    //public Background right_bg = new Background(240, 0, GameData.GAME_BACKGROUND);
-
     Npc npc;
 
     Paper paper;
+    TextCard card;
 
     float cameraSpeed;
 
@@ -61,12 +51,10 @@ public class MainGameScreen implements Screen {
         cameraMaxXOffset = 30;
         cameraMaxYOffset = 30;
 
-        //paper = new Paper(false);
+        paper = new Paper(false);
+        card = new TextCard(game , 0 , 0 , 1f , GameData.TEXT_CARD);
 
         Barrel barrel = new Barrel(50, 7, GameData.BARREL, 1f, game);
-
-
-        // middleBg = new Texture((TextureData) middle_bg.getBgTexture());
 
         world = new World(game);
 
@@ -89,23 +77,23 @@ public class MainGameScreen implements Screen {
 
         game.batch.begin();
         background.draw(game.batch);
-//        game.batch.draw(GameData.GAME_BACKGROUND, middle_bg.getBgPositionX(), middle_bg.getBgPositionY());
-//        game.batch.draw(GameData.GAME_BACKGROUND, right_bg.getBgPositionX(), right_bg.getBgPositionY());
-//        game.batch.draw(GameData.GAME_BACKGROUND, left_bg.getBgPositionX(), left_bg.getBgPositionY());
         world.draw(game.batch);
         game.batch.draw(GameData.VIGNETTE, camera.position.x - GameData.VIGNETTE.getWidth() / 2f, camera.position.y - GameData.VIGNETTE.getHeight() / 2f);
         npc.draw(game.batch);
-//        if(Gdx.input.isKeyPressed(Input.Keys.P)){
-//            paper.drawPaper = true;
-//        }
-//
-//        if(Gdx.input.isKeyPressed(Input.Keys.G)){
-//            paper.drawPaper = false;
-//        }
-//
-//        if(paper.isDrawPaper() == true){
-//            paper.draw(game.batch);
-//        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+            if(paper.isDrawPaper()){
+                paper.drawPaper = false;
+            } else {
+                paper.drawPaper = true;
+            }
+
+            System.out.println("Position: " + camera.position.x);
+        }
+
+        if(paper.isDrawPaper()){
+            paper.draw(game.batch , camera.position.x , camera.position.y - GameData.PAPER.getHeight() / 2);
+            card.draw(game.batch , camera.position.x - 110 , camera.position.y);
+        }
         game.batch.end();
     }
 

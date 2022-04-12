@@ -11,8 +11,8 @@ public class Paper {
         this.drawPaper = drawPaper;
     }
 
-    public void draw(SpriteBatch batch) {
-        batch.draw(GameData.PAPER, 0, 2);
+    public void draw(SpriteBatch batch , float x , float y) {
+        batch.draw(GameData.PAPER, x, y);
     }
 
     public boolean isDrawPaper() {
