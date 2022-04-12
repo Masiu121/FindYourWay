@@ -20,6 +20,8 @@ public class CharacterScreen implements Screen {
 
     Texture player;
 
+    float scale = 3f;
+
     public int heroCount = 3;
 
     public CharacterScreen(FindYourWay game) {
@@ -29,7 +31,7 @@ public class CharacterScreen implements Screen {
     @Override
     public void show() {
         camera = new OrthographicCamera(480, 270);
-        camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
+        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
 
         back = new Button(game, 0, 0, 1f, "Back", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
@@ -39,7 +41,7 @@ public class CharacterScreen implements Screen {
             }
         });
 
-        int buttonX = (int) camera.viewportWidth/2-back.getWidth()/2;
+        int buttonX = (int) camera.viewportWidth / 2 - back.getWidth() / 2;
 
         back.move(buttonX, 10);
 
@@ -57,12 +59,11 @@ public class CharacterScreen implements Screen {
             }
         });
 
-        int buttonY = (int) camera.viewportHeight/2-arrowNext.getHeight()/2;
+        int buttonY = (int) camera.viewportHeight / 2 - arrowNext.getHeight() / 2;
 
-        arrowPrevious.move(20, buttonY);
-        arrowNext.move((int) camera.viewportWidth-20, buttonY);
+        arrowPrevious.move(40, buttonY);
+        arrowNext.move((int) camera.viewportWidth - 40 - arrowNext.getWidth(), buttonY);
 
-        //goToMenu = new Button(game , game.menuViewportWidth / 2 - 60 , game.menuViewportHeight / 14 , 1f , "Menu" , new MainMenuScreen(game));
         player = GameData.MAIN_CHAR_IDLE_CHOOSE_1;
     }
 
@@ -79,36 +80,42 @@ public class CharacterScreen implements Screen {
         arrowPrevious.draw(game.batch);
         back.draw(game.batch);
 
-        game.batch.draw(player , game.menuViewportWidth / 2f - player.getWidth() / 2f , game.menuViewportHeight / 2f - player.getHeight() / 2f);
-
+        game.batch.draw(player, game.menuViewportWidth / 2f - player.getWidth() * scale / 2f, game.menuViewportHeight / 2f - player.getHeight() * scale / 2f, player.getWidth() * scale, player.getHeight() * scale);
+        System.out.println(Gdx.input.getX() / game.windowViewportXProp + ", " + game.menuViewportWidth / 2f);
         game.batch.end();
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.D)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
             next();
         }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.A)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.A)) {
             previous();
         }
 
-        if(game.mainCharacter == 1){
+        if (game.mainCharacter == 0) {
             player = GameData.MAIN_CHAR_IDLE_CHOOSE_1;
-        } else if(game.mainCharacter == 2){
+        } else if (game.mainCharacter == 1) {
             player = GameData.MAIN_CHAR_IDLE_CHOOSE_2;
-        } else if(game.mainCharacter == 3){
+        } else if (game.mainCharacter == 2) {
             player = GameData.MAIN_CHAR_IDLE_CHOOSE_3;
         }
 
     }
 
     public void next() {
-
+        if (game.mainCharacter + 1 < heroCount)
+            game.mainCharacter++;
+        else
+            game.mainCharacter = 0;
     }
 
     public void previous() {
-
+        if (game.mainCharacter - 1 >= 0)
+            game.mainCharacter--;
+        else
+            game.mainCharacter = 2;
     }
 
-    public void update(){
+    public void update() {
         arrowNext.update();
         arrowPrevious.update();
         back.update();
