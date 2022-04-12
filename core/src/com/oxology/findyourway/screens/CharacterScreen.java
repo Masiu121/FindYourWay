@@ -59,8 +59,8 @@ public class CharacterScreen implements Screen {
 
         int buttonY = (int) camera.viewportHeight/2-arrowNext.getHeight()/2;
 
-        arrowNext.move(20, buttonY);
-        arrowPrevious.move((int) camera.viewportWidth-20, buttonY);
+        arrowPrevious.move(20, buttonY);
+        arrowNext.move((int) camera.viewportWidth-20, buttonY);
 
         //goToMenu = new Button(game , game.menuViewportWidth / 2 - 60 , game.menuViewportHeight / 14 , 1f , "Menu" , new MainMenuScreen(game));
         player = GameData.MAIN_CHAR_IDLE_CHOOSE_1;
