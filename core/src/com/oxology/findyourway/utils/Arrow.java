@@ -40,11 +40,11 @@ public class Arrow {
         this.isRight = isRight;
 
         if(this.isRight){
-            this.defaultTexture = GameData.ARROW_NEXT;
-            this.hoverTexture = GameData.ARROW_NEXT_HOVER;
+            this.defaultTexture = GameData.ARROW_RIGHT;
+            this.hoverTexture = GameData.ARROW_RIGHT_HOVER;
         } else {
-            this.defaultTexture = GameData.ARROW_PREVIOUS;
-            this.hoverTexture = GameData.ARROW_PREVIOUS_HOVER;
+            this.defaultTexture = GameData.ARROW_LEFT;
+            this.hoverTexture = GameData.ARROW_LEFT_HOVER;
         }
         this.texture = defaultTexture;
 
@@ -98,27 +98,27 @@ public class Arrow {
         this.y = y;
     }
 
-//    public int changeHero(int textureNum , int heroCount){
-//        boolean horizontalHover = Gdx.input.getX()/game.windowViewportXProp > this.x && Gdx.input.getX()/game.windowViewportXProp < this.x + this.width;
-//        boolean verticalHover = 270-(Gdx.input.getY()/game.windowViewportYProp) > this.y && 270-(Gdx.input.getY()/game.windowViewportYProp) < this.y + this.height;
-//
-//        if(horizontalHover && verticalHover) {
-//            if(Gdx.input.justTouched()){
-//                if(textureNum < heroCount){
-//                    textureNum++;
-//                } else {
-//                    textureNum = 1;
-//                }
-//                if(textureNum <= heroCount && textureNum > 1){
-//                    textureNum--;
-//                } else {
-//                    textureNum = heroCount;
-//                }
-//            }
-//        }
-//
-//        return textureNum;
-//    }
+    public int changeHero(int textureNum , int heroCount){
+        boolean horizontalHover = Gdx.input.getX()/game.windowViewportXProp > this.x && Gdx.input.getX()/game.windowViewportXProp < this.x + this.width;
+        boolean verticalHover = 270-(Gdx.input.getY()/game.windowViewportYProp) > this.y && 270-(Gdx.input.getY()/game.windowViewportYProp) < this.y + this.height;
+
+        if(horizontalHover && verticalHover) {
+            if(Gdx.input.justTouched()){
+                if(textureNum < heroCount){
+                    textureNum++;
+                } else {
+                    textureNum = 1;
+                }
+                if(textureNum <= heroCount && textureNum > 1){
+                    textureNum--;
+                } else {
+                    textureNum = heroCount;
+                }
+            }
+        }
+
+        return textureNum;
+    }
 
     public int getWidth() {
         return width;

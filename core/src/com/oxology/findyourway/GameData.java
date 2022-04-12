@@ -32,10 +32,20 @@ public interface GameData {
     Texture BG_GRADIENT = new Texture("Game/Background/Gradient.png");
     Texture BG_SUN = new Texture("Game/Background/Sun.png");
 
+    // First player animation
     Texture MAIN_CHAR_IDLE_1 = new Texture("Game/Sprites/MainCharacterIdle1.png");
     Texture MAIN_CHAR_IDLE_2 = new Texture("Game/Sprites/MainCharacterIdle2.png");
     Texture MAIN_CHAR_WALK_1 = new Texture("Game/Sprites/MainCharacterWalk.png");
     Texture MAIN_CHAR_WALK_2 = new Texture("Game/Sprites/MainCharacterWalk2.png");
+
+    // First player animation choose
+    Texture MAIN_CHAR_IDLE_CHOOSE_1 = new Texture("Game/Sprites/hero1.png");
+
+    // Second player animation choose
+    Texture MAIN_CHAR_IDLE_CHOOSE_2 = new Texture("Game/Sprites/hero2.png");
+
+    // Third player animation choose
+    Texture MAIN_CHAR_IDLE_CHOOSE_3 = new Texture("Game/Sprites/hero3.png");
 
     Texture QUEST_MARK = new Texture("Game/Sprites/QuestMark.png");
 
