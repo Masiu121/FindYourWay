@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
+import com.oxology.findyourway.utils.Button;
+import com.oxology.findyourway.utils.Clickable;
 import com.oxology.findyourway.utils.Message;
 import com.oxology.findyourway.utils.Quest;
 import com.oxology.findyourway.utils.blocksystem.Paper;
@@ -43,7 +45,7 @@ public class MainGameScreen implements Screen {
 
     Npc npc;
 
-    Paper paper;
+    //Paper paper;
 
     public MainGameScreen(FindYourWay game) {
         this.game = game;
@@ -61,7 +63,7 @@ public class MainGameScreen implements Screen {
         cameraMaxXOffset = 30;
         cameraMaxYOffset = 30;
 
-        paper = new Paper();
+        //paper = new Paper();
 
         Barrel barrel = new Barrel(50, 7, GameData.BARREL, 1f, game);
 
@@ -91,7 +93,7 @@ public class MainGameScreen implements Screen {
         world.draw(game.batch);
         game.batch.draw(GameData.VIGNETTE, camera.position.x-GameData.VIGNETTE.getWidth()/2f, camera.position.y-GameData.VIGNETTE.getHeight()/2f);
         npc.draw(game.batch);
-        paper.draw(game.batch);
+        //paper.draw(game.batch);
         game.batch.end();
     }
 
@@ -106,21 +108,24 @@ public class MainGameScreen implements Screen {
                 else
                     cameraXOffset = cameraMaxXOffset;
             } else {
+
                 float offset = camera.position.x - world.getPlayer().getX()-cameraXOffset;
 
                 if(camera.position.x - offset > left_bg.getBgPositionX() / 2f && camera.position.x - offset < right_bg.getBgPositionX() + 120) {
                     camera.position.set(world.getPlayer().getX() + cameraXOffset, camera.position.y, 0);
                 } else {
-                    camera.position.x = left_bg.getBgPositionX() /2f;
+                    if(camera.position.x > 0)
+                        camera.position.x = right_bg.getBgPositionX() + 120;
+                    else
+                        camera.position.x = left_bg.getBgPositionX() / 2f;
                 }
 
                 System.out.println(offset);
             }
 
             if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-                game.setScreen(new PauseScreen(game));
+                System.out.println("Pause");
             }
-
     }
 
     @Override
