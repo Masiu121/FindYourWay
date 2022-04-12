@@ -9,7 +9,7 @@ import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
 
 public class Player extends Entity {
-    private boolean jump;
+    public boolean jump;
     private boolean touchingGround;
 
     TextureRegion[][] idleAnimationFrames1;
