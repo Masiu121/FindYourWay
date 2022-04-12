@@ -22,8 +22,6 @@ public class Entity extends GameObject {
     private float xSpeed;
     private float ySpeed;
 
-    private boolean animationPaused;
-
     private final float defaultXSpeed;
     private final float defaultYSpeed;
 
@@ -36,8 +34,6 @@ public class Entity extends GameObject {
 
         this.defaultXSpeed = 50f*scale;
         this.defaultYSpeed = 200f*scale;
-
-        this.animationPaused = true;
 
         xSpeed = 0;
 
@@ -130,14 +126,6 @@ public class Entity extends GameObject {
 
     public float getTimeElapsed() {
         return timeElapsed;
-    }
-
-    public void pauseAnimation() {
-        animationPaused = true;
-    }
-
-    public void resumeAnimation() {
-        animationPaused = false;
     }
 
     public void setTimeElapsed(float timeElapsed) {
