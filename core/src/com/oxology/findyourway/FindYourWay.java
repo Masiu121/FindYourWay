@@ -51,7 +51,7 @@ public class FindYourWay extends Game {
 		super.render();
 
 
-		if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
 			Gdx.app.exit();
 		}
 	}
