@@ -34,7 +34,7 @@ public class CharacterScreen implements Screen {
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
 
-        back = new Button(game, 0, 0, 1f, "Back", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
+        back = new Button(game, 0, 0, 1f, "Ok", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
             @Override
             public void onClick() {
                 game.setScreen(new MainMenuScreen(game));
