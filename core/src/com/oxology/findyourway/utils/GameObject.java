@@ -39,6 +39,10 @@ public class GameObject {
         this.y += yOffset;
     }
 
+    public void setY(float y) {
+        this.y = y;
+    }
+
     public float getX() {
         return x;
     }
