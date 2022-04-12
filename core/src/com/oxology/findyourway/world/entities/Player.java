@@ -63,10 +63,10 @@ public class Player extends Entity {
     }
 
     public void update(float deltaTime) {
-        if(Gdx.input.isKeyPressed(Input.Keys.A)  && ((MainGameScreen) game.getScreen()).left_bg.getBgPositionX() + 30 <= getX()) {
+        if(Gdx.input.isKeyPressed(Input.Keys.A)  && ((MainGameScreen) game.getScreen()).left_bg.getBgPositionX() <= getX()) {
             super.setxSpeed(-super.getDefaultXSpeed());
             direction = 0;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.D) && ((MainGameScreen) game.getScreen()).right_bg.getBgPositionX() * 2 - 45 >= getX()) {
+        } else if(Gdx.input.isKeyPressed(Input.Keys.D) && ((MainGameScreen) game.getScreen()).right_bg.getBgPositionX() * 2 >= getX()+getWidth()) {
             super.setxSpeed(super.getDefaultXSpeed());
             direction = 1;
         } else {
