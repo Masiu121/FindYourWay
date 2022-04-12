@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
+import com.oxology.findyourway.screens.MainGameScreen;
 
 public class Player extends Entity {
     public boolean jump;
@@ -62,10 +63,10 @@ public class Player extends Entity {
     }
 
     public void update(float deltaTime) {
-        if(Gdx.input.isKeyPressed(Input.Keys.A)/*  && ((MainGameScreen) game.getScreen()).left_bg.getBgPositionX() <= getX()*/) {
+        if(Gdx.input.isKeyPressed(Input.Keys.A) && getX() >= ((MainGameScreen) game.getScreen()).getCamera().position.x-240/2f) {
             super.setxSpeed(-super.getDefaultXSpeed());
             direction = 0;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.D)/* && ((MainGameScreen) game.getScreen()).right_bg.getBgPositionX() * 2 >= getX()+getWidth()*/) {
+        } else if(Gdx.input.isKeyPressed(Input.Keys.D) && getX()+getDefaultXSpeed()*deltaTime <= ((MainGameScreen) game.getScreen()).getCamera().position.x + 240) {
             super.setxSpeed(super.getDefaultXSpeed());
             direction = 1;
         } else {
@@ -105,7 +106,12 @@ public class Player extends Entity {
             }
         }
 
-
+        if(Gdx.input.isKeyJustPressed(Input.Keys.G)) {
+            if(((MainGameScreen) game.getScreen()).train.getPlayer() == null)
+                ((MainGameScreen) game.getScreen()).train.setPlayer(this);
+            else
+                ((MainGameScreen) game.getScreen()).train.setPlayer(null);
+        }
 
         super.update(deltaTime);
     }
