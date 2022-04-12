@@ -134,7 +134,7 @@ public class MainGameScreen implements Screen {
 
             float offset = camera.position.x - world.getPlayer().getX() - cameraXOffset;
             if (camera.position.x - offset > -120 / 2f && camera.position.x - offset < 120 + 120) {
-                background.setCameraSpeed(world.getPlayer().getxSpeed()/2f);
+                background.setCameraSpeed(world.getPlayer().getxSpeed()/4f);
                 camera.position.set(world.getPlayer().getX() + cameraXOffset, camera.position.y, 0);
             }
         }
