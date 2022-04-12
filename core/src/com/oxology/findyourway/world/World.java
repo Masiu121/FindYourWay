@@ -24,7 +24,7 @@ public class World {
         this.game = game;
         this.gameObjects = new ArrayList<>();
 
-        player = new Player(10, 3, GameData.MAIN_CHAR_IDLE_1, 1f, this.game);
+        player = new Player(((int) (GameData.BG_GRADIENT.getWidth()/2f - GameData.MAIN_CHAR_IDLE_1.getWidth()/9f/2f)), 3, GameData.MAIN_CHAR_IDLE_1, 1f, this.game);
     }
 
     public void addGameObject(GameObject gameObject) {

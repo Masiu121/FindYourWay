@@ -31,6 +31,7 @@ public interface GameData {
     Texture BG_BUILDING_1 = new Texture("Game/Background/Building1.png");
     Texture BG_GRADIENT = new Texture("Game/Background/Gradient.png");
     Texture BG_SUN = new Texture("Game/Background/Sun.png");
+    Texture BG_TREE = new Texture("Game/Background/Tree.png");
 
     // First player animation
     Texture MAIN_CHAR_IDLE_1 = new Texture("Game/Sprites/MainCharacterIdle1.png");
@@ -50,9 +51,9 @@ public interface GameData {
     Texture QUEST_MARK = new Texture("Game/Sprites/QuestMark.png");
 
     Texture BARREL = new Texture("Game/Sprites/Barrel.png");
-    Texture FIRE_START = new Texture("Game/Sprites/FireStart.png");
-    Texture FIRE_END = new Texture("Game/Sprites/FireEnd.png");
-    Texture FIRE = new Texture("Game/Sprites/Fire.png");
+    Texture FIRE_START = new Texture("Game/Sprites/firestartburning.png");
+    Texture FIRE_END = new Texture("Game/Sprites/fireendburning.png");
+    Texture FIRE = new Texture("Game/Sprites/fire.png");
 
     Texture MESSAGE_RIGHT = new Texture("Game/Sprites/Message/MessageRight.png");
     Texture MESSAGE_MIDDLE = new Texture("Game/Sprites/Message/MessageMiddle.png");
