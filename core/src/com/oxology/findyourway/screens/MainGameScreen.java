@@ -11,6 +11,7 @@ import com.oxology.findyourway.GameData;
 import com.oxology.findyourway.utils.Quest;
 import com.oxology.findyourway.utils.blocksystem.Paper;
 import com.oxology.findyourway.utils.Background;
+import com.oxology.findyourway.utils.blocksystem.TextCard;
 import com.oxology.findyourway.world.World;
 import com.oxology.findyourway.world.entities.Barrel;
 import com.oxology.findyourway.world.entities.Npc;
@@ -30,6 +31,7 @@ public class MainGameScreen implements Screen {
     Npc npc;
 
     Paper paper;
+    TextCard card;
 
     float cameraSpeed;
 
@@ -49,7 +51,8 @@ public class MainGameScreen implements Screen {
         cameraMaxXOffset = 30;
         cameraMaxYOffset = 30;
 
-        paper = new Paper(game);
+        paper = new Paper(false);
+        card = new TextCard(game , 0 , 0 , 1f , GameData.TEXT_CARD);
 
         Barrel barrel = new Barrel(50, 7, GameData.BARREL, 1f, game);
 
@@ -101,7 +104,8 @@ public class MainGameScreen implements Screen {
         }
 
         if(paper.drawPaper){
-            paper.draw(game.batch);
+            paper.draw(game.batch , camera.position.x , camera.position.y - GameData.PAPER.getHeight() / 2);
+            card.draw(game.batch , camera.position.x - 110 , camera.position.y);
         }
         game.batch.end();
     }
