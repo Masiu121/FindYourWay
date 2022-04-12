@@ -70,21 +70,21 @@ public class Train extends Entity {
             }
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.L)) {
             if(speed - acceleration < -maxSpeed)
                 speed = -maxSpeed;
             else
                 speed -= acceleration;
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.R)) {
             if(speed + acceleration > maxSpeed)
                 speed = maxSpeed;
             else
                 speed += acceleration;
         }
 
-        if(speed != 0 && !Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        if(speed != 0 && !Gdx.input.isKeyPressed(Input.Keys.L) && !Gdx.input.isKeyPressed(Input.Keys.R)) {
             if(speed > 0) {
                 if(speed - deceleration < 0)
                     speed = 0;
