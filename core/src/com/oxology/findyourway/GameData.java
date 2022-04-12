@@ -37,6 +37,9 @@ public interface GameData {
     Texture METRO_BRICKS = new Texture("Game/Metro/MetroStationBricks.png");
     Texture METRO_TILES = new Texture("Game/Metro/MetroStationTiles.png");
     Texture METRO_PLATFORM = new Texture("Game/Metro/MetroStationPlatform.png");
+    Texture METRO_TRAIN = new Texture("Game/Metro/MetroTrain.png");
+    Texture METRO_DOOR_LEFT = new Texture("Game/Metro/MetroTrainDoorLeft.png");
+    Texture METRO_DOOR_RIGHT = new Texture("Game/Metro/MetroTrainDoorRight.png");
 
     // First player animation
     Texture MAIN_CHAR_IDLE_1 = new Texture("Game/Sprites/MainCharacterIdle1.png");
