@@ -4,28 +4,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.TextureData;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
-import com.oxology.findyourway.utils.Message;
 import com.oxology.findyourway.utils.Quest;
 import com.oxology.findyourway.utils.blocksystem.Paper;
 import com.oxology.findyourway.world.Background;
 import com.oxology.findyourway.world.World;
 import com.oxology.findyourway.world.entities.Barrel;
 import com.oxology.findyourway.world.entities.Npc;
-import com.badlogic.gdx.graphics.Texture;
 
 public class MainGameScreen implements Screen {
     FindYourWay game;
     OrthographicCamera camera;
     World world;
 
-    Texture middleBg;
-    public Texture leftBg;
-    public Texture rightBg;
+
 
 
     int cameraXOffset;
@@ -35,7 +29,7 @@ public class MainGameScreen implements Screen {
     int cameraMaxYOffset;
 
 
-    Background middle_bg = new Background(0 , 0 , GameData.GAME_BACKGROUND);
+    public Background middle_bg = new Background(0 , 0 , GameData.GAME_BACKGROUND);
 
     public Background left_bg = new Background(-240 , 0 , GameData.GAME_BACKGROUND);
 

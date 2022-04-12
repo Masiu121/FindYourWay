@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
-import com.oxology.findyourway.screens.MainGameScreen;
+import com.oxology.findyourway.utils.Arrow;
 import com.oxology.findyourway.utils.GameObject;
 import com.oxology.findyourway.world.entities.Barrel;
 import com.oxology.findyourway.world.entities.Player;
@@ -18,9 +18,12 @@ public class World {
     private List<GameObject> gameObjects;
     private final Player player;
 
+
+
     public World(FindYourWay game) {
         this.game = game;
         this.gameObjects = new ArrayList<>();
+
         player = new Player(10, 3, GameData.MAIN_CHAR_IDLE_1, 1f, this.game);
     }
 

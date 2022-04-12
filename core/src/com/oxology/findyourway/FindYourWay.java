@@ -38,7 +38,7 @@ public class FindYourWay extends Game {
 
 		mainCharacter = 0;
 
-		gravity = 8f;
+		gravity = 15f;
 
 		this.setScreen(new MainMenuScreen(this));
 	}
