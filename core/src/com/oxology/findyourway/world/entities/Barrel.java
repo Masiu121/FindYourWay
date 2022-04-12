@@ -55,8 +55,6 @@ public class Barrel extends Entity {
         fireStartSound = Gdx.audio.newSound(GameData.FIRE_START_SOUND);
         fireSound = Gdx.audio.newSound(GameData.FIRE_SOUND);
         zippoSound = Gdx.audio.newSound(GameData.ZIPPO_SOUND);
-
-        resumeAnimation();
     }
 
     public void toggleFire() {
