@@ -72,9 +72,11 @@ public class Button {
     public void draw(SpriteBatch batch) {
         batch.draw(this.texture, this.x, this.y, this.width, this.height);
 
-        int textX = this.x + this.width/2 - textWidth/2;
-        int textY = this.y + this.height/2 + textHeight/2;
-        font.draw(batch, text, textX, textY);
+        if(font != null) {
+            int textX = this.x + this.width / 2 - textWidth / 2;
+            int textY = this.y + this.height / 2 + textHeight / 2;
+            font.draw(batch, text, textX, textY);
+        }
     }
 
     public void calculateSize() {
@@ -103,5 +105,9 @@ public class Button {
 
     public int getWidth() {
         return width;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }
