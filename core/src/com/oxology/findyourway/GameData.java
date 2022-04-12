@@ -72,4 +72,8 @@ public interface GameData {
 
     Texture PAPER = new Texture("Game/Sprites/Paper.png");
     Texture METRO_ENTRY = new Texture("Game/MetroEntry.png");
+
+    Texture BOOK_OPEN_ANIMATION = new Texture("Game/Sprites/book.png");
+    Texture INTRO_BG = new Texture("Game/Sprites/stol.png");
+    Texture BOOK_NEXT_PAGE_ANIMATION = new Texture("Game/Sprites/nextpage.png");
 }
