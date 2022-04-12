@@ -15,6 +15,7 @@ import com.oxology.findyourway.utils.blocksystem.TextCard;
 import com.oxology.findyourway.world.World;
 import com.oxology.findyourway.world.entities.Barrel;
 import com.oxology.findyourway.world.entities.Npc;
+import com.oxology.findyourway.world.entities.Train;
 
 public class MainGameScreen implements Screen {
     FindYourWay game;
@@ -32,6 +33,8 @@ public class MainGameScreen implements Screen {
 
     Paper paper;
     TextCard card;
+
+    public Train train;
 
     float cameraSpeed;
 
@@ -55,14 +58,13 @@ public class MainGameScreen implements Screen {
         card = new TextCard(game , 0 , 0 , 1f , GameData.TEXT_CARD);
 
         Barrel barrel = new Barrel(50, 7, GameData.BARREL, 1f, game);
-
+        train = new Train(0, 0, 1f, game);
         world = new World(game);
 
         world.addGameObject(barrel);
         cameraSpeed = world.getPlayer().getxSpeed()/2f;
         background = new Background(cameraSpeed);
-
-                npc = new Npc(20, 3, GameData.MAIN_CHAR_IDLE_1, 1f, game, new Quest());
+        npc = new Npc(20, 3, GameData.MAIN_CHAR_IDLE_1, 1f, game, new Quest());
     }
 
     @Override
@@ -109,6 +111,8 @@ public class MainGameScreen implements Screen {
             paper.draw(game.batch , camera.position.x + 1 , 2);
             card.draw(game.batch , camera.position.x - 110 , camera.position.y);
         }
+
+        train.draw(game.batch);
         game.batch.end();
     }
 
@@ -123,6 +127,7 @@ public class MainGameScreen implements Screen {
         }
         npc.update(deltaTime);
         background.update(deltaTime);
+        train.update(deltaTime);
 
         if (Math.abs(world.getPlayer().getX() - camera.position.x) < cameraMaxXOffset) {
             if (world.getPlayer().getX() - camera.position.x > 0)
@@ -134,7 +139,7 @@ public class MainGameScreen implements Screen {
 
             float offset = camera.position.x - world.getPlayer().getX() - cameraXOffset;
             if (camera.position.x - offset > -120 / 2f && camera.position.x - offset < 120 + 120) {
-                background.setCameraSpeed(world.getPlayer().getxSpeed()/4f);
+                background.setCameraSpeed(world.getPlayer().getxSpeed()/2f);
                 camera.position.set(world.getPlayer().getX() + cameraXOffset, camera.position.y, 0);
             }
         }
