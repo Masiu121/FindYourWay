@@ -22,8 +22,6 @@ public class FindYourWay extends Game {
 
 	public float gravity;
 
-	public MainGameScreen mainGameScreen;
-
 	@Override
 	public void create () {
 		music = Gdx.audio.newMusic(GameData.BACKGROUND_MUSIC);
@@ -53,8 +51,15 @@ public class FindYourWay extends Game {
 		super.render();
 
 
-		if(Gdx.input.isKeyJustPressed(Input.Keys.E)){
+		if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)){
 			Gdx.app.exit();
 		}
+	}
+
+	@Override
+	public void dispose() {
+		GameData.MENU_BACKGROUND.dispose();
+		GameData.MENU_BUTTON.dispose();
+		GameData.MENU_BUTTON_HOVER.dispose();
 	}
 }

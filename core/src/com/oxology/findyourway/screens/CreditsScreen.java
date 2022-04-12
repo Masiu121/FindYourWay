@@ -9,6 +9,7 @@ import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
 import com.oxology.findyourway.utils.Button;
 import com.oxology.findyourway.utils.CenteredText;
+import com.oxology.findyourway.utils.Clickable;
 
 public class CreditsScreen implements Screen {
     FindYourWay game;
@@ -38,7 +39,13 @@ public class CreditsScreen implements Screen {
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
 
-        backButton = new Button(game, 0, 0, 1f, "Back", new MainMenuScreen(game));
+        backButton = new Button(game, 0, 0, 1f, "Back", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
+            @Override
+            public void onClick() {
+                game.setScreen(new MainMenuScreen(game));
+            }
+        });
+
         int buttonX = (int) camera.viewportWidth/2-backButton.getWidth()/2;
         backButton.move(buttonX, 10);
 

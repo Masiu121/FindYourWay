@@ -16,27 +16,26 @@ public class Button {
     private int width, height;
     private final float scale;
     private Texture texture;
-    private final Texture defaultTexture;
-    private final Texture hoverTexture;
-    private final BitmapFont font;
+    private final Texture button;
+    private final Texture buttonHover;
 
-    private final String text;
-    private final int textWidth;
-    private final int textHeight;
+    private BitmapFont font;
+    private String text;
+    private int textWidth;
+    private int textHeight;
 
-    private final Screen screen;
+    private Clickable clickable;
 
-    public Button(FindYourWay game, int x, int y, float scale, String text, Screen screen) {
+    public Button(FindYourWay game, int x, int y, float scale, String text, Texture button, Texture buttonHover, Clickable clickable) {
         this.game = game;
-        this.screen = screen;
 
         this.x = x;
         this.y = y;
         this.scale = scale;
 
-        this.defaultTexture = GameData.MENU_BUTTON;
-        this.hoverTexture = GameData.MENU_BUTTON_HOVER;
-        this.texture = defaultTexture;
+        this.button = button;
+        this.buttonHover = buttonHover;
+        this.texture = button;
 
         calculateSize();
 
@@ -50,6 +49,24 @@ public class Button {
 
         this.textWidth = (int) layout.width;
         this.textHeight = (int) layout.height;
+
+        this.clickable = clickable;
+    }
+
+    public Button(FindYourWay game, int x, int y, float scale, Texture button, Texture buttonHover, Clickable clickable) {
+        this.game = game;
+
+        this.x = x;
+        this.y = y;
+        this.scale = scale;
+
+        this.button = button;
+        this.buttonHover = buttonHover;
+        this.texture = button;
+
+        calculateSize();
+
+        this.clickable = clickable;
     }
 
     public void draw(SpriteBatch batch) {
@@ -70,16 +87,12 @@ public class Button {
         boolean verticalHover = 270-(Gdx.input.getY()/game.windowViewportYProp) > this.y && 270-(Gdx.input.getY()/game.windowViewportYProp) < this.y + this.height;
 
         if(horizontalHover && verticalHover) {
-            texture = hoverTexture;
+            texture = buttonHover;
             if(Gdx.input.justTouched()) {
-                if(screen != null) {
-                    this.game.setScreen(screen);
-                } else {
-                    Gdx.app.exit();
-                }
+                clickable.onClick();
             }
         } else {
-            texture = defaultTexture;
+            texture = button;
         }
     }
 

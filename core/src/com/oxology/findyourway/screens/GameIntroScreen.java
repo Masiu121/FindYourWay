@@ -12,8 +12,7 @@ public class GameIntroScreen implements Screen {
 
     @Override
     public void show() {
-        game.mainGameScreen = new MainGameScreen(game);
-        game.setScreen(game.mainGameScreen);
+        game.setScreen(new MainGameScreen(game));
     }
 
     @Override

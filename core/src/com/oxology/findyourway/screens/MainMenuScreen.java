@@ -1,5 +1,6 @@
 package com.oxology.findyourway.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -8,6 +9,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
 import com.oxology.findyourway.utils.Button;
+import com.oxology.findyourway.utils.Clickable;
 
 public class MainMenuScreen implements Screen {
     FindYourWay game;
@@ -31,10 +33,33 @@ public class MainMenuScreen implements Screen {
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
 
-        playButton = new Button(game, 0, 0, 1f, "Play", new MainGameScreen(game));
-        characterButton = new Button(game, 0, 0, 1f, "Character", new CharacterScreen(game));
-        creditsButton = new Button(game, 0, 0, 1f, "Credits", new CreditsScreen(game));
-        exitButton = new Button(game, 0, 0, 1f, "Exit", null);
+        playButton = new Button(game, 0, 0, 1f, "Play", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
+            @Override
+            public void onClick() {
+                game.setScreen(new GameIntroScreen(game));
+            }
+        });
+
+        characterButton = new Button(game, 0, 0, 1f, "Character", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
+            @Override
+            public void onClick() {
+                game.setScreen(new CharacterScreen(game));
+            }
+        });
+
+        creditsButton = new Button(game, 0, 0, 1f, "Credits", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
+            @Override
+            public void onClick() {
+                game.setScreen(new CreditsScreen(game));
+            }
+        });
+
+        exitButton = new Button(game, 0, 0, 1f, "Exit", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
+            @Override
+            public void onClick() {
+                Gdx.app.exit();
+            }
+        });
 
         int buttonX = (int) camera.viewportWidth/2-playButton.getWidth()/2;
 
