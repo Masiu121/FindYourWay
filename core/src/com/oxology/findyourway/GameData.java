@@ -34,6 +34,10 @@ public interface GameData {
     Texture BG_SUN = new Texture("Game/Background/Sun.png");
     Texture BG_TREE = new Texture("Game/Background/Tree.png");
 
+    Texture METRO_BRICKS = new Texture("Game/Metro/MetroStationBricks.png");
+    Texture METRO_TILES = new Texture("Game/Metro/MetroStationTiles.png");
+    Texture METRO_PLATFORM = new Texture("Game/Metro/MetroStationPlatform.png");
+
     // First player animation
     Texture MAIN_CHAR_IDLE_1 = new Texture("Game/Sprites/MainCharacterIdle1.png");
     Texture MAIN_CHAR_IDLE_2 = new Texture("Game/Sprites/MainCharacterIdle2.png");
