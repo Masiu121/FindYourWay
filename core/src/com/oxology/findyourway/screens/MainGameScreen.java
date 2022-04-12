@@ -3,22 +3,17 @@ package com.oxology.findyourway.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.TextureData;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
-import com.oxology.findyourway.utils.Button;
-import com.oxology.findyourway.utils.Clickable;
-import com.oxology.findyourway.utils.Message;
 import com.oxology.findyourway.utils.Quest;
 import com.oxology.findyourway.utils.blocksystem.Paper;
 import com.oxology.findyourway.utils.Background;
 import com.oxology.findyourway.world.World;
 import com.oxology.findyourway.world.entities.Barrel;
 import com.oxology.findyourway.world.entities.Npc;
-import com.badlogic.gdx.graphics.Texture;
 
 public class MainGameScreen implements Screen {
     FindYourWay game;
@@ -32,13 +27,6 @@ public class MainGameScreen implements Screen {
     int cameraMaxYOffset;
 
     Background background;
-
-    //Background middle_bg = new Background(0, 0, GameData.GAME_BACKGROUND);
-
-    //public Background left_bg = new Background(-240, 0, GameData.GAME_BACKGROUND);
-
-    //public Background right_bg = new Background(240, 0, GameData.GAME_BACKGROUND);
-
     Npc npc;
 
     Paper paper;
@@ -61,12 +49,9 @@ public class MainGameScreen implements Screen {
         cameraMaxXOffset = 30;
         cameraMaxYOffset = 30;
 
-        //paper = new Paper(false);
+        paper = new Paper(game);
 
         Barrel barrel = new Barrel(50, 7, GameData.BARREL, 1f, game);
-
-
-        // middleBg = new Texture((TextureData) middle_bg.getBgTexture());
 
         world = new World(game);
 
@@ -89,23 +74,35 @@ public class MainGameScreen implements Screen {
 
         game.batch.begin();
         background.draw(game.batch);
-//        game.batch.draw(GameData.GAME_BACKGROUND, middle_bg.getBgPositionX(), middle_bg.getBgPositionY());
-//        game.batch.draw(GameData.GAME_BACKGROUND, right_bg.getBgPositionX(), right_bg.getBgPositionY());
-//        game.batch.draw(GameData.GAME_BACKGROUND, left_bg.getBgPositionX(), left_bg.getBgPositionY());
         world.draw(game.batch);
+        game.batch.draw(GameData.METRO_ENTRY, 360-GameData.METRO_ENTRY.getWidth(), 0);
         game.batch.draw(GameData.VIGNETTE, camera.position.x - GameData.VIGNETTE.getWidth() / 2f, camera.position.y - GameData.VIGNETTE.getHeight() / 2f);
         npc.draw(game.batch);
-//        if(Gdx.input.isKeyPressed(Input.Keys.P)){
-//            paper.drawPaper = true;
-//        }
-//
-//        if(Gdx.input.isKeyPressed(Input.Keys.G)){
-//            paper.drawPaper = false;
-//        }
-//
-//        if(paper.isDrawPaper() == true){
-//            paper.draw(game.batch);
-//        }
+
+        if(world.getPlayer().getX() > 360-GameData.METRO_ENTRY.getWidth()) {
+            float dist = (360-60)-(360-GameData.METRO_ENTRY.getWidth());
+            float dist2 = (360-60)-world.getPlayer().getX();
+            float result = dist2/dist;
+
+            game.batch.setColor(result, result, result, 1f);
+
+            world.getPlayer().setY(3+((1-result)*-20));
+
+            if(world.getPlayer().getX() > 310) {
+                game.setScreen(new MetroScreen(game));
+            }
+        }
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+            if(paper.drawPaper)
+                paper.drawPaper = false;
+            else
+                paper.drawPaper = true;
+        }
+
+        if(paper.drawPaper){
+            paper.draw(game.batch);
+        }
         game.batch.end();
     }
 
@@ -113,7 +110,11 @@ public class MainGameScreen implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.E))
             game.setScreen(new MainMenuScreen(game));
 
-        world.update(deltaTime);
+        if(!paper.drawPaper) {
+            world.update(deltaTime);
+        } else {
+            background.setCameraSpeed(0);
+        }
         npc.update(deltaTime);
         background.update(deltaTime);
 
@@ -127,17 +128,13 @@ public class MainGameScreen implements Screen {
 
             float offset = camera.position.x - world.getPlayer().getX() - cameraXOffset;
             if (camera.position.x - offset > -120 / 2f && camera.position.x - offset < 120 + 120) {
-                background.setCameraSpeed(world.getPlayer().getxSpeed()/4f);
+                background.setCameraSpeed(world.getPlayer().getxSpeed()/2f);
                 camera.position.set(world.getPlayer().getX() + cameraXOffset, camera.position.y, 0);
             }
         }
 
         if((camera.position.x) != (world.getPlayer().getX()+cameraXOffset) || world.getPlayer().getxSpeed()==0) {
             background.setCameraSpeed(0);
-        }
-
-        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            System.out.println("Pause");
         }
     }
 
