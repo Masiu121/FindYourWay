@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import org.w3c.dom.Text;
 
 public interface GameData {
@@ -70,4 +71,5 @@ public interface GameData {
     Texture ARROW_LEFT_HOVER = new Texture("Menu/Buttons/ArrowHover2.png");
 
     Texture PAPER = new Texture("Game/Sprites/Paper.png");
+    Texture METRO_ENTRY = new Texture("Game/MetroEntry.png");
 }
