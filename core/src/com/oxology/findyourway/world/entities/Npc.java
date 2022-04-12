@@ -38,13 +38,9 @@ public class Npc extends Entity {
         questMark.update(deltaTime);
 
         if(random.nextFloat() > 0.99f) {
-            if(walkTicks > 0) {
-                setxSpeed(getDefaultXSpeed());
-                walkTicks--;
-            } else {
-                setxSpeed(0);
-                walkTicks = 500;
-            }
+            setxSpeed(getDefaultXSpeed());
+        } else if(random.nextFloat() < 0.01f) {
+            setxSpeed(0);
         }
     }
 }
