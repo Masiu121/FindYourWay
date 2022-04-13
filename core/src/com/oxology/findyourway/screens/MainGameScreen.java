@@ -97,13 +97,6 @@ public class MainGameScreen implements Screen {
             world.getPlayer().setY(3);
         }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
-            if(paper.drawPaper)
-                paper.drawPaper = false;
-            else
-                paper.drawPaper = true;
-        }
-
         if(paper.drawPaper){
             paper.draw(game.batch , camera.position.x + 1 , 2);
             card.draw(game.batch , camera.position.x - 110 , camera.position.y);
