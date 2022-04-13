@@ -38,13 +38,13 @@ public class GameIntroScreen implements Screen {
 
         book = new Book(GameData.INTRO_BG.getWidth() / 2 - 220 / 2,
                 GameData.INTRO_BG.getHeight() / 2 + 20 - GameData.BOOK_OPEN_ANIMATION.getHeight() / 2 ,
-                GameData.BOOK_OPEN_ANIMATION , 2f , game);
+                GameData.BOOK_NEXT_PAGE_ANIMATION , 2f , game);
     }
 
     @Override
     public void render(float delta) {
 
-        if(Gdx.input.isButtonJustPressed(Input.Keys.G)){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.G)){
             game.setScreen(new MainGameScreen(game));
         }
         camera.update();
