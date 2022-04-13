@@ -14,28 +14,35 @@ public class Book extends Entity {
     TextureRegion[][] bookAnimationFrames;
     Animation<TextureRegion> bookAnimation;
 
-    private float timeElapsed;
+    TextureRegion[][] bookAnimationFrames2;
+    Animation<TextureRegion> bookAnimation2;
 
     public Book(int x, int y, Texture texture, float scale, FindYourWay game) {
         super(x, y, texture, scale, 9, true, game);
         this.bookAnimationFrames = TextureRegion.split(GameData.BOOK_OPEN_ANIMATION, 240, 135);
         this.bookAnimation = new Animation<TextureRegion>(1f/4f, bookAnimationFrames[0]);
-        timeElapsed = 0;
+
+        this.bookAnimationFrames2 = TextureRegion.split(GameData.BOOK_NEXT_PAGE_ANIMATION, 240, 135);
+        this.bookAnimation2 = new Animation<TextureRegion>(1f/4f, bookAnimationFrames2[0]);
+
+        setAnimationPaused(true);
+        setAnimation(bookAnimation, 240, 135, false);
     }
 
     public void update(float deltaTime){
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.O)){
-            animationStart = true;
+            setAnimationPaused(false);
         }
 
-        if(animationStart){
-            timeElapsed += deltaTime;
+        if(getAnimation().isAnimationFinished(getTimeElapsed())){
+            setAnimation(bookAnimation2, 240, 135, true);
         }
+
+        super.update(deltaTime);
     }
 
     public void draw(SpriteBatch batch){
-        batch.draw(bookAnimation.getKeyFrame(timeElapsed, false), super.getX(), super.getY() , GameData.BOOK_OPEN_ANIMATION.getWidth() / 8f * getScale() , GameData.BOOK_OPEN_ANIMATION.getHeight() * getScale());
-
+        super.draw(batch);
     }
 }
