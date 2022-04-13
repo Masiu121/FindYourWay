@@ -7,13 +7,10 @@ import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.utils.Clickable;
 
 public class TextCard {
-    private final FindYourWay game;
-
     private float x, y;
     private int width, height;
     private final float scale;
     private Texture texture;
-    private final Texture card;
 
     private BitmapFont font;
     private String text;
@@ -21,15 +18,10 @@ public class TextCard {
     private int textHeight;
 
 
-    public TextCard(FindYourWay game, float x, float y, float scale, Texture card) {
-        this.game = game;
-
-        this.x = x;
-        this.y = y;
+    public TextCard(float scale, Texture texture, String text) {
         this.scale = scale;
-
-        this.card = card;
-        this.texture = card;
+        this.texture = texture;
+        this.text = text;
 
         calculateSize();
     }
@@ -43,8 +35,8 @@ public class TextCard {
         batch.draw(this.texture, posX, posY, this.width, this.height);
 
         if(font != null) {
-            float textX = this.x + this.width / 2 - textWidth / 2;
-            float textY = this.y + this.height / 2 + textHeight / 2;
+            float textX = this.x + this.width / 2f - textWidth / 2f;
+            float textY = this.y + this.height / 2f + textHeight / 2f;
             font.draw(batch, text, textX, textY);
         }
     }
