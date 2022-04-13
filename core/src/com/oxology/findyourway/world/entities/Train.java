@@ -37,7 +37,7 @@ public class Train extends Entity {
         this.doorOffset = 0;
         this.doorsOpenSpeed = 0;
 
-        maxSpeed = 500f;
+        maxSpeed = 800f;
         acceleration = 0.3f;
         deceleration = 0.15f;
         speed = 0;
@@ -101,18 +101,30 @@ public class Train extends Entity {
         move(speed*deltaTime, 0);
 
         if(player != null) {
-            player.move((int) this.getX(), (int) this.getY());
+            player.move(speed*deltaTime, 0f);
         }
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(super.getTexture(), getX(), getY());
         batch.draw(GameData.METRO_DOOR_LEFT, getX()+39-doorOffset, getY()+32);
         batch.draw(GameData.METRO_DOOR_RIGHT, getX()+51+doorOffset, getY()+32);
+
+        batch.draw(GameData.METRO_DOOR_LEFT, getX()+120-doorOffset, getY()+32);
+        batch.draw(GameData.METRO_DOOR_RIGHT, getX()+132+doorOffset, getY()+32);
+
+        batch.draw(GameData.METRO_DOOR_LEFT, getX()+200-doorOffset, getY()+32);
+        batch.draw(GameData.METRO_DOOR_RIGHT, getX()+212+doorOffset, getY()+32);
+
+        batch.draw(GameData.METRO_DOOR_LEFT, getX()+281-doorOffset, getY()+32);
+        batch.draw(GameData.METRO_DOOR_RIGHT, getX()+293+doorOffset, getY()+32);
+
+        batch.draw(super.getTexture(), getX(), getY());
     }
 
     public void setPlayer(Player player) {
         this.player = player;
+        if(this.player != null)
+            this.player.move(32, 32);
     }
 
     public Player getPlayer() {
