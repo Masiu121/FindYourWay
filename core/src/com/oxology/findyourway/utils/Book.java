@@ -30,10 +30,9 @@ public class Book extends Entity {
     }
 
     public void update(float deltaTime){
+        setAnimationPaused(false);
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.O)){
-            setAnimationPaused(false);
-        }
+        // setTimeElapsed(0);
 
         if(getAnimation().isAnimationFinished(getTimeElapsed())){
             setAnimation(bookAnimation2, 240, 135, true);

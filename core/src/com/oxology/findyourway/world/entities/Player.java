@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
 import com.oxology.findyourway.screens.MainGameScreen;
+import com.oxology.findyourway.screens.MetroScreen;
 
 public class Player extends Entity {
     public boolean jump;
@@ -41,11 +42,15 @@ public class Player extends Entity {
     1 - left
      */
 
-    public Player(int x, int y, Texture texture, float scale, FindYourWay game) {
-        super(x, y, texture, scale, 9, true, game);
+    private int baseY;
+
+    public Player(int x, Texture texture, float scale, FindYourWay game, int baseY) {
+        super(x, baseY, texture, scale, 9, true, game);
 
         this.animationStatus = 0;
         this.direction = 0;
+
+        this.baseY = baseY;
 
         this.idleAnimationFrames1 = TextureRegion.split(GameData.MAIN_CHAR_IDLE_1, 14, 45);
         this.idleAnimation1 = new Animation<TextureRegion>(1f/4f, idleAnimationFrames1[0]);
@@ -63,10 +68,10 @@ public class Player extends Entity {
     }
 
     public void update(float deltaTime) {
-        if(Gdx.input.isKeyPressed(Input.Keys.A) && getX() >= ((MainGameScreen) game.getScreen()).getCamera().position.x-240/2f) {
+        if(Gdx.input.isKeyPressed(Input.Keys.A)/* && getX() >= ((MainGameScreen) game.getScreen()).getCamera().position.x-240/2f*/) {
             super.setxSpeed(-super.getDefaultXSpeed());
             direction = 0;
-        } else if(Gdx.input.isKeyPressed(Input.Keys.D) && getX()+getDefaultXSpeed()*deltaTime <= ((MainGameScreen) game.getScreen()).getCamera().position.x + 240) {
+        } else if(Gdx.input.isKeyPressed(Input.Keys.D)/* && getX()+getDefaultXSpeed()*deltaTime <= ((MainGameScreen) game.getScreen()).getCamera().position.x + 240*/) {
             super.setxSpeed(super.getDefaultXSpeed());
             direction = 1;
         } else {
@@ -78,16 +83,16 @@ public class Player extends Entity {
             this.jump = true;
         }
 
-        if(super.getY() == 3) {
+        if(super.getY() == baseY) {
             touchingGround = true;
         }
 
         if(jump) {
             touchingGround = false;
             super.setySpeed(super.getySpeed() - game.gravity);
-            if(super.getY()+super.getySpeed()*deltaTime < 3) {
+            if(super.getY()+super.getySpeed()*deltaTime < baseY) {
                 jump = false;
-                move((int) super.getX(), 3);
+                move((int) super.getX(), baseY);
                 super.setySpeed(0);
             }
         }
@@ -107,10 +112,22 @@ public class Player extends Entity {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.G)) {
-            if(((MainGameScreen) game.getScreen()).train.getPlayer() == null)
-                ((MainGameScreen) game.getScreen()).train.setPlayer(this);
-            else
-                ((MainGameScreen) game.getScreen()).train.setPlayer(null);
+            if(((MetroScreen) game.getScreen()).train.getPlayer() == null) {
+                ((MetroScreen) game.getScreen()).train.setPlayer(this);
+
+                // jump
+
+                touchingGround = false;
+                super.setySpeed(super.getySpeed() - game.gravity);
+                if(super.getY()+super.getySpeed()*deltaTime < baseY) {
+                    jump = false;
+                    move((int) super.getX(), baseY);
+                    super.setySpeed(0);
+                }
+
+            } else {
+                ((MetroScreen) game.getScreen()).train.setPlayer(null);
+            }
         }
 
         super.update(deltaTime);

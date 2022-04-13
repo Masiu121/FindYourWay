@@ -34,8 +34,6 @@ public class MainGameScreen implements Screen {
     Paper paper;
     TextCard card;
 
-    public Train train;
-
     float cameraSpeed;
 
     public MainGameScreen(FindYourWay game) {
@@ -58,8 +56,7 @@ public class MainGameScreen implements Screen {
         card = new TextCard(game , 0 , 0 , 1f , GameData.TEXT_CARD);
 
         Barrel barrel = new Barrel(50, 7, GameData.BARREL, 1f, game);
-        train = new Train(0, 0, 1f, game);
-        world = new World(game);
+        world = new World(game, 3);
 
         world.addGameObject(barrel);
         cameraSpeed = world.getPlayer().getxSpeed()/2f;
@@ -112,7 +109,6 @@ public class MainGameScreen implements Screen {
             card.draw(game.batch , camera.position.x - 110 , camera.position.y);
         }
 
-        train.draw(game.batch);
         game.batch.end();
     }
 
@@ -127,7 +123,6 @@ public class MainGameScreen implements Screen {
         }
         npc.update(deltaTime);
         background.update(deltaTime);
-        train.update(deltaTime);
 
         if (Math.abs(world.getPlayer().getX() - camera.position.x) < cameraMaxXOffset) {
             if (world.getPlayer().getX() - camera.position.x > 0)

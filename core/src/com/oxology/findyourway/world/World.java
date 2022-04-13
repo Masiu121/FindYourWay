@@ -17,13 +17,15 @@ public class World {
     private List<GameObject> gameObjects;
     private final Player player;
 
+    private int basePlayerY;
 
-
-    public World(FindYourWay game) {
+    public World(FindYourWay game, int basePlayerY) {
         this.game = game;
         this.gameObjects = new ArrayList<>();
 
-        player = new Player(((int) (GameData.BG_GRADIENT.getWidth()/2f - GameData.MAIN_CHAR_IDLE_1.getWidth()/9f/2f)), 3, GameData.MAIN_CHAR_IDLE_1, 1f, this.game);
+        this.basePlayerY = basePlayerY;
+
+        player = new Player(((int) (GameData.BG_GRADIENT.getWidth()/2f - GameData.MAIN_CHAR_IDLE_1.getWidth()/9f/2f)), GameData.MAIN_CHAR_IDLE_1, 1f, this.game, basePlayerY);
     }
 
     public void addGameObject(GameObject gameObject) {
