@@ -52,7 +52,7 @@ public class MainGameScreen implements Screen {
         cameraMaxXOffset = 30;
         cameraMaxYOffset = 30;
 
-        paper = new Paper();
+        paper = new Paper(game);
 
         Barrel barrel = new Barrel(50, 7, GameData.BARREL, 1f, game);
         world = new World(game, 3);
