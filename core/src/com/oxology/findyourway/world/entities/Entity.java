@@ -8,7 +8,7 @@ import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.utils.GameObject;
 
 public class Entity extends GameObject {
-    private final boolean animate;
+    private boolean animate;
 
     private TextureRegion[][] animationFrames;
     private Animation<TextureRegion> animation;
@@ -22,13 +22,10 @@ public class Entity extends GameObject {
     private float xSpeed;
     private float ySpeed;
 
-    public boolean animationStart;
-
     private boolean animationPaused;
 
     private final float defaultXSpeed;
     private final float defaultYSpeed;
-
     private boolean looping;
 
     public Entity(int x, int y, Texture texture, float scale, int frames, boolean looping, FindYourWay game) {
@@ -39,9 +36,8 @@ public class Entity extends GameObject {
         this.defaultXSpeed = 50f*scale;
         this.defaultYSpeed = 200f*scale;
 
-        this.animationPaused = true;
+        this.animationPaused = false;
 
-        this.animationStart = false;
 
         xSpeed = 0;
 
@@ -69,10 +65,12 @@ public class Entity extends GameObject {
         this.defaultYSpeed = 150f*scale;
 
         this.xSpeed = 0;
+
+        animationPaused = true;
     }
 
     public void update(float deltaTime) {
-        if(animate) {
+        if(!animationPaused) {
             timeElapsed += deltaTime;
         }
 
@@ -91,6 +89,10 @@ public class Entity extends GameObject {
         } else {
             batch.draw(getTexture(), getX(), getY());
         }
+    }
+
+    public void setAnimate(boolean animate) {
+        this.animate = animate;
     }
 
     public void setAnimation(Animation<TextureRegion> animation, int frameWidth, int frameHeight, boolean looping) {
@@ -146,5 +148,9 @@ public class Entity extends GameObject {
 
     public void setTimeElapsed(float timeElapsed) {
         this.timeElapsed = timeElapsed;
+    }
+
+    public void setAnimationPaused(boolean animationPaused) {
+        this.animationPaused = animationPaused;
     }
 }
