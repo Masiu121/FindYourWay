@@ -20,8 +20,13 @@ public class Block extends GameObject {
     Block toConnect;
     Paper paper;
 
+    private float hoverX;
+    private float hoverY;
+
     public Block(float x, float y, Texture texture, BlockType type, Texture shadow, Paper paper, FindYourWay game) {
         super(x, y, texture, 1f, game);
+        hoverX = x;
+        hoverY = y;
         this.type = type;
         this.previous = null;
         this.next = null;
@@ -33,15 +38,15 @@ public class Block extends GameObject {
     }
 
     public boolean checkForHover(int xOffset, int yOffset) {
-        boolean horizontal = Gdx.input.getX()+xOffset >= super.getX() && Gdx.input.getX()+xOffset <= super.getX()+super.getTexture().getWidth();
-        boolean vertical = Gdx.graphics.getBackBufferHeight()-Gdx.input.getY()+yOffset >= super.getY() && Gdx.graphics.getBackBufferHeight()-Gdx.input.getY()+yOffset <= super.getY()+super.getTexture().getHeight();
+        boolean horizontal = game.getGameX()+xOffset >= hoverX && game.getGameX()+xOffset <= hoverX+super.getTexture().getWidth();
+        boolean vertical = game.getGameY()+yOffset >= hoverY && game.getGameY()+yOffset <= hoverY+super.getTexture().getHeight();
 
         return horizontal && vertical;
     }
 
     private int[] getMousePos() {
-        int mouseX = (int) (Gdx.input.getX() - super.getX());
-        int mouseY = (int) (Gdx.graphics.getBackBufferHeight()-Gdx.input.getY() - super.getY());
+        int mouseX = (int) (game.getGameX() - hoverX);
+        int mouseY = (int) (game.getGameY() - hoverY);
 
         return new int[] {mouseX, mouseY};
     }
@@ -108,13 +113,13 @@ public class Block extends GameObject {
         return shadow;
     }
 
-    private void moveWithNextBlocks(int moveX, int moveY) {
-        this.move(moveX, moveY);
+    private void moveWithNextBlocks(float moveX, float moveY) {
+        this.move((int) moveX, (int) moveY);
 
         Block nextBlock = getNextBlock();
         int blockNumber = 1;
         while(nextBlock != null) {
-            nextBlock.move(moveX, moveY-BLOCK_HEIGHT*blockNumber);
+            nextBlock.move((int) moveX, (int) moveY-BLOCK_HEIGHT*blockNumber);
             blockNumber++;
             nextBlock = nextBlock.getNextBlock();
         }
@@ -125,9 +130,13 @@ public class Block extends GameObject {
             this.toggleSnap(true);
             this.mousePos = this.getMousePos();
         }
+
+        if(checkForHover(0, 0))
+            System.out.println("Hover");
+
         if(this.isSnapped()) {
-            int moveX = Gdx.input.getX() - mousePos[0];
-            int moveY = Gdx.graphics.getBackBufferHeight()-Gdx.input.getY() - mousePos[1];
+            float moveX = game.getGameX() - mousePos[0];
+            float moveY = game.getGameY() - mousePos[1];
             moveWithNextBlocks(moveX, moveY);
 
             if(getPreviousBlock() != null) {
