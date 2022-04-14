@@ -70,7 +70,7 @@ public interface GameData {
 
     Texture START_BLOCK = new Texture("Game/Blocks/blockStart.png");
     Texture STOP_BLOCK = new Texture("Game/Blocks/blockStop.png");
-    Texture STOP_BLOCK_SHADOW = new Texture("Game/Blocks/blockStop.png");
+    Texture STOP_BLOCK_SHADOW = new Texture("Game/Blocks/blockStopShadow.png");
 
     Texture ARROW_RIGHT = new Texture("Menu/Buttons/Arrow.png");
     Texture ARROW_RIGHT_HOVER = new Texture("Menu/Buttons/ArrowHover.png");
