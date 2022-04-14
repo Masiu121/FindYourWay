@@ -1,15 +1,14 @@
 package com.oxology.findyourway.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
-import com.oxology.findyourway.utils.Button;
-import com.oxology.findyourway.utils.CenteredText;
-import com.oxology.findyourway.utils.Clickable;
+import com.oxology.findyourway.utils.menuComponents.Button;
+import com.oxology.findyourway.utils.menuComponents.CenteredText;
+import com.oxology.findyourway.utils.menuComponents.Clickable;
 
 public class CreditsScreen implements Screen {
     FindYourWay game;

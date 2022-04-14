@@ -52,8 +52,7 @@ public class MainGameScreen implements Screen {
         cameraMaxXOffset = 30;
         cameraMaxYOffset = 30;
 
-        paper = new Paper(false);
-        card = new TextCard(game , 0 , 0 , 1f , GameData.TEXT_CARD);
+        paper = new Paper(game);
 
         Barrel barrel = new Barrel(50, 7, GameData.BARREL, 1f, game);
         world = new World(game, 3);
@@ -97,28 +96,21 @@ public class MainGameScreen implements Screen {
             world.getPlayer().setY(3);
         }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
-            if(paper.drawPaper)
-                paper.drawPaper = false;
-            else
-                paper.drawPaper = true;
-        }
-
-        if(paper.drawPaper){
-            paper.draw(game.batch , camera.position.x + 1 , 2);
-            card.draw(game.batch , camera.position.x - 110 , camera.position.y);
-        }
+        paper.draw(game.batch);
 
         game.batch.end();
     }
 
     public void update(float deltaTime) {
+        paper.update(deltaTime);
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.E))
             game.setScreen(new MainMenuScreen(game));
 
-        if(!paper.drawPaper) {
+        if(!paper.isVisible()) {
             world.update(deltaTime);
         } else {
+            paper.setPos(camera.position.x + 1f, 2f);
             background.setCameraSpeed(0);
         }
         npc.update(deltaTime);

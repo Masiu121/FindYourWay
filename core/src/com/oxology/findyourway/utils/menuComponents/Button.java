@@ -1,7 +1,6 @@
-package com.oxology.findyourway.utils;
+package com.oxology.findyourway.utils.menuComponents;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -85,8 +84,8 @@ public class Button {
     }
 
     public void update() {
-        boolean horizontalHover = Gdx.input.getX()/game.windowViewportXProp > this.x && Gdx.input.getX()/game.windowViewportXProp < this.x + this.width;
-        boolean verticalHover = 270-(Gdx.input.getY()/game.windowViewportYProp) > this.y && 270-(Gdx.input.getY()/game.windowViewportYProp) < this.y + this.height;
+        boolean horizontalHover = game.getMenuX() > this.x && game.getMenuX() < this.x + this.width;
+        boolean verticalHover = game.getMenuY() > this.y && game.getMenuY() < this.y + this.height;
 
         if(horizontalHover && verticalHover) {
             texture = buttonHover;
