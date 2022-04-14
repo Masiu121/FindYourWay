@@ -9,46 +9,44 @@ import com.oxology.findyourway.utils.blocksystem.Paper;
 import java.util.List;
 
 public class Block extends GameObject {
-    public static int BLOCK_HEIGHT = 28;
+    public static int BLOCK_HEIGHT = 13;
 
     BlockType type;
     Block previous;
     Block next;
     boolean snapped;
-    public int[] mousePos;
+    public float[] mousePos;
     Texture shadow;
     Block toConnect;
     Paper paper;
 
-    private float hoverX;
-    private float hoverY;
+    float cameraOffset;
 
     public Block(float x, float y, Texture texture, BlockType type, Texture shadow, Paper paper, FindYourWay game) {
         super(x, y, texture, 1f, game);
-        hoverX = x;
-        hoverY = y;
+        this.cameraOffset = 0;
         this.type = type;
         this.previous = null;
         this.next = null;
         this.snapped = false;
-        this.mousePos = new int[] {0, 0};
+        this.mousePos = new float[] {0, 0};
         this.shadow = shadow;
         this.toConnect = null;
         this.paper = paper;
     }
 
     public boolean checkForHover(int xOffset, int yOffset) {
-        boolean horizontal = game.getGameX()+xOffset >= hoverX && game.getGameX()+xOffset <= hoverX+super.getTexture().getWidth();
-        boolean vertical = game.getGameY()+yOffset >= hoverY && game.getGameY()+yOffset <= hoverY+super.getTexture().getHeight();
+        boolean horizontal = game.getGameX()+cameraOffset+xOffset >= getX() && game.getGameX()+cameraOffset+xOffset <= getX()+super.getTexture().getWidth();
+        boolean vertical = game.getGameY()+yOffset >= getY() && game.getGameY()+yOffset <= getY()+super.getTexture().getHeight();
 
         return horizontal && vertical;
     }
 
-    private int[] getMousePos() {
-        int mouseX = (int) (game.getGameX() - hoverX);
-        int mouseY = (int) (game.getGameY() - hoverY);
+    private float[] getMousePos() {
+        float mouseX = game.getGameX() - getX();
+        float mouseY = game.getGameY() - getY();
 
-        return new int[] {mouseX, mouseY};
+        return new float[] {mouseX, mouseY};
     }
 
     public void checkForConnection(List<Block> blocks) {
@@ -69,7 +67,7 @@ public class Block extends GameObject {
 
             float moveX = getPreviousBlock().getX();
             float moveY = getPreviousBlock().getY()-BLOCK_HEIGHT;
-            moveWithNextBlocks((int) moveX, (int) moveY);
+            moveWithNextBlocks(moveX, moveY);
         }
     }
 
@@ -114,12 +112,12 @@ public class Block extends GameObject {
     }
 
     private void moveWithNextBlocks(float moveX, float moveY) {
-        this.move((int) moveX, (int) moveY);
+        this.move(moveX, moveY);
 
         Block nextBlock = getNextBlock();
         int blockNumber = 1;
         while(nextBlock != null) {
-            nextBlock.move((int) moveX, (int) moveY-BLOCK_HEIGHT*blockNumber);
+            nextBlock.move(moveX, moveY-BLOCK_HEIGHT*blockNumber);
             blockNumber++;
             nextBlock = nextBlock.getNextBlock();
         }
@@ -130,9 +128,6 @@ public class Block extends GameObject {
             this.toggleSnap(true);
             this.mousePos = this.getMousePos();
         }
-
-        if(checkForHover(0, 0))
-            System.out.println("Hover");
 
         if(this.isSnapped()) {
             float moveX = game.getGameX() - mousePos[0];
@@ -148,5 +143,9 @@ public class Block extends GameObject {
         if(!Gdx.input.isTouched()) {
             this.toggleSnap(false);
         }
+    }
+
+    public void setCameraOffset(float cameraOffset) {
+        this.cameraOffset = cameraOffset;
     }
 }
