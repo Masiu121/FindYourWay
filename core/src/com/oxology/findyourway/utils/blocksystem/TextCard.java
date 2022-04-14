@@ -3,8 +3,6 @@ package com.oxology.findyourway.utils.blocksystem;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.oxology.findyourway.FindYourWay;
-import com.oxology.findyourway.utils.Clickable;
 
 public class TextCard {
     private float x, y;
