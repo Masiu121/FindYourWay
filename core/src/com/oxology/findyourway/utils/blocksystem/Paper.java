@@ -31,6 +31,10 @@ public class Paper {
     }
 
     public void setPos(float x, float y) {
+        for(Block block : blocks) {
+            block.moveBy(x - this.x, 0);
+        }
+
         this.x = x;
         this.y = y;
     }
@@ -47,20 +51,22 @@ public class Paper {
     }
 
     public void update(float deltaTime) {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
+        if (Gdx.input.isKeyJustPressed(Input.Keys.P)) {
             visible = !visible;
         }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
-            addBlock(new StartBlock((int) x, (int) y, this, game));
-        }
+        if(visible) {
+            if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
+                addBlock(new StartBlock((int) x, (int) y, this, game));
+            }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.M)) {
-            addBlock(new StopBlock((int) x, (int) y, this, game));
-        }
+            if (Gdx.input.isKeyJustPressed(Input.Keys.N)) {
+                addBlock(new StopBlock((int) x, (int) y, this, game));
+            }
 
-        for(Block block : blocks) {
-            block.update();
+            for (Block block : blocks) {
+                block.update();
+            }
         }
     }
 
