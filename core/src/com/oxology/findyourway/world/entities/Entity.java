@@ -80,7 +80,7 @@ public class Entity extends GameObject {
             moving = false;
         }
 
-        move(getxSpeed()*deltaTime, getySpeed()*deltaTime);
+        moveBy(getxSpeed()*deltaTime, getySpeed()*deltaTime);
     }
 
     public void draw(SpriteBatch batch) {
