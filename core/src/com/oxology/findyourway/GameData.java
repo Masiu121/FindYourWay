@@ -40,6 +40,8 @@ public interface GameData {
     Texture METRO_TRAIN = new Texture("Game/Metro/MetroTrain.png");
     Texture METRO_DOOR_LEFT = new Texture("Game/Metro/MetroTrainDoorLeft.png");
     Texture METRO_DOOR_RIGHT = new Texture("Game/Metro/MetroTrainDoorRight.png");
+    Texture METRO_ENTRY = new Texture("Game/MetroEntry.png");
+    Texture METRO_EXIT = new Texture("Game/MetroExit.png");
 
     // First player animation
     Texture MAIN_CHAR_IDLE_1 = new Texture("Game/Sprites/MainCharacterIdle1.png");
@@ -78,7 +80,6 @@ public interface GameData {
     Texture ARROW_LEFT_HOVER = new Texture("Menu/Buttons/ArrowHover2.png");
 
     Texture PAPER = new Texture("Game/Sprites/Paper.png");
-    Texture METRO_ENTRY = new Texture("Game/MetroEntry.png");
 
     Texture BOOK_OPEN_ANIMATION = new Texture("Game/Sprites/book.png");
     Texture INTRO_BG = new Texture("Game/Sprites/stol.png");
