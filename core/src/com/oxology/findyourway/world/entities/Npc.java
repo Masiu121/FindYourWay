@@ -1,7 +1,9 @@
 package com.oxology.findyourway.world.entities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
 import com.oxology.findyourway.utils.Quest;
@@ -16,6 +18,14 @@ public class Npc extends Entity {
 
     int walkTicks;
 
+    private int direction;
+
+    TextureRegion[][] idleAnimationFrames1;
+    Animation<TextureRegion> idleAnimation1;
+
+    TextureRegion[][] idleAnimationFrames2;
+    Animation<TextureRegion> idleAnimation2;
+
     public int questX = questRandomX.nextInt(-230 , 200);
 
     public Npc(int x, int y, Texture texture, float scale, FindYourWay game, Quest quest) {
@@ -28,6 +38,13 @@ public class Npc extends Entity {
 
         random = new Random();
         walkTicks = 60;
+        this.direction = 0;
+
+        this.idleAnimationFrames1 = TextureRegion.split(GameData.MAIN_CHAR_IDLE_1, 14, 45);
+        this.idleAnimation1 = new Animation<TextureRegion>(1f/4f, idleAnimationFrames1[0]);
+
+        this.idleAnimationFrames2 = TextureRegion.split(GameData.MAIN_CHAR_IDLE_2, 14, 45);
+        this.idleAnimation2 = new Animation<TextureRegion>(1f/4f, idleAnimationFrames2[0]);
     }
 
     public void draw(SpriteBatch batch) {
@@ -41,10 +58,18 @@ public class Npc extends Entity {
         super.update(deltaTime);
         questMark.update(deltaTime);
 
-        if(random.nextFloat() > 0.99f) {
-            setxSpeed(getDefaultXSpeed());
-        } else if(random.nextFloat() < 0.01f) {
-            setxSpeed(0);
+        if(random.nextFloat() > 0.999f) {
+            if(direction == 0) {
+                direction = 1;
+            } else {
+                direction = 0;
+            }
+        }
+
+        if(direction == 0) {
+            setAnimation(idleAnimation1, 14, 45, true);
+        } else if(direction == 1) {
+            setAnimation(idleAnimation2, 14, 45, true);
         }
     }
 

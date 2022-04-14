@@ -1,4 +1,4 @@
-package com.oxology.findyourway.utils;
+package com.oxology.findyourway.utils.menuComponents;
 
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
