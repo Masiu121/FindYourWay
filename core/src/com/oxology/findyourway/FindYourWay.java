@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.oxology.findyourway.screens.MainGameScreen;
 import com.oxology.findyourway.screens.MainMenuScreen;
 
 public class FindYourWay extends Game {
@@ -15,8 +14,14 @@ public class FindYourWay extends Game {
 	public int menuViewportWidth;
 	public int menuViewportHeight;
 
-	public float windowViewportXProp;
-	public float windowViewportYProp;
+	public int gameViewportWidth;
+	public int gameViewportHeight;
+
+	private float menuViewportXProp;
+	private float menuViewportYProp;
+
+	public float gameViewportXProp;
+	public float gameViewportYProp;
 
 	public int mainCharacter;
 
@@ -32,6 +37,9 @@ public class FindYourWay extends Game {
 
 		menuViewportWidth = 480;
 		menuViewportHeight = 270;
+
+		gameViewportWidth = 240;
+		gameViewportHeight = 135;
 		setup();
 
 		mainCharacter = 0;
@@ -42,8 +50,11 @@ public class FindYourWay extends Game {
 	}
 
 	public void setup() {
-		windowViewportXProp = (float) Gdx.graphics.getBackBufferWidth()/ menuViewportWidth;
-		windowViewportYProp = (float) Gdx.graphics.getBackBufferHeight()/ menuViewportHeight;
+		menuViewportXProp = (float) Gdx.graphics.getBackBufferWidth() / menuViewportWidth;
+		menuViewportYProp = (float) Gdx.graphics.getBackBufferHeight() / menuViewportHeight;
+
+		gameViewportXProp = (float) Gdx.graphics.getBackBufferWidth() / gameViewportWidth;
+		gameViewportYProp = (float) Gdx.graphics.getBackBufferHeight() / gameViewportHeight;
 	}
 
 	@Override
@@ -59,5 +70,21 @@ public class FindYourWay extends Game {
 		GameData.MENU_BACKGROUND.dispose();
 		GameData.MENU_BUTTON.dispose();
 		GameData.MENU_BUTTON_HOVER.dispose();
+	}
+
+	public float getMenuX() {
+		return Gdx.input.getX()/ menuViewportXProp;
+	}
+
+	public float getGameX() {
+		return Gdx.input.getX()/ gameViewportXProp;
+	}
+
+	public float getMenuY() {
+		return menuViewportHeight-Gdx.input.getY()/ menuViewportYProp;
+	}
+
+	public float getGameY() {
+		return gameViewportHeight-Gdx.input.getY()/ gameViewportYProp;
 	}
 }
