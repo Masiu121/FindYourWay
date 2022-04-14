@@ -111,25 +111,6 @@ public class Player extends Entity {
             }
         }
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.G)) {
-            if(((MetroScreen) game.getScreen()).train.getPlayer() == null) {
-                ((MetroScreen) game.getScreen()).train.setPlayer(this);
-
-                // jump
-
-                touchingGround = false;
-                super.setySpeed(super.getySpeed() - game.gravity);
-                if(super.getY()+super.getySpeed()*deltaTime < baseY) {
-                    jump = false;
-                    move((int) super.getX(), baseY);
-                    super.setySpeed(0);
-                }
-
-            } else {
-                ((MetroScreen) game.getScreen()).train.setPlayer(null);
-            }
-        }
-
         super.update(deltaTime);
     }
 }
