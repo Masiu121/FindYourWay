@@ -7,8 +7,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
-import com.oxology.findyourway.utils.Button;
-import com.oxology.findyourway.utils.Clickable;
+import com.oxology.findyourway.utils.menuComponents.Button;
+import com.oxology.findyourway.utils.menuComponents.Clickable;
 
 public class CharacterScreen implements Screen {
     FindYourWay game;
@@ -81,7 +81,6 @@ public class CharacterScreen implements Screen {
         back.draw(game.batch);
 
         game.batch.draw(player, game.menuViewportWidth / 2f - player.getWidth() * scale / 2f, game.menuViewportHeight / 2f - player.getHeight() * scale / 2f, player.getWidth() * scale, player.getHeight() * scale);
-        System.out.println(Gdx.input.getX() / game.windowViewportXProp + ", " + game.menuViewportWidth / 2f);
         game.batch.end();
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.D)) {
