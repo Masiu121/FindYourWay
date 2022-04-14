@@ -12,12 +12,16 @@ public class Npc extends Entity {
     Quest quest;
     Entity questMark;
     Random random;
+    Random questRandomX = new Random();
+
     int walkTicks;
+
+    public int questX = questRandomX.nextInt(-230 , 200);
 
     public Npc(int x, int y, Texture texture, float scale, FindYourWay game, Quest quest) {
         super(x, y, texture, scale, 9, true, game);
         if(quest != null) {
-            questMark = new Entity(x+GameData.QUEST_MARK.getWidth()/2, y+47, GameData.QUEST_MARK, scale, 2, true, game);
+            questMark = new Entity(questX, y +47, GameData.QUEST_MARK, scale, 2, true, game);
         }
 
         this.quest = quest;
@@ -42,5 +46,9 @@ public class Npc extends Entity {
         } else if(random.nextFloat() < 0.01f) {
             setxSpeed(0);
         }
+    }
+
+    public int getQuestX() {
+        return questX;
     }
 }

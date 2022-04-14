@@ -30,6 +30,7 @@ public class MainGameScreen implements Screen {
 
     Background background;
     Npc npc;
+    Quest quest;
 
     Paper paper;
     TextCard card;
@@ -61,7 +62,8 @@ public class MainGameScreen implements Screen {
         world.addGameObject(barrel);
         cameraSpeed = world.getPlayer().getxSpeed()/2f;
         background = new Background(cameraSpeed);
-        npc = new Npc(20, 3, GameData.MAIN_CHAR_IDLE_1, 1f, game, new Quest());
+        npc = new Npc(20, 3, GameData.MAIN_CHAR_IDLE_1, 1f, game , new Quest());
+
     }
 
     @Override
@@ -98,10 +100,14 @@ public class MainGameScreen implements Screen {
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.P)){
-            if(paper.drawPaper)
-                paper.drawPaper = false;
-            else
-                paper.drawPaper = true;
+            if(world.getPlayer().getX() >= npc.getQuestX() - GameData.QUEST_MARK.getWidth() / 2 - 15 && world.getPlayer().getX() <= npc.getQuestX() + GameData.QUEST_MARK.getWidth() / 2 + 5 ){
+                if(paper.drawPaper) {
+                    paper.drawPaper = false;
+                }
+                else {
+                    paper.drawPaper = true;
+                }
+            }
         }
 
         if(paper.drawPaper){
