@@ -47,6 +47,8 @@ public class MainGameScreen implements Screen {
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
 
+        game.batch.setColor(1, 1, 1, 1);
+
         cameraXOffset = 0;
         cameraYOffset = 0;
 
@@ -56,7 +58,7 @@ public class MainGameScreen implements Screen {
         paper = new Paper(game);
 
         Barrel barrel = new Barrel(50, 7, GameData.BARREL, 1f, game);
-        world = new World(game, 3);
+        world = new World(game, 3, (int) (GameData.BG_GRADIENT.getWidth()/2f - GameData.MAIN_CHAR_IDLE_1.getWidth()/9f/2f));
 
         world.addGameObject(barrel);
         cameraSpeed = world.getPlayer().getxSpeed()/2f;
