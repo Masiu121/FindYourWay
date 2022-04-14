@@ -98,10 +98,10 @@ public class Train extends Entity {
             }
         }
 
-        move(speed*deltaTime, 0);
+        moveBy(speed*deltaTime, 0);
 
         if(player != null) {
-            player.move(speed*deltaTime, 0f);
+            player.moveBy(speed*deltaTime, 0f);
         }
     }
 
