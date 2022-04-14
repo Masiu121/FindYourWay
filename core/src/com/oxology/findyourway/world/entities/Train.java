@@ -24,6 +24,21 @@ public class Train extends Entity {
 
     private Player player;
 
+    //NPC vars
+    private int state;
+    /* 0 - idling
+     * 1 - accelerating
+     * 2 - decelerating
+     */
+
+    private int direction;
+    /* 0 - right
+     * 1 - left
+     */
+
+    private float timeElapsed;
+    private boolean trainStopped;
+
     public Train(int x, int y, float scale, FindYourWay game) {
         super(x, y, GameData.METRO_TRAIN, scale, game);
 
@@ -38,16 +53,40 @@ public class Train extends Entity {
         this.doorsOpenSpeed = 0;
 
         maxSpeed = 800f;
-        acceleration = 0.3f;
-        deceleration = 0.15f;
+        acceleration = 30f;
+        deceleration = 10f;
         speed = 0;
     }
 
-    public void update(float deltaTime) {
-        if(Gdx.input.isKeyJustPressed(Input.Keys.O)) {
-            toggleDoors();
-        }
+    public Train(FindYourWay game, int direction) {
+        super(400, 8, GameData.METRO_TRAIN, 1f, game);
 
+        this.doorsMoving = false;
+        this.doorsOpened = false;
+        this.doorsClosed = true;
+
+        this.doorMaxOffset = 12;
+        this.doorsOpenDefaultSpeed = 15f;
+
+        this.doorOffset = 0;
+        this.doorsOpenSpeed = 0;
+
+        maxSpeed = 800f;
+        acceleration = 30f;
+        deceleration = 10f;
+
+        if(direction == 1)
+            speed = -maxSpeed/5.6f;
+        else
+            speed = maxSpeed/5.6f;
+
+        state = 2;
+        this.direction = direction;
+
+        trainStopped = false;
+    }
+
+    public void update(float deltaTime) {
         doorsMoving = doorsOpenSpeed != 0;
 
         if(doorsMoving) {
@@ -70,39 +109,29 @@ public class Train extends Entity {
             }
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.L)) {
-            if(speed - acceleration < -maxSpeed)
-                speed = -maxSpeed;
-            else
-                speed -= acceleration;
-        }
-
-        if(Gdx.input.isKeyPressed(Input.Keys.R)) {
-            if(speed + acceleration > maxSpeed)
-                speed = maxSpeed;
-            else
-                speed += acceleration;
-        }
-
-        if(speed != 0 && !Gdx.input.isKeyPressed(Input.Keys.L) && !Gdx.input.isKeyPressed(Input.Keys.R)) {
-            if(speed > 0) {
-                if(speed - deceleration < 0)
-                    speed = 0;
-                else
-                    speed -= deceleration;
-            } else {
-                if(speed + deceleration > 0)
-                    speed = 0;
-                else
-                    speed += deceleration;
-            }
-        }
-
         moveBy(speed*deltaTime, 0);
 
         if(player != null) {
             player.moveBy(speed*deltaTime, 0f);
         }
+
+        switch (state) {
+            case 0:
+                if(!trainStopped)
+                    timeElapsed = 0;
+
+                trainStopped = true;
+                idle(deltaTime);
+                break;
+            case 1:
+                accelerate(deltaTime);
+                break;
+            case 2:
+                decelerate(deltaTime);
+                break;
+        }
+
+        timeElapsed += deltaTime;
     }
 
     public void draw(SpriteBatch batch) {
@@ -141,5 +170,54 @@ public class Train extends Entity {
                 doorsOpened = false;
             }
         }
+    }
+
+    private void decelerate(float deltaTime) {
+        if(speed > 0) {
+            if(speed - deceleration*deltaTime < 0) {
+                speed = 0;
+                state = 0;
+            } else {
+                speed -= deceleration * deltaTime;
+            }
+        } else {
+            if (speed + deceleration * deltaTime > 0) {
+                speed = 0;
+                state = 0;
+            }
+            else {
+                speed += deceleration * deltaTime;
+            }
+        }
+    }
+
+    private void accelerate(float deltaTime) {
+        if(direction == 1) {
+            if (speed - acceleration * deltaTime < -maxSpeed)
+                speed = -maxSpeed;
+            else
+                speed -= acceleration * deltaTime;
+        } else {
+            if (speed + acceleration * deltaTime > maxSpeed)
+                speed = maxSpeed;
+            else
+                speed += acceleration * deltaTime;
+        }
+    }
+
+    private void idle(float deltaTime) {
+        if(timeElapsed >= 8) {
+            state = 1;
+        } else if(timeElapsed >= 7) {
+            doorsOpenSpeed = -doorsOpenDefaultSpeed;
+            doorsOpened = false;
+        } else if(timeElapsed >= 1) {
+            doorsOpenSpeed = doorsOpenDefaultSpeed;
+            doorsClosed = false;
+        }
+    }
+
+    public int getDirection() {
+        return direction;
     }
 }
