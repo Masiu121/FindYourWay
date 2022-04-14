@@ -12,6 +12,8 @@ import com.oxology.findyourway.utils.blocksystem.blocks.StopBlock;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.oxology.findyourway.utils.blocksystem.blocks.Block.BLOCK_HEIGHT;
+
 public class Paper {
     private FindYourWay game;
 
@@ -25,14 +27,15 @@ public class Paper {
     public Paper(FindYourWay game) {
         this.game = game;
 
-        card = new TextCard(1f , GameData.TEXT_CARD, "sdaasd");
+        card = new TextCard(1f, GameData.TEXT_CARD, "sdaasd");
 
         this.blocks = new ArrayList<>();
     }
 
     public void setPos(float x, float y) {
-        for(Block block : blocks) {
+        for (Block block : blocks) {
             block.moveBy(x - this.x, 0);
+            block.setCameraOffset(x - game.gameViewportWidth / 2f);
         }
 
         this.x = x;
@@ -40,12 +43,30 @@ public class Paper {
     }
 
     public void draw(SpriteBatch batch) {
-        if(visible) {
+        if (visible) {
             batch.draw(GameData.PAPER, x, y);
             card.draw(batch, x - 111, 70);
 
-            for(Block block : blocks) {
-                block.draw(batch);
+            for (Block block : blocks) {
+                Block toConnect = block.getToConnect();
+                if (block.isSnapped()) {
+                    if (toConnect != null) {
+                        if (block.getShadow() != null) {
+                            batch.draw(block.getShadow(), toConnect.getX(), toConnect.getY() - BLOCK_HEIGHT);
+
+                            int blockNumber = 2;
+                            Block nextBlock = block.getNextBlock();
+                            while (nextBlock != null) {
+                                if (nextBlock.getShadow() != null)
+                                    batch.draw(block.getShadow(), toConnect.getX(), toConnect.getY() - BLOCK_HEIGHT * blockNumber);
+
+                                blockNumber++;
+                                nextBlock = nextBlock.getNextBlock();
+                            }
+                        }
+                    }
+                }
+                batch.draw(block.getTexture(), block.getX(), block.getY());
             }
         }
     }
@@ -55,7 +76,7 @@ public class Paper {
             visible = !visible;
         }
 
-        if(visible) {
+        if (visible) {
             if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
                 addBlock(new StartBlock((int) x, (int) y, this, game));
             }
@@ -66,7 +87,10 @@ public class Paper {
 
             for (Block block : blocks) {
                 block.update();
+                block.checkForConnection(blocks);
             }
+
+
         }
     }
 
