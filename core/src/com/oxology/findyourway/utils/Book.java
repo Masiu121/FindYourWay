@@ -34,9 +34,9 @@ public class Book extends Entity {
 
         // setTimeElapsed(0);
 
-        if(getAnimation().isAnimationFinished(getTimeElapsed())){
-            setAnimation(bookAnimation2, 240, 135, true);
-        }
+//        if(getAnimation().isAnimationFinished(getTimeElapsed())){
+//            setAnimation(bookAnimation2, 240, 135, false);
+//        }
 
         super.update(deltaTime);
     }

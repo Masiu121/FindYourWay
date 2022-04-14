@@ -31,7 +31,7 @@ public class FindYourWay extends Game {
 	public void create () {
 		music = Gdx.audio.newMusic(GameData.BACKGROUND_MUSIC);
 		music.setLooping(true);
-		music.setVolume(0.0f);
+		music.setVolume(0.2f);
 		music.play();
 		batch = new SpriteBatch();
 
