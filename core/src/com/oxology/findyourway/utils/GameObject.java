@@ -26,10 +26,10 @@ public class GameObject {
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(texture, x, y, texture.getWidth()*scale, texture.getHeight()*scale);
+        batch.draw(texture, x, y, texture.getWidth() * scale, texture.getHeight() * scale);
     }
 
-    public void move(int x, int y) {
+    public void move(float x, float y) {
         this.x = x;
         this.y = y;
     }
@@ -55,7 +55,8 @@ public class GameObject {
         return texture;
     }
 
-    public void update(float deltaTime) {}
+    public void update(float deltaTime) {
+    }
 
     public void setVisible(boolean visible) {
         this.visible = visible;
