@@ -19,13 +19,13 @@ public class World {
 
     private int basePlayerY;
 
-    public World(FindYourWay game, int basePlayerY) {
+    public World(FindYourWay game, int basePlayerY, int playerX) {
         this.game = game;
         this.gameObjects = new ArrayList<>();
 
         this.basePlayerY = basePlayerY;
 
-        player = new Player(((int) (GameData.BG_GRADIENT.getWidth()/2f - GameData.MAIN_CHAR_IDLE_1.getWidth()/9f/2f)), GameData.MAIN_CHAR_IDLE_1, 1f, this.game, basePlayerY);
+        player = new Player(playerX, GameData.MAIN_CHAR_IDLE_1, 1f, this.game, basePlayerY);
     }
 
     public void addGameObject(GameObject gameObject) {
