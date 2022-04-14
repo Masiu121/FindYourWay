@@ -21,8 +21,6 @@ public class MetroScreen implements Screen {
     int cameraMaxXOffset;
     int cameraMaxYOffset;
 
-    public Train train;
-
     public MetroScreen(FindYourWay game) {
         this.game = game;
     }
@@ -33,9 +31,10 @@ public class MetroScreen implements Screen {
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
 
-        game.batch.setColor(1, 1, 1, 1);
+        world = new World(game, 40, -180);
+        camera.position.set(-60, camera.position.y, 0);
 
-        world = new World(game, 40);
+        //game.batch.setColor(1, 1, 1, 1);
 
         cameraXOffset = 0;
         cameraYOffset = 0;
@@ -43,7 +42,8 @@ public class MetroScreen implements Screen {
         cameraMaxXOffset = 30;
         cameraMaxYOffset = 30;
 
-        train = new Train(0, 8, 1, game);
+        //train = new Train(0, 8, 1, game);
+        world.addGameObject(new Train(game, 1));
     }
 
     @Override
@@ -59,13 +59,31 @@ public class MetroScreen implements Screen {
         game.batch.draw(GameData.METRO_BRICKS, 0, 0);
         game.batch.draw(GameData.METRO_BRICKS, 240, 0);
 
+        world.draw(game.batch);
+
+        if(world.getPlayer().getX() < -185+GameData.METRO_EXIT.getWidth()) {
+            float dist = (-185+GameData.METRO_EXIT.getWidth()) + (185-20);
+            float dist2 = world.getPlayer().getX() + (185-20);
+            float result = dist2/dist;
+
+            game.batch.setColor(result, result, result, 1f);
+
+            world.getPlayer().setY(40+((1-result)*20));
+
+            if(world.getPlayer().getX() < -180) {
+                game.setScreen(new MainGameScreen(game));
+            }
+        } else if(!world.getPlayer().jump) {
+            world.getPlayer().setY(40);
+        }
+
+
+        game.batch.draw(GameData.METRO_EXIT, -185, 40);
+
+
         game.batch.draw(GameData.METRO_PLATFORM, -240, 0);
         game.batch.draw(GameData.METRO_PLATFORM, 0, 0);
         game.batch.draw(GameData.METRO_PLATFORM, 240, 0);
-
-        world.draw(game.batch);
-
-        train.draw(game.batch);
 
         game.batch.end();
     }
@@ -79,15 +97,11 @@ public class MetroScreen implements Screen {
             else
                 cameraXOffset = cameraMaxXOffset;
         } else {
-
-
             float offset = camera.position.x - world.getPlayer().getX() - cameraXOffset;
             if (camera.position.x - offset > -120 / 2f && camera.position.x - offset < 120 + 120) {
                 camera.position.set(world.getPlayer().getX() + cameraXOffset, camera.position.y, 0);
             }
         }
-
-        train.update(deltaTime);
     }
 
     @Override
