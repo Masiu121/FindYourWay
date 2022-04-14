@@ -34,7 +34,7 @@ public class GameObject {
         this.y = y;
     }
 
-    public void move(float xOffset, float yOffset) {
+    public void moveBy(float xOffset, float yOffset) {
         this.x += xOffset;
         this.y += yOffset;
     }
