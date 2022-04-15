@@ -9,6 +9,8 @@ import com.oxology.findyourway.screens.MainGameScreen;
 import com.oxology.findyourway.screens.MainMenuScreen;
 import com.oxology.findyourway.screens.MetroScreen;
 
+import java.util.Random;
+
 public class FindYourWay extends Game {
 	public Music music;
 	public SpriteBatch batch;
@@ -32,6 +34,10 @@ public class FindYourWay extends Game {
 	public MainGameScreen mainGameScreen;
 	public MetroScreen metroScreen;
 
+	Random questNum;
+	public int questPosition;
+
+
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
@@ -54,6 +60,15 @@ public class FindYourWay extends Game {
 		mainCharacter = 0;
 
 		gravity = 15f;
+
+		questNum = new Random();
+
+
+		if(questNum.nextFloat() > 0.5f){
+			questPosition = 1;
+		} else {
+			questPosition = 0;
+		}
 
 		this.setScreen(new MainMenuScreen(this));
 	}

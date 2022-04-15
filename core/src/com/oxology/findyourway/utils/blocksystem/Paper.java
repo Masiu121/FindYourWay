@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
 import com.oxology.findyourway.utils.blocksystem.blocks.*;
+import com.oxology.findyourway.world.entities.Npc;
 
 import java.util.ArrayList;
 import java.util.List;

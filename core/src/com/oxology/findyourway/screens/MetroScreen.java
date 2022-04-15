@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
+import com.oxology.findyourway.utils.Background;
 import com.oxology.findyourway.utils.Quest;
+import com.oxology.findyourway.utils.blocksystem.Paper;
 import com.oxology.findyourway.world.MetroStation;
 import com.oxology.findyourway.world.World;
 import com.oxology.findyourway.world.entities.Entity;
@@ -21,6 +23,9 @@ public class MetroScreen implements Screen {
 
     Npc npc;
 
+    Paper paper;
+
+    Background background;
     int cameraXOffset;
     int cameraYOffset;
 
@@ -29,12 +34,18 @@ public class MetroScreen implements Screen {
 
     MetroStation station;
 
+    float cameraSpeed;
+
     public MetroScreen(FindYourWay game) {
         this.game = game;
 
         station = new MetroStation(game);
 
         world = new World(game, 40, -180);
+
+        cameraSpeed = world.getPlayer().getxSpeed()/2f;
+        background = new Background(cameraSpeed);
+        paper = new Paper(game);
 
         npc = new Npc(30, 39, GameData.NPC_1, 1f, game , new Quest() , true , 0);
         cameraXOffset = 0;
@@ -68,6 +79,8 @@ public class MetroScreen implements Screen {
         ScreenUtils.clear(1, 1, 1, 1);
         game.batch.begin();
 
+        background.draw(game.batch);
+
         station.draw(game.batch);
 
         npc.draw(game.batch);
@@ -95,10 +108,22 @@ public class MetroScreen implements Screen {
 
 
         station.drawTop(game.batch);
+
+        paper.draw(game.batch);
         game.batch.end();
     }
 
     public void update(float deltaTime) {
+        paper.update(deltaTime);
+
+        if(!paper.isVisible()) {
+            world.update(deltaTime);
+        } else {
+            paper.setPos(camera.position.x + 1f, 2f);
+            background.setCameraSpeed(0);
+        }
+        background.update(deltaTime);
+
         station.update(deltaTime);
 
         npc.update(deltaTime);

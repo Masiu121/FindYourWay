@@ -10,6 +10,8 @@ import com.oxology.findyourway.GameData;
 import com.oxology.findyourway.utils.Quest;
 import com.oxology.findyourway.utils.blocksystem.Paper;
 import com.oxology.findyourway.utils.Background;
+import com.oxology.findyourway.utils.menuComponents.Button;
+import com.oxology.findyourway.utils.menuComponents.Clickable;
 import com.oxology.findyourway.world.World;
 import com.oxology.findyourway.world.entities.Barrel;
 import com.oxology.findyourway.world.entities.Entity;
@@ -34,7 +36,7 @@ public class MainGameScreen implements Screen {
     public boolean firstRun;
     float cameraSpeed;
 
-    public MainGameScreen(FindYourWay game) {
+    public MainGameScreen(final FindYourWay game) {
         this.game = game;
         firstRun = true;
 
@@ -80,8 +82,6 @@ public class MainGameScreen implements Screen {
     public void render(float deltaTime) {
 
         update(Gdx.graphics.getDeltaTime());
-
-        //System.out.println(npc.questMapVisibility);
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);

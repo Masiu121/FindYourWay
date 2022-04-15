@@ -54,7 +54,8 @@ public class Npc extends Entity {
 
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        if(quest != null && questVisibility) {
+
+        if(quest != null && questVisibility && game.questPosition == npcNum) {
             questMark.draw(batch);
         }
     }

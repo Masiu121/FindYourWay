@@ -1,0 +1,20 @@
+Dokumentacja
+
+Żeby odpalić grę , potrzeba otworzyć plik .exe , który został dołączony.
+
+Ponieważ gra jest demo , wytłumaczę parę funkcij które nie są widiczne w grze ,lecz są...
+
+Po rozpoczęciu gry (nie w menu , bezpośrednio w grze) po naciśnięciu klawisza P otworzy się
+okno do ustawiaia bloczków.
+
+Przycisk E pauzuje grę
+
+Przycisk C wyłancza grę
+
+Przycisk G odpowiada za wsiadanie do pociągu
+
+Kod gry jest dostępny tutaj https://github.com/Masiu121/FindYourWay/
+
+Cała gra została zrobiona przez nasz zespół od a do z
+
+Dziękujemy za uwagę
