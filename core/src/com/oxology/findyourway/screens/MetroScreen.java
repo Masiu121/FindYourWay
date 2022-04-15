@@ -3,9 +3,11 @@ package com.oxology.findyourway.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
+import com.oxology.findyourway.world.MetroStation;
 import com.oxology.findyourway.world.World;
 import com.oxology.findyourway.world.entities.Train;
 
@@ -20,6 +22,8 @@ public class MetroScreen implements Screen {
 
     int cameraMaxXOffset;
     int cameraMaxYOffset;
+
+    MetroStation station;
 
     public MetroScreen(FindYourWay game) {
         this.game = game;
@@ -43,7 +47,9 @@ public class MetroScreen implements Screen {
         cameraMaxYOffset = 30;
 
         //train = new Train(0, 8, 1, game);
-        world.addGameObject(new Train(game, 1));
+        //world.addGameObject(new Train(game, 1));
+
+        station = new MetroStation(game);
     }
 
     @Override
@@ -55,9 +61,8 @@ public class MetroScreen implements Screen {
 
         ScreenUtils.clear(1, 1, 1, 1);
         game.batch.begin();
-        game.batch.draw(GameData.METRO_BRICKS, -240, 0);
-        game.batch.draw(GameData.METRO_BRICKS, 0, 0);
-        game.batch.draw(GameData.METRO_BRICKS, 240, 0);
+
+        station.draw(game.batch);
 
         world.draw(game.batch);
 
@@ -81,14 +86,13 @@ public class MetroScreen implements Screen {
         game.batch.draw(GameData.METRO_EXIT, -185, 40);
 
 
-        game.batch.draw(GameData.METRO_PLATFORM, -240, 0);
-        game.batch.draw(GameData.METRO_PLATFORM, 0, 0);
-        game.batch.draw(GameData.METRO_PLATFORM, 240, 0);
-
+        station.drawTop(game.batch);
         game.batch.end();
     }
 
     public void update(float deltaTime) {
+        station.update(deltaTime);
+
         world.update(deltaTime);
 
         if (Math.abs(world.getPlayer().getX() - camera.position.x) < cameraMaxXOffset) {
