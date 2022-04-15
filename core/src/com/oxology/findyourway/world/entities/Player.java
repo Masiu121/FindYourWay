@@ -7,8 +7,6 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
-import com.oxology.findyourway.screens.MainGameScreen;
-import com.oxology.findyourway.screens.MetroScreen;
 
 public class Player extends Entity {
     public boolean jump;
@@ -52,19 +50,64 @@ public class Player extends Entity {
 
         this.baseY = baseY;
 
-        this.idleAnimationFrames1 = TextureRegion.split(GameData.MAIN_CHAR_IDLE_1, 14, 45);
-        this.idleAnimation1 = new Animation<TextureRegion>(1f/4f, idleAnimationFrames1[0]);
-
-        this.idleAnimationFrames2 = TextureRegion.split(GameData.MAIN_CHAR_IDLE_2, 14, 45);
-        this.idleAnimation2 = new Animation<TextureRegion>(1f/4f, idleAnimationFrames2[0]);
-
-        this.walkAnimationFrames1 = TextureRegion.split(GameData.MAIN_CHAR_WALK_1, 20, 45);
-        this.walkAnimation1 = new Animation<TextureRegion>(1f/8f, walkAnimationFrames1[0]);
-
-        this.walkAnimationFrames2 = TextureRegion.split(GameData.MAIN_CHAR_WALK_2, 20, 45);
-        this.walkAnimation2 = new Animation<TextureRegion>(1f/8f, walkAnimationFrames2[0]);
+        createAnimations();
 
         this.jump = false;
+    }
+
+    public void createAnimations() {
+        int tileWidth = 0;
+        int tileHeight = 0;
+        Texture idle1 = null;
+        Texture idle2 = null;
+        Texture walk1 = null;
+        Texture walk2 = null;
+
+        switch (game.mainCharacter) {
+            case 0:
+                tileWidth = 14;
+                tileHeight = 45;
+
+                idle1 = GameData.MAIN_CHAR_1_IDLE_1;
+                idle2 = GameData.MAIN_CHAR_1_IDLE_2;
+
+                walk1 = GameData.MAIN_CHAR_1_WALK_1;
+                walk2 = GameData.MAIN_CHAR_1_WALK_2;
+                break;
+            case 1:
+                tileWidth = 13;
+                tileHeight = 45;
+
+                idle1 = GameData.MAIN_CHAR_2_IDLE_1;
+                idle2 = GameData.MAIN_CHAR_2_IDLE_2;
+
+                walk1 = GameData.MAIN_CHAR_2_WALK_1;
+                walk2 = GameData.MAIN_CHAR_2_WALK_2;
+                System.out.println("Adsaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                break;
+            case 2:
+                tileWidth = 13;
+                tileHeight = 45;
+
+                idle1 = GameData.MAIN_CHAR_3_IDLE_1;
+                idle2 = GameData.MAIN_CHAR_3_IDLE_2;
+
+                walk1 = GameData.MAIN_CHAR_3_WALK_1;
+                walk2 = GameData.MAIN_CHAR_3_WALK_2;
+                break;
+        }
+
+        this.idleAnimationFrames1 = TextureRegion.split(idle1, tileWidth, tileHeight);
+        this.idleAnimation1 = new Animation<TextureRegion>(1f/4f, idleAnimationFrames1[0]);
+
+        this.idleAnimationFrames2 = TextureRegion.split(idle2, tileWidth, tileHeight);
+        this.idleAnimation2 = new Animation<TextureRegion>(1f/4f, idleAnimationFrames2[0]);
+
+        this.walkAnimationFrames1 = TextureRegion.split(walk1, 20, tileHeight);
+        this.walkAnimation1 = new Animation<TextureRegion>(1f/8f, walkAnimationFrames1[0]);
+
+        this.walkAnimationFrames2 = TextureRegion.split(walk2, 20, tileHeight);
+        this.walkAnimation2 = new Animation<TextureRegion>(1f/8f, walkAnimationFrames2[0]);
     }
 
     public void update(float deltaTime) {
