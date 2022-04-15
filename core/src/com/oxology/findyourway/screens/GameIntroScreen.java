@@ -42,14 +42,14 @@ public class GameIntroScreen implements Screen {
                 GameData.INTRO_BG.getHeight() / 2 - 10 - GameData.BOOK_OPEN_ANIMATION.getHeight() / 2 ,
                 GameData.BOOK_NEXT_PAGE_ANIMATION , 4f , game);
 
-        toMenu = new Button(game, 50, 15, 0.7f, "Menu", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
+        toMenu = new Button(game, 30, 15, 0.7f, "Menu", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
             @Override
             public void onClick() {
                 game.setScreen(new MainMenuScreen(game));
             }
         });
 
-        toGame = new Button(game,  (int)(camera.viewportWidth - 10 - GameData.MENU_BUTTON.getWidth()), 15, 0.7f, "Start", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
+        toGame = new Button(game,  (int)(camera.viewportWidth + 10 - GameData.MENU_BUTTON.getWidth()), 15, 0.7f, "Start", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
             @Override
             public void onClick() {
                 game.setScreen(game.mainGameScreen);
