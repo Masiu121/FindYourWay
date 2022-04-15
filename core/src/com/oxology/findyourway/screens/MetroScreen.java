@@ -10,6 +10,7 @@ import com.oxology.findyourway.GameData;
 import com.oxology.findyourway.utils.Quest;
 import com.oxology.findyourway.world.MetroStation;
 import com.oxology.findyourway.world.World;
+import com.oxology.findyourway.world.entities.Entity;
 import com.oxology.findyourway.world.entities.Npc;
 import com.oxology.findyourway.world.entities.Train;
 
@@ -37,6 +38,9 @@ public class MetroScreen implements Screen {
         world = new World(game, 40, -180);
 
         npc = new Npc(20, 40, GameData.MAIN_CHAR_IDLE_1, 0f, game , new Quest() , true);
+        Entity npc1 = new Entity(30, 39, GameData.NPC_1, 1, 5, true, game);
+        npc1.setTiming(1f/1.5f);
+        world.addGameObject(npc1);
         cameraXOffset = 0;
         cameraYOffset = 0;
 
