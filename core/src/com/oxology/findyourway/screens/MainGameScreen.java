@@ -30,12 +30,10 @@ public class MainGameScreen implements Screen {
 
     Background background;
     Npc npc;
-    Quest quest;
 
     Paper paper;
-    TextCard card;
 
-    boolean firstRun;
+    public boolean firstRun;
     float cameraSpeed;
 
     public MainGameScreen(FindYourWay game) {
@@ -51,7 +49,6 @@ public class MainGameScreen implements Screen {
         paper = new Paper(game);
 
         Barrel barrel = new Barrel(50, 7, GameData.BARREL, 1f, game);
-
         world = new World(game, 3, (int) (GameData.BG_GRADIENT.getWidth()/2f - GameData.MAIN_CHAR_IDLE_1.getWidth()/9f/2f));
 
         world.addGameObject(barrel);
@@ -68,9 +65,16 @@ public class MainGameScreen implements Screen {
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
 
-        world.getPlayer().setX(300);
-        camera.position.set(240, camera.position.y, 0);
+        if(!firstRun) {
+            world.getPlayer().setX(300);
+            camera.position.set(240, camera.position.y, 0);
+        }
 
+        if(firstRun) {
+            firstRun = false;
+        }
+
+        System.out.println(world.getPlayer().getX());
     }
 
     @Override
@@ -78,7 +82,7 @@ public class MainGameScreen implements Screen {
 
         update(Gdx.graphics.getDeltaTime());
 
-        System.out.println(npc.questMapVisibility);
+        //System.out.println(npc.questMapVisibility);
 
         if(npc.questMapVisibility < 100){
             npc.questVisibility = true;
