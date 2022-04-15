@@ -106,4 +106,7 @@ public interface GameData {
     Texture BOOK_NEXT_PAGE_ANIMATION = new Texture("Game/Sprites/nextpage1.png");
 
     Texture BLACK = new Texture("Game/Black2.png");
+
+    Texture HOTDOGS = new Texture("Game/Sprites/HotDog.png");
+    Texture NPC_1 = new Texture("Game/Sprites/Npc1.png");
 }
