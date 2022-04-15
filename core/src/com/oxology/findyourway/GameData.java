@@ -80,8 +80,13 @@ public interface GameData {
     Texture ARROW_LEFT_HOVER = new Texture("Menu/Buttons/ArrowHover2.png");
 
     Texture PAPER = new Texture("Game/Sprites/Paper.png");
+    Texture INTRO_PAPER = new Texture("Game/Sprites/Intro_paper.png");
+
+    Texture STORY_PAPER = new Texture("Game/Sprites/Paper.png");
 
     Texture BOOK_OPEN_ANIMATION = new Texture("Game/Sprites/book.png");
     Texture INTRO_BG = new Texture("Game/Sprites/stol.png");
     Texture BOOK_NEXT_PAGE_ANIMATION = new Texture("Game/Sprites/nextpage.png");
+
+    Texture BLACK = new Texture("Game/Black2.png");
 }

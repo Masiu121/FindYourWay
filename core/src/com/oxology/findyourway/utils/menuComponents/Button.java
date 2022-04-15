@@ -109,4 +109,8 @@ public class Button {
     public int getHeight() {
         return height;
     }
+
+    public float getScale() {
+        return scale;
+    }
 }

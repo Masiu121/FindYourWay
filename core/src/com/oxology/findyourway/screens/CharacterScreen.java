@@ -9,10 +9,13 @@ import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
 import com.oxology.findyourway.utils.menuComponents.Button;
 import com.oxology.findyourway.utils.menuComponents.Clickable;
+import com.oxology.findyourway.world.entities.Entity;
 
 public class CharacterScreen implements Screen {
     FindYourWay game;
     OrthographicCamera camera;
+
+    Entity entity;
 
     Button back;
     Button arrowNext;
