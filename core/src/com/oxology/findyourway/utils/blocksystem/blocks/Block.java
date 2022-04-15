@@ -1,8 +1,10 @@
 package com.oxology.findyourway.utils.blocksystem.blocks;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.oxology.findyourway.FindYourWay;
+import com.oxology.findyourway.GameData;
 import com.oxology.findyourway.utils.GameObject;
 import com.oxology.findyourway.utils.blocksystem.Paper;
 
@@ -132,11 +134,14 @@ public class Block extends GameObject {
         if(this.isSnapped()) {
             float moveX = game.getGameX() - mousePos[0];
             float moveY = game.getGameY() - mousePos[1];
-            moveWithNextBlocks(moveX, moveY);
 
-            if(getPreviousBlock() != null) {
-                getPreviousBlock().setNextBlock(null);
-                setPreviousBlock(null);
+            if(moveX+GameData.BLOCK_SHADOW.getWidth() < paper.getX() + GameData.PAPER.getWidth() && moveX > paper.getX()) {
+                moveWithNextBlocks(moveX, moveY);
+
+                if (getPreviousBlock() != null) {
+                    getPreviousBlock().setNextBlock(null);
+                    setPreviousBlock(null);
+                }
             }
         }
 
