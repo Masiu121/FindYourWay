@@ -45,7 +45,7 @@ public class MetroScreen implements Screen {
 
         cameraSpeed = world.getPlayer().getxSpeed()/2f;
         background = new Background(cameraSpeed);
-        paper = new Paper(game);
+        paper = new Paper(game, world.getPlayer());
 
         npc = new Npc(30, 39, GameData.NPC_1, 1f, game , new Quest() , true , 0);
         cameraXOffset = 0;
@@ -66,6 +66,7 @@ public class MetroScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
         update(delta);
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
@@ -79,6 +80,14 @@ public class MetroScreen implements Screen {
         ScreenUtils.clear(1, 1, 1, 1);
         game.batch.begin();
 
+        for(int i = 480; i < 480+240*10; i+=240)
+            game.batch.draw(GameData.METRO_TUNNEL, i, 0);
+
+        if(station.getRightTrain() != null && station.getRightTrain().getPlayer() == null)
+            station.draw(game.batch);
+        else if(station.getRightTrain() == null) {
+            station.draw(game.batch);
+        }
         background.draw(game.batch);
 
         station.draw(game.batch);
@@ -86,6 +95,11 @@ public class MetroScreen implements Screen {
         npc.draw(game.batch);
 
         world.draw(game.batch);
+
+        if(station.getRightTrain() != null && station.getRightTrain().getPlayer() != null)
+            station.draw(game.batch);
+
+        npc.draw(game.batch);
 
         if(world.getPlayer().getX() < -185+GameData.METRO_EXIT.getWidth()) {
             float dist = (-185+GameData.METRO_EXIT.getWidth()) + (185-20);
@@ -103,13 +117,15 @@ public class MetroScreen implements Screen {
             world.getPlayer().setY(40);
         }
 
-
         game.batch.draw(GameData.METRO_EXIT, -185, 40);
-
 
         station.drawTop(game.batch);
 
         paper.draw(game.batch);
+
+        for(int i = 480; i < 480+240*10; i+=240)
+            game.batch.draw(GameData.METRO_TUNNEL_BLACKOUT, i, 0);
+
         game.batch.end();
     }
 
@@ -130,15 +146,39 @@ public class MetroScreen implements Screen {
 
         world.update(deltaTime);
 
-        if (Math.abs(world.getPlayer().getX() - camera.position.x) < cameraMaxXOffset) {
-            if (world.getPlayer().getX() - camera.position.x > 0)
-                cameraXOffset = -cameraMaxXOffset;
-            else
-                cameraXOffset = cameraMaxXOffset;
-        } else {
-            float offset = camera.position.x - world.getPlayer().getX() - cameraXOffset;
-            if (camera.position.x - offset > -120 / 2f && camera.position.x - offset < 120 + 120) {
-                camera.position.set(world.getPlayer().getX() + cameraXOffset, camera.position.y, 0);
+        if(station.getRightTrain() != null && station.getRightTrain().getPlayer() == null) {
+            if (Math.abs(world.getPlayer().getX() - camera.position.x) < cameraMaxXOffset) {
+                if (world.getPlayer().getX() - camera.position.x > 0)
+                    cameraXOffset = -cameraMaxXOffset;
+                else
+                    cameraXOffset = cameraMaxXOffset;
+            } else {
+                float offset = camera.position.x - world.getPlayer().getX() - cameraXOffset;
+                if (camera.position.x - offset > -120 / 2f && camera.position.x - offset < 120 + 120) {
+                    camera.position.set(world.getPlayer().getX() + cameraXOffset, camera.position.y, 0);
+                }
+            }
+        } else if(station.getRightTrain() != null && station.getRightTrain().getPlayer() != null) {
+            camera.position.set(world.getPlayer().getX() + cameraXOffset, camera.position.y, 0);
+        } else if(station.getRightTrain() == null) {
+            if (Math.abs(world.getPlayer().getX() - camera.position.x) < cameraMaxXOffset) {
+                if (world.getPlayer().getX() - camera.position.x > 0)
+                    cameraXOffset = -cameraMaxXOffset;
+                else
+                    cameraXOffset = cameraMaxXOffset;
+            } else {
+                float offset = camera.position.x - world.getPlayer().getX() - cameraXOffset;
+                if (camera.position.x - offset > -120 / 2f && camera.position.x - offset < 120 + 120) {
+                    camera.position.set(world.getPlayer().getX() + cameraXOffset, camera.position.y, 0);
+                }
+            }
+        }
+
+        if(station.getRightTrain() != null && station.getRightTrain().areDoorsOpened()) {
+            if(world.getPlayer().getX() >= station.getRightTrain().getX() && world.getPlayer().getX() <= station.getRightTrain().getX() + GameData.METRO_TRAIN.getWidth()) {
+                if(Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+                    station.getRightTrain().setPlayer(world.getPlayer());
+                }
             }
         }
     }
