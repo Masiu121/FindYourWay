@@ -70,7 +70,7 @@ public class GameIntroScreen implements Screen {
         update();
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.G)){
-            game.setScreen(new MainGameScreen(game));
+            game.setScreen(game.mainGameScreen);
         }
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
