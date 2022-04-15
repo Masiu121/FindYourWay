@@ -1,11 +1,9 @@
 package com.oxology.findyourway.screens;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
@@ -14,7 +12,6 @@ import com.oxology.findyourway.world.MetroStation;
 import com.oxology.findyourway.world.World;
 import com.oxology.findyourway.world.entities.Entity;
 import com.oxology.findyourway.world.entities.Npc;
-import com.oxology.findyourway.world.entities.Train;
 
 public class MetroScreen implements Screen {
     FindYourWay game;
@@ -144,5 +141,9 @@ public class MetroScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    public World getWorld() {
+        return world;
     }
 }
