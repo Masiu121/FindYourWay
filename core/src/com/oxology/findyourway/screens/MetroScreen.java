@@ -31,6 +31,17 @@ public class MetroScreen implements Screen {
 
     public MetroScreen(FindYourWay game) {
         this.game = game;
+
+        station = new MetroStation(game);
+
+        world = new World(game, 40, -180);
+
+        npc = new Npc(20, 40, GameData.MAIN_CHAR_IDLE_1, 0f, game , new Quest() , true);
+        cameraXOffset = 0;
+        cameraYOffset = 0;
+
+        cameraMaxXOffset = 30;
+        cameraMaxYOffset = 30;
     }
 
     @Override
@@ -39,23 +50,7 @@ public class MetroScreen implements Screen {
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
 
-        world = new World(game, 40, -180);
         camera.position.set(-60, camera.position.y, 0);
-
-        //game.batch.setColor(1, 1, 1, 1);
-
-        cameraXOffset = 0;
-        cameraYOffset = 0;
-
-        cameraMaxXOffset = 30;
-        cameraMaxYOffset = 30;
-
-        //train = new Train(0, 8, 1, game);
-        //world.addGameObject(new Train(game, 1));
-
-        station = new MetroStation(game);
-
-        npc = new Npc(20, 40, GameData.MAIN_CHAR_IDLE_1, 0f, game , new Quest() , true);
     }
 
     @Override
@@ -92,7 +87,7 @@ public class MetroScreen implements Screen {
             world.getPlayer().setY(40+((1-result)*20));
 
             if(world.getPlayer().getX() < -180) {
-                game.setScreen(new MainGameScreen(game));
+                game.setScreen(game.mainGameScreen);
             }
         } else if(!world.getPlayer().jump) {
             world.getPlayer().setY(40);
