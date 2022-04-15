@@ -110,4 +110,8 @@ public class Paper {
     public boolean isVisible() {
         return visible;
     }
+
+    public float getX() {
+        return x;
+    }
 }
