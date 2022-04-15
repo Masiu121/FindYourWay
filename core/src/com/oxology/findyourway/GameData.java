@@ -17,6 +17,9 @@ public interface GameData {
     FileHandle FIRE_SOUND = Gdx.files.internal("Game/Audio/FireSound.mp3");
     FileHandle ZIPPO_SOUND = Gdx.files.internal("Game/Audio/ZippoSound.mp3");
 
+    FileHandle TRAIN_START = Gdx.files.internal("Game/Audio/TrainStart.mp3");
+    FileHandle TRAIN_STOP = Gdx.files.internal("Game/Audio/TrainStop.mp3");
+
     //Textures
     Texture LOGO = new Texture("Menu/Logo.png");
     Texture MENU_BUTTON = new Texture("Menu/Buttons/MenuButton.png");
@@ -77,7 +80,11 @@ public interface GameData {
 
     Texture START_BLOCK = new Texture("Game/Blocks/blockStart.png");
     Texture STOP_BLOCK = new Texture("Game/Blocks/blockStop.png");
+    Texture DIVIDE_BLOCK = new Texture("Game/Blocks/DivideBlock.png");
+    Texture A_DECLARATION_BLOCK = new Texture("Game/Blocks/ADeclarationBlock.png");
+    Texture B_DECLARATION_BLOCK = new Texture("Game/Blocks/ADeclarationBlock.png");
     Texture STOP_BLOCK_SHADOW = new Texture("Game/Blocks/blockStopShadow.png");
+    Texture BLOCK_SHADOW = new Texture("Game/Blocks/BlockShadow.png");
 
     Texture ARROW_RIGHT = new Texture("Menu/Buttons/Arrow.png");
     Texture ARROW_RIGHT_HOVER = new Texture("Menu/Buttons/ArrowHover.png");
