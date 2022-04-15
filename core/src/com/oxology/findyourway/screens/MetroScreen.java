@@ -3,9 +3,11 @@ package com.oxology.findyourway.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
+import com.oxology.findyourway.world.MetroStation;
 import com.oxology.findyourway.world.World;
 import com.oxology.findyourway.world.entities.Train;
 
@@ -21,7 +23,7 @@ public class MetroScreen implements Screen {
     int cameraMaxXOffset;
     int cameraMaxYOffset;
 
-    public Train train;
+    MetroStation station;
 
     public MetroScreen(FindYourWay game) {
         this.game = game;
@@ -33,9 +35,10 @@ public class MetroScreen implements Screen {
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
 
-        game.batch.setColor(1, 1, 1, 1);
+        world = new World(game, 40, -180);
+        camera.position.set(-60, camera.position.y, 0);
 
-        world = new World(game, 40);
+        //game.batch.setColor(1, 1, 1, 1);
 
         cameraXOffset = 0;
         cameraYOffset = 0;
@@ -43,7 +46,10 @@ public class MetroScreen implements Screen {
         cameraMaxXOffset = 30;
         cameraMaxYOffset = 30;
 
-        train = new Train(0, 8, 1, game);
+        //train = new Train(0, 8, 1, game);
+        //world.addGameObject(new Train(game, 1));
+
+        station = new MetroStation(game);
     }
 
     @Override
@@ -55,22 +61,38 @@ public class MetroScreen implements Screen {
 
         ScreenUtils.clear(1, 1, 1, 1);
         game.batch.begin();
-        game.batch.draw(GameData.METRO_BRICKS, -240, 0);
-        game.batch.draw(GameData.METRO_BRICKS, 0, 0);
-        game.batch.draw(GameData.METRO_BRICKS, 240, 0);
 
-        game.batch.draw(GameData.METRO_PLATFORM, -240, 0);
-        game.batch.draw(GameData.METRO_PLATFORM, 0, 0);
-        game.batch.draw(GameData.METRO_PLATFORM, 240, 0);
+        station.draw(game.batch);
 
         world.draw(game.batch);
 
-        train.draw(game.batch);
+        if(world.getPlayer().getX() < -185+GameData.METRO_EXIT.getWidth()) {
+            float dist = (-185+GameData.METRO_EXIT.getWidth()) + (185-20);
+            float dist2 = world.getPlayer().getX() + (185-20);
+            float result = dist2/dist;
 
+            game.batch.setColor(result, result, result, 1f);
+
+            world.getPlayer().setY(40+((1-result)*20));
+
+            if(world.getPlayer().getX() < -180) {
+                game.setScreen(new MainGameScreen(game));
+            }
+        } else if(!world.getPlayer().jump) {
+            world.getPlayer().setY(40);
+        }
+
+
+        game.batch.draw(GameData.METRO_EXIT, -185, 40);
+
+
+        station.drawTop(game.batch);
         game.batch.end();
     }
 
     public void update(float deltaTime) {
+        station.update(deltaTime);
+
         world.update(deltaTime);
 
         if (Math.abs(world.getPlayer().getX() - camera.position.x) < cameraMaxXOffset) {
@@ -79,15 +101,11 @@ public class MetroScreen implements Screen {
             else
                 cameraXOffset = cameraMaxXOffset;
         } else {
-
-
             float offset = camera.position.x - world.getPlayer().getX() - cameraXOffset;
             if (camera.position.x - offset > -120 / 2f && camera.position.x - offset < 120 + 120) {
                 camera.position.set(world.getPlayer().getX() + cameraXOffset, camera.position.y, 0);
             }
         }
-
-        train.update(deltaTime);
     }
 
     @Override

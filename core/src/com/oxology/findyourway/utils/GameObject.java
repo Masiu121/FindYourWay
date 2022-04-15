@@ -43,6 +43,10 @@ public class GameObject {
         this.y = y;
     }
 
+    public void setX(float x) {
+        this.x = x;
+    }
+
     public float getX() {
         return x;
     }
