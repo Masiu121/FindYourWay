@@ -193,8 +193,6 @@ public class Train extends Entity {
 
     public void setPlayer(Player player) {
         this.player = player;
-        if(this.player != null)
-            this.player.move(32, 32);
     }
 
     public Player getPlayer() {
@@ -261,5 +259,9 @@ public class Train extends Entity {
 
     public int getDirection() {
         return direction;
+    }
+
+    public boolean areDoorsOpened() {
+        return doorsOpened;
     }
 }
