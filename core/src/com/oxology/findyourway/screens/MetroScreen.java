@@ -1,6 +1,8 @@
 package com.oxology.findyourway.screens;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -67,6 +69,12 @@ public class MetroScreen implements Screen {
             npc.questVisibility = true;
         } else {
             npc.questVisibility = false;
+        }
+
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+            PauseScreen.PAUSE = true;
+            game.setScreen(new PauseScreen(game, 1));
         }
 
         camera.update();
