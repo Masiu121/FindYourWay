@@ -13,10 +13,16 @@ import java.util.Random;
 public class Npc extends Entity {
     Quest quest;
     Entity questMark;
+
+    public boolean questVisibility;
     Random random;
     Random questRandomX = new Random();
 
+    Random questMapVisibilityNum = new Random();
+
     int walkTicks;
+
+    private int questScale;
 
     private int direction;
 
@@ -26,12 +32,17 @@ public class Npc extends Entity {
     TextureRegion[][] idleAnimationFrames2;
     Animation<TextureRegion> idleAnimation2;
 
-    public int questX = questRandomX.nextInt(-230 , 200);
+    public int questX = questRandomX.nextInt(-200 , 200);
+    public int questMapVisibility = questMapVisibilityNum.nextInt(0 ,200);
 
-    public Npc(int x, int y, Texture texture, float scale, FindYourWay game, Quest quest) {
+    public Npc(int x, int y, Texture texture, float scale, FindYourWay game, Quest quest , boolean questVisibility) {
         super(x, y, texture, scale, 9, true, game);
+
+        this.questScale = 1;
+
+        this.questVisibility = questVisibility;
         if(quest != null) {
-            questMark = new Entity(questX, y +47, GameData.QUEST_MARK, scale, 2, true, game);
+            questMark = new Entity(questX, y +47, GameData.QUEST_MARK, questScale, 2, true, game);
         }
 
         this.quest = quest;
@@ -49,7 +60,7 @@ public class Npc extends Entity {
 
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        if(quest != null) {
+        if(quest != null && questVisibility) {
             questMark.draw(batch);
         }
     }

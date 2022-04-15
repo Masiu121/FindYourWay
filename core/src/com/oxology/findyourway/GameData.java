@@ -49,6 +49,11 @@ public interface GameData {
     Texture MAIN_CHAR_WALK_1 = new Texture("Game/Sprites/MainCharacterWalk.png");
     Texture MAIN_CHAR_WALK_2 = new Texture("Game/Sprites/MainCharacterWalk2.png");
 
+    // Second player animation
+
+    Texture SECOND_CHAR_IDLE_1 = new Texture("Game/Sprites/SecondCharacterIdle1.png");
+    Texture SECOND_CHAR_IDLE_2 = new Texture("Game/Sprites/SecondCharacterIdle2.png");
+
     // First player animation choose
     Texture MAIN_CHAR_IDLE_CHOOSE_1 = new Texture("Game/Sprites/hero1.png");
 

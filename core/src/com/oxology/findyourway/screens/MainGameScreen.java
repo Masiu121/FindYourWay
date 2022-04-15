@@ -3,7 +3,6 @@ package com.oxology.findyourway.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
@@ -12,10 +11,11 @@ import com.oxology.findyourway.utils.Quest;
 import com.oxology.findyourway.utils.blocksystem.Paper;
 import com.oxology.findyourway.utils.Background;
 import com.oxology.findyourway.utils.blocksystem.TextCard;
+import com.oxology.findyourway.utils.menuComponents.Button;
+import com.oxology.findyourway.utils.menuComponents.Clickable;
 import com.oxology.findyourway.world.World;
 import com.oxology.findyourway.world.entities.Barrel;
 import com.oxology.findyourway.world.entities.Npc;
-import com.oxology.findyourway.world.entities.Train;
 
 public class MainGameScreen implements Screen {
     FindYourWay game;
@@ -63,14 +63,21 @@ public class MainGameScreen implements Screen {
         world.addGameObject(barrel);
         cameraSpeed = world.getPlayer().getxSpeed()/2f;
         background = new Background(cameraSpeed);
-        npc = new Npc(20, 3, GameData.MAIN_CHAR_IDLE_1, 1f, game , new Quest());
-
+        npc = new Npc(20, 3, GameData.MAIN_CHAR_IDLE_1, 1f, game , new Quest() , true);
     }
 
     @Override
     public void render(float deltaTime) {
 
         update(Gdx.graphics.getDeltaTime());
+
+        System.out.println(npc.questMapVisibility);
+
+        if(npc.questMapVisibility < 100){
+            npc.questVisibility = true;
+        } else {
+            npc.questVisibility = false;
+        }
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);

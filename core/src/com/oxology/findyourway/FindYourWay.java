@@ -33,6 +33,8 @@ public class FindYourWay extends Game {
 		music.setLooping(true);
 		music.setVolume(0.2f);
 		music.play();
+
+
 		batch = new SpriteBatch();
 
 		menuViewportWidth = 480;

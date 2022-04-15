@@ -7,8 +7,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
+import com.oxology.findyourway.utils.Quest;
 import com.oxology.findyourway.world.MetroStation;
 import com.oxology.findyourway.world.World;
+import com.oxology.findyourway.world.entities.Npc;
 import com.oxology.findyourway.world.entities.Train;
 
 public class MetroScreen implements Screen {
@@ -16,6 +18,8 @@ public class MetroScreen implements Screen {
 
     OrthographicCamera camera;
     World world;
+
+    Npc npc;
 
     int cameraXOffset;
     int cameraYOffset;
@@ -50,11 +54,21 @@ public class MetroScreen implements Screen {
         //world.addGameObject(new Train(game, 1));
 
         station = new MetroStation(game);
+
+        npc = new Npc(20, 40, GameData.MAIN_CHAR_IDLE_1, 0f, game , new Quest() , true);
     }
 
     @Override
     public void render(float delta) {
         update(delta);
+
+        System.out.println(npc.questMapVisibility);
+
+        if(npc.questMapVisibility <= 100){
+            npc.questVisibility = true;
+        } else {
+            npc.questVisibility = false;
+        }
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
@@ -63,6 +77,8 @@ public class MetroScreen implements Screen {
         game.batch.begin();
 
         station.draw(game.batch);
+
+        npc.draw(game.batch);
 
         world.draw(game.batch);
 
@@ -92,6 +108,8 @@ public class MetroScreen implements Screen {
 
     public void update(float deltaTime) {
         station.update(deltaTime);
+
+        npc.update(deltaTime);
 
         world.update(deltaTime);
 
