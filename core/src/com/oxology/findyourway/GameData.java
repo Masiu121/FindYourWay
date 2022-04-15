@@ -82,7 +82,7 @@ public interface GameData {
     Texture STOP_BLOCK = new Texture("Game/Blocks/blockStop.png");
     Texture DIVIDE_BLOCK = new Texture("Game/Blocks/DivideBlock.png");
     Texture A_DECLARATION_BLOCK = new Texture("Game/Blocks/ADeclarationBlock.png");
-    Texture B_DECLARATION_BLOCK = new Texture("Game/Blocks/ADeclarationBlock.png");
+    Texture B_DECLARATION_BLOCK = new Texture("Game/Blocks/BDeclarationBlock.png");
     Texture STOP_BLOCK_SHADOW = new Texture("Game/Blocks/blockStopShadow.png");
     Texture BLOCK_SHADOW = new Texture("Game/Blocks/BlockShadow.png");
 
