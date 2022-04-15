@@ -62,4 +62,8 @@ public class MetroStation {
             }
         }
     }
+
+    public Train getRightTrain() {
+        return rightTrain;
+    }
 }
