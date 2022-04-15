@@ -2,6 +2,7 @@ package com.oxology.findyourway.world;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
@@ -25,7 +26,20 @@ public class World {
 
         this.basePlayerY = basePlayerY;
 
-        player = new Player(playerX, GameData.MAIN_CHAR_IDLE_1, 1f, this.game, basePlayerY);
+        Texture mainTexture = null;
+        switch(game.mainCharacter) {
+            case 0:
+                mainTexture = GameData.MAIN_CHAR_1_IDLE_1;
+                break;
+            case 1:
+                mainTexture = GameData.MAIN_CHAR_2_IDLE_1;
+                break;
+            case 2:
+                mainTexture = GameData.MAIN_CHAR_3_IDLE_1;
+                break;
+        }
+
+        player = new Player(playerX, mainTexture, 1f, this.game, basePlayerY);
     }
 
     public void addGameObject(GameObject gameObject) {
