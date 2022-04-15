@@ -58,7 +58,7 @@ public class CreditsScreen implements Screen {
         creditsText5 = new CenteredText((int) camera.viewportWidth/2, 170, 1, "Jakub Borowski");
         creditsText6 = new CenteredText((int) camera.viewportWidth/2, 155, 1, "Dominik Kruk");
 
-        creditsText7 = new CenteredText((int) camera.viewportWidth/2, 125, 1.5f, "Project Creator:");
+        creditsText7 = new CenteredText((int) camera.viewportWidth/2, 125, 1.5f, "Game idea:");
         creditsText8 = new CenteredText((int) camera.viewportWidth/2, 100, 1, "Patryk Wojdanowski");
     }
 
