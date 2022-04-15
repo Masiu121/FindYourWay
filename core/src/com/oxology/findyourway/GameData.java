@@ -44,6 +44,8 @@ public interface GameData {
     Texture METRO_DOOR_RIGHT = new Texture("Game/Metro/MetroTrainDoorRight.png");
     Texture METRO_ENTRY = new Texture("Game/MetroEntry.png");
     Texture METRO_EXIT = new Texture("Game/MetroExit.png");
+    Texture METRO_TUNNEL = new Texture("Game/Metro/MetroTunnel.png");
+    Texture METRO_TUNNEL_BLACKOUT = new Texture("Game/Metro/MetroTunnelBlackout.png");
 
     // First player animation
     Texture MAIN_CHAR_1_IDLE_1 = new Texture("Game/Sprites/MainCharacterIdle1.png");
