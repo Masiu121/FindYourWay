@@ -14,11 +14,12 @@ import com.oxology.findyourway.utils.menuComponents.Clickable;
 public class MainMenuScreen implements Screen {
     FindYourWay game;
     OrthographicCamera camera;
-
     Button playButton;
     Button characterButton;
     Button creditsButton;
     Button exitButton;
+
+
 
 
     Animation<TextureRegion> background;

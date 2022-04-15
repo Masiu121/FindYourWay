@@ -7,9 +7,13 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import org.w3c.dom.Text;
 
+import java.io.File;
+
 public interface GameData {
 
     FileHandle FONT = Gdx.files.internal("Menu/Font/PixelFont.fnt");
+
+    // File CHARACTER_NUM = Gdx.files.internal("Menu/Font/PixelFont.fnt");
 
     //Audio
     FileHandle BACKGROUND_MUSIC = Gdx.files.internal("Menu/Audio/MenuMusic.mp3");
@@ -109,4 +113,6 @@ public interface GameData {
 
     Texture HOTDOGS = new Texture("Game/Sprites/HotDog.png");
     Texture NPC_1 = new Texture("Game/Sprites/Npc1.png");
+
+    Texture PAUSE_VIGNETTE = new Texture("Game/PauseVignette.png");
 }

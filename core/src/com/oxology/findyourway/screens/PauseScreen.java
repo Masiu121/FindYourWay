@@ -21,6 +21,9 @@ public class PauseScreen implements Screen {
     Button menuButton;
     Button exitButton;
 
+    public boolean playedBefore;
+
+
     int screen;
 
     public PauseScreen(FindYourWay game, int screen) {
@@ -33,6 +36,8 @@ public class PauseScreen implements Screen {
         camera = new OrthographicCamera(480, 270);
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
+
+        playedBefore = false;
 
         resumeButton = new Button(game, 0, 0, 1f, "Resume", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
             @Override
@@ -48,6 +53,7 @@ public class PauseScreen implements Screen {
             @Override
             public void onClick() {
                 game.setScreen(new MainMenuScreen(game));
+                playedBefore = true;
             }
         });
 
@@ -59,10 +65,11 @@ public class PauseScreen implements Screen {
         });
 
         int buttonX = (int) camera.viewportWidth/2-resumeButton.getWidth()/2;
+        int buttonY = (int) camera.viewportHeight / 2 - resumeButton.getHeight() / 2;
 
-        resumeButton.move(buttonX, 80);
-        menuButton.move(buttonX, 45);
-        exitButton.move(buttonX, 10);
+        resumeButton.move(buttonX, buttonY - 50);
+        menuButton.move(buttonX, buttonY);
+        exitButton.move(buttonX, buttonY + 50);
     }
 
     @Override
@@ -77,11 +84,11 @@ public class PauseScreen implements Screen {
         game.batch.begin();
 
         game.batch.draw(GameData.MENU_BACKGROUND, 0, 0);
+        game.batch.draw(GameData.PAUSE_VIGNETTE , 0 , 0);
 
         resumeButton.draw(game.batch);
         menuButton.draw(game.batch);
         exitButton.draw(game.batch);
-        game.batch.draw(GameData.LOGO, camera.viewportWidth/2f - GameData.LOGO.getWidth()*1.8f/2f, 155, GameData.LOGO.getWidth() * 1.8f, GameData.LOGO.getHeight() * 1.8f);
 
         game.batch.end();
     }
@@ -115,5 +122,9 @@ public class PauseScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    public boolean isPlayedBefore() {
+        return playedBefore;
     }
 }
