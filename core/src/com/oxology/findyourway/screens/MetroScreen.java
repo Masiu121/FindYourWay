@@ -39,10 +39,7 @@ public class MetroScreen implements Screen {
 
         world = new World(game, 40, -180);
 
-        npc = new Npc(20, 40, GameData.MAIN_CHAR_IDLE_1, 0f, game , new Quest() , true);
-        Entity npc1 = new Entity(30, 39, GameData.NPC_1, 1, 5, true, game);
-        npc1.setTiming(1f/1.5f);
-        world.addGameObject(npc1);
+        npc = new Npc(30, 39, GameData.NPC_1, 1f, game , new Quest() , true , 0);
         cameraXOffset = 0;
         cameraYOffset = 0;
 
@@ -62,15 +59,6 @@ public class MetroScreen implements Screen {
     @Override
     public void render(float delta) {
         update(delta);
-
-        System.out.println(npc.questMapVisibility);
-
-        if(npc.questMapVisibility <= 100){
-            npc.questVisibility = true;
-        } else {
-            npc.questVisibility = false;
-        }
-
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             PauseScreen.PAUSE = true;

@@ -50,10 +50,9 @@ public class MainGameScreen implements Screen {
         world = new World(game, 3, (int) (GameData.BG_GRADIENT.getWidth()/2f - GameData.MAIN_CHAR_IDLE_1.getWidth()/9f/2f));
 
         world.addGameObject(barrel);
-        world.addGameObject(new Entity(-120, 7, GameData.HOTDOGS, 1, 6, true, game));
         cameraSpeed = world.getPlayer().getxSpeed()/2f;
         background = new Background(cameraSpeed);
-        npc = new Npc(20, 3, GameData.MAIN_CHAR_IDLE_1, 1f, game , new Quest() , true);
+        npc = new Npc(-100, 3, GameData.HOTDOGS, 1f, game , new Quest() , true , 1);
 
         game.batch.setColor(1, 1, 1, 1);
     }
@@ -84,12 +83,6 @@ public class MainGameScreen implements Screen {
 
         //System.out.println(npc.questMapVisibility);
 
-        if(npc.questMapVisibility < 100){
-            npc.questVisibility = true;
-        } else {
-            npc.questVisibility = false;
-        }
-
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
@@ -97,10 +90,10 @@ public class MainGameScreen implements Screen {
 
         game.batch.begin();
         background.draw(game.batch);
+        npc.draw(game.batch);
         world.draw(game.batch);
         game.batch.draw(GameData.METRO_ENTRY, 360-GameData.METRO_ENTRY.getWidth(), 0);
         game.batch.draw(GameData.VIGNETTE, camera.position.x - GameData.VIGNETTE.getWidth() / 2f, camera.position.y - GameData.VIGNETTE.getHeight() / 2f);
-        npc.draw(game.batch);
 
         if(world.getPlayer().getX() > 360-GameData.METRO_ENTRY.getWidth()) {
             float dist = (360-60)-(360-GameData.METRO_ENTRY.getWidth());
