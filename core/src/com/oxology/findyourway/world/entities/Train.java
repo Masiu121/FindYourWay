@@ -2,6 +2,7 @@ package com.oxology.findyourway.world.entities;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
@@ -25,6 +26,9 @@ public class Train extends Entity {
     private float speed;
 
     private Player player;
+
+    Sound startSound;
+    Sound stopSound;
 
     //NPC vars
     private int state;
@@ -93,6 +97,10 @@ public class Train extends Entity {
         this.direction = direction;
 
         trainStopped = false;
+
+        startSound = Gdx.audio.newSound(GameData.TRAIN_START);
+        stopSound = Gdx.audio.newSound(GameData.TRAIN_STOP);
+        stopSound.play(0.2f);
     }
 
     public void update(float deltaTime) {
@@ -240,6 +248,7 @@ public class Train extends Entity {
 
     private void idle(float deltaTime) {
         if(timeElapsed >= 8) {
+            startSound.play(0.2f);
             state = 1;
         } else if(timeElapsed >= 7) {
             doorsOpenSpeed = -doorsOpenDefaultSpeed;
