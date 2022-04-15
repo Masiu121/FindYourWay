@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
 
+import java.util.Random;
+
 public class Train extends Entity {
     private boolean doorsMoving;
     private boolean doorsOpened;
@@ -59,7 +61,14 @@ public class Train extends Entity {
     }
 
     public Train(FindYourWay game, int direction) {
-        super(400, 8, GameData.METRO_TRAIN, 1f, game);
+        super(0, 8, GameData.METRO_TRAIN, 1f, game);
+
+        Random random = new Random();
+
+        if(direction == 1)
+            super.setX(600 + random.nextInt(20));
+        else
+            super.setX(-700 + random.nextInt(20));
 
         this.doorsMoving = false;
         this.doorsOpened = false;
@@ -76,9 +85,9 @@ public class Train extends Entity {
         deceleration = 10f;
 
         if(direction == 1)
-            speed = -maxSpeed/5.6f;
+            speed = -maxSpeed/7f;
         else
-            speed = maxSpeed/5.6f;
+            speed = maxSpeed/7f;
 
         state = 2;
         this.direction = direction;
@@ -135,19 +144,43 @@ public class Train extends Entity {
     }
 
     public void draw(SpriteBatch batch) {
-        batch.draw(GameData.METRO_DOOR_LEFT, getX()+39-doorOffset, getY()+32);
-        batch.draw(GameData.METRO_DOOR_RIGHT, getX()+51+doorOffset, getY()+32);
-
-        batch.draw(GameData.METRO_DOOR_LEFT, getX()+120-doorOffset, getY()+32);
-        batch.draw(GameData.METRO_DOOR_RIGHT, getX()+132+doorOffset, getY()+32);
-
-        batch.draw(GameData.METRO_DOOR_LEFT, getX()+200-doorOffset, getY()+32);
-        batch.draw(GameData.METRO_DOOR_RIGHT, getX()+212+doorOffset, getY()+32);
-
-        batch.draw(GameData.METRO_DOOR_LEFT, getX()+281-doorOffset, getY()+32);
-        batch.draw(GameData.METRO_DOOR_RIGHT, getX()+293+doorOffset, getY()+32);
+        if(direction == 1) {
+            drawRightDoors(batch);
+            drawLeftDoors(batch);
+        } else {
+            drawLeftDoors(batch);
+            drawRightDoors(batch);
+        }
 
         batch.draw(super.getTexture(), getX(), getY());
+    }
+
+    public void drawLeftDoors(SpriteBatch batch) {
+        batch.draw(GameData.METRO_DOOR_LEFT, getX() + 39, getY() + 32);
+        batch.draw(GameData.METRO_DOOR_RIGHT, getX() + 51, getY() + 32);
+
+        batch.draw(GameData.METRO_DOOR_LEFT, getX() + 120, getY() + 32);
+        batch.draw(GameData.METRO_DOOR_RIGHT, getX() + 132, getY() + 32);
+
+        batch.draw(GameData.METRO_DOOR_LEFT, getX() + 200, getY() + 32);
+        batch.draw(GameData.METRO_DOOR_RIGHT, getX() + 212, getY() + 32);
+
+        batch.draw(GameData.METRO_DOOR_LEFT, getX() + 281, getY() + 32);
+        batch.draw(GameData.METRO_DOOR_RIGHT, getX() + 293, getY() + 32);
+    }
+
+    public void drawRightDoors(SpriteBatch batch) {
+        batch.draw(GameData.METRO_DOOR_LEFT, getX() + 39 - doorOffset, getY() + 32);
+        batch.draw(GameData.METRO_DOOR_RIGHT, getX() + 51 + doorOffset, getY() + 32);
+
+        batch.draw(GameData.METRO_DOOR_LEFT, getX() + 120 - doorOffset, getY() + 32);
+        batch.draw(GameData.METRO_DOOR_RIGHT, getX() + 132 + doorOffset, getY() + 32);
+
+        batch.draw(GameData.METRO_DOOR_LEFT, getX() + 200 - doorOffset, getY() + 32);
+        batch.draw(GameData.METRO_DOOR_RIGHT, getX() + 212 + doorOffset, getY() + 32);
+
+        batch.draw(GameData.METRO_DOOR_LEFT, getX() + 281 - doorOffset, getY() + 32);
+        batch.draw(GameData.METRO_DOOR_RIGHT, getX() + 293 + doorOffset, getY() + 32);
     }
 
     public void setPlayer(Player player) {
