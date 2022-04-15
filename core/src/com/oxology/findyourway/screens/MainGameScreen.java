@@ -35,19 +35,12 @@ public class MainGameScreen implements Screen {
     Paper paper;
     TextCard card;
 
+    boolean firstRun;
     float cameraSpeed;
 
     public MainGameScreen(FindYourWay game) {
         this.game = game;
-    }
-
-    @Override
-    public void show() {
-        camera = new OrthographicCamera(240, 135);
-        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
-        camera.update();
-
-        game.batch.setColor(1, 1, 1, 1);
+        firstRun = true;
 
         cameraXOffset = 0;
         cameraYOffset = 0;
@@ -58,12 +51,26 @@ public class MainGameScreen implements Screen {
         paper = new Paper(game);
 
         Barrel barrel = new Barrel(50, 7, GameData.BARREL, 1f, game);
+
         world = new World(game, 3, (int) (GameData.BG_GRADIENT.getWidth()/2f - GameData.MAIN_CHAR_IDLE_1.getWidth()/9f/2f));
 
         world.addGameObject(barrel);
         cameraSpeed = world.getPlayer().getxSpeed()/2f;
         background = new Background(cameraSpeed);
         npc = new Npc(20, 3, GameData.MAIN_CHAR_IDLE_1, 1f, game , new Quest() , true);
+
+        game.batch.setColor(1, 1, 1, 1);
+    }
+
+    @Override
+    public void show() {
+        camera = new OrthographicCamera(240, 135);
+        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+        camera.update();
+
+        world.getPlayer().setX(300);
+        camera.position.set(240, camera.position.y, 0);
+
     }
 
     @Override
@@ -101,7 +108,7 @@ public class MainGameScreen implements Screen {
             world.getPlayer().setY(3+((1-result)*-20));
 
             if(world.getPlayer().getX() > 310) {
-                game.setScreen(new MetroScreen(game));
+                game.setScreen(game.metroScreen);
             }
         } else if(!world.getPlayer().jump) {
             world.getPlayer().setY(3);
