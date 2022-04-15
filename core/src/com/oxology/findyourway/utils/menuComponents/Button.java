@@ -40,6 +40,7 @@ public class Button {
 
         this.font = new BitmapFont(GameData.FONT);
         font.getData().setScale(this.scale/2.5f);
+        font.setColor(0, 0, 0, 1);
 
         this.text = text;
 
