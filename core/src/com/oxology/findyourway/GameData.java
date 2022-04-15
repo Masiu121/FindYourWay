@@ -3,11 +3,6 @@ package com.oxology.findyourway;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import org.w3c.dom.Text;
-
-import java.io.File;
 
 public interface GameData {
 
@@ -51,20 +46,22 @@ public interface GameData {
     Texture METRO_EXIT = new Texture("Game/MetroExit.png");
 
     // First player animation
-    Texture MAIN_CHAR_IDLE_1 = new Texture("Game/Sprites/MainCharacterIdle1.png");
-    Texture MAIN_CHAR_IDLE_2 = new Texture("Game/Sprites/MainCharacterIdle2.png");
-    Texture MAIN_CHAR_WALK_1 = new Texture("Game/Sprites/MainCharacterWalk.png");
-    Texture MAIN_CHAR_WALK_2 = new Texture("Game/Sprites/MainCharacterWalk2.png");
+    Texture MAIN_CHAR_1_IDLE_1 = new Texture("Game/Sprites/MainCharacterIdle1.png");
+    Texture MAIN_CHAR_1_IDLE_2 = new Texture("Game/Sprites/MainCharacterIdle2.png");
+    Texture MAIN_CHAR_1_WALK_1 = new Texture("Game/Sprites/MainCharacterWalk.png");
+    Texture MAIN_CHAR_1_WALK_2 = new Texture("Game/Sprites/MainCharacterWalk2.png");
 
     // Second player animation
-
-    Texture SECOND_CHAR_IDLE_1 = new Texture("Game/Sprites/SecondCharacterIdle1.png");
-    Texture SECOND_CHAR_IDLE_2 = new Texture("Game/Sprites/SecondCharacterIdle2.png");
+    Texture MAIN_CHAR_2_IDLE_1 = new Texture("Game/Sprites/SecondCharacterIdle1.png");
+    Texture MAIN_CHAR_2_IDLE_2 = new Texture("Game/Sprites/SecondCharacterIdle2.png");
+    Texture MAIN_CHAR_2_WALK_1 = new Texture("Game/Sprites/SecondCharacterWalk.png");
+    Texture MAIN_CHAR_2_WALK_2 = new Texture("Game/Sprites/SecondCharacterWalk2.png");
 
     // Third player animation
-
-    Texture THIRD_CHAR_IDLE_1 = new Texture("Game/Sprites/ThirdCharacterIdle1.png");
-    Texture THIRD_CHAR_IDLE_2 = new Texture("Game/Sprites/ThirdCharacterIdle2.png");
+    Texture MAIN_CHAR_3_IDLE_1 = new Texture("Game/Sprites/ThirdCharacterIdle1.png");
+    Texture MAIN_CHAR_3_IDLE_2 = new Texture("Game/Sprites/ThirdCharacterIdle2.png");
+    Texture MAIN_CHAR_3_WALK_1 = new Texture("Game/Sprites/ThirdCharacterWalk.png");
+    Texture MAIN_CHAR_3_WALK_2 = new Texture("Game/Sprites/ThirdCharacterWalk2.png");
 
     // First player animation choose
     Texture MAIN_CHAR_IDLE_CHOOSE_1 = new Texture("Game/Sprites/hero1.png");
