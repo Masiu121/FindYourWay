@@ -25,7 +25,7 @@ public class MetroStation {
         game.batch.draw(GameData.METRO_BRICKS, 0, 0);
         game.batch.draw(GameData.METRO_BRICKS, 240, 0);
 
-        if(rightTrain != null)
+        if (rightTrain != null)
             rightTrain.draw(batch);
 
         game.batch.draw(GameData.METRO_PLATFORM, -240, 0);
@@ -34,32 +34,30 @@ public class MetroStation {
     }
 
     public void drawTop(SpriteBatch batch) {
-        if(leftTrain != null)
+        if (leftTrain != null)
             leftTrain.draw(batch);
     }
 
     public void update(float deltaTime) {
 
-            if(random.nextFloat() > 0.999 && rightTrain == null) {
-                rightTrain = new Train(game, 0);
-            }
+        if (random.nextFloat() > 0.999 && rightTrain == null) {
+            rightTrain = new Train(game, 0);
+        }
 
-            if(random.nextFloat() > 0.999 && leftTrain == null) {
-                leftTrain = new Train(game, 1);
-            }
+        if (random.nextFloat() > 0.999 && leftTrain == null) {
+            leftTrain = new Train(game, 1);
+        }
 
-        System.out.println(leftTrain + ", " + rightTrain);
-
-        if(leftTrain != null) {
+        if (leftTrain != null) {
             leftTrain.update(deltaTime);
-            if(leftTrain.getX() > 1000 || leftTrain.getX() < -1000) {
+            if (leftTrain.getX() > 1000 || leftTrain.getX() < -1000) {
                 leftTrain = null;
             }
         }
 
-        if(rightTrain != null) {
+        if (rightTrain != null) {
             rightTrain.update(deltaTime);
-            if(rightTrain.getX() > 1000 || rightTrain.getX() < -1000) {
+            if (rightTrain.getX() > 1000 || rightTrain.getX() < -1000) {
                 rightTrain = null;
             }
         }
