@@ -5,9 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
-import com.oxology.findyourway.utils.blocksystem.blocks.Block;
-import com.oxology.findyourway.utils.blocksystem.blocks.StartBlock;
-import com.oxology.findyourway.utils.blocksystem.blocks.StopBlock;
+import com.oxology.findyourway.utils.blocksystem.blocks.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,8 +42,9 @@ public class Paper {
 
     public void draw(SpriteBatch batch) {
         if (visible) {
+            batch.draw(GameData.BLACK, x-122f, 0, 241, 135);
             batch.draw(GameData.PAPER, x, y);
-            card.draw(batch, x - 111, 70);
+            card.draw(batch, x - 108, 70);
 
             for (Block block : blocks) {
                 Block toConnect = block.getToConnect();
@@ -85,12 +84,22 @@ public class Paper {
                 addBlock(new StopBlock((int) x, (int) y, this, game));
             }
 
+            if (Gdx.input.isKeyJustPressed(Input.Keys.B)) {
+                addBlock(new DivideBlock((int) x, (int) y, this, game));
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.V)) {
+                addBlock(new ADeclarationBlock((int) x, (int) y, this, game));
+            }
+
+            if (Gdx.input.isKeyJustPressed(Input.Keys.COMMA)) {
+                addBlock(new BDeclarationBlock((int) x, (int) y, this, game));
+            }
+
             for (Block block : blocks) {
                 block.update();
                 block.checkForConnection(blocks);
             }
-
-
         }
     }
 
