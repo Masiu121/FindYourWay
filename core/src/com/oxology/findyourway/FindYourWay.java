@@ -5,7 +5,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.oxology.findyourway.screens.MainGameScreen;
 import com.oxology.findyourway.screens.MainMenuScreen;
+import com.oxology.findyourway.screens.MetroScreen;
 
 public class FindYourWay extends Game {
 	public Music music;
@@ -27,15 +29,20 @@ public class FindYourWay extends Game {
 
 	public float gravity;
 
+	public MainGameScreen mainGameScreen;
+	public MetroScreen metroScreen;
+
 	@Override
 	public void create () {
+		batch = new SpriteBatch();
+
 		music = Gdx.audio.newMusic(GameData.BACKGROUND_MUSIC);
 		music.setLooping(true);
 		music.setVolume(0.1f);
 		music.play();
 
-
-		batch = new SpriteBatch();
+		mainGameScreen = new MainGameScreen(this);
+		metroScreen = new MetroScreen(this);
 
 		menuViewportWidth = 480;
 		menuViewportHeight = 270;
