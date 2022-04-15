@@ -40,6 +40,8 @@ public class CharacterScreen implements Screen {
         back = new Button(game, 0, 0, 1f, "Ok", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
             @Override
             public void onClick() {
+                game.mainGameScreen.getWorld().getPlayer().createAnimations();
+                game.metroScreen.getWorld().getPlayer().createAnimations();
                 game.setScreen(new MainMenuScreen(game));
             }
         });
