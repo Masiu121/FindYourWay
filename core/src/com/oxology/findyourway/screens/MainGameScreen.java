@@ -46,7 +46,6 @@ public class MainGameScreen implements Screen {
         cameraMaxXOffset = 30;
         cameraMaxYOffset = 30;
 
-        paper = new Paper(game);
 
         Barrel barrel = new Barrel(50, 7, GameData.BARREL, 1f, game);
         world = new World(game, 3, (int) (GameData.BG_GRADIENT.getWidth()/2f - GameData.MAIN_CHAR_1_IDLE_1.getWidth()/9f/2f));
@@ -57,6 +56,7 @@ public class MainGameScreen implements Screen {
         npc = new Npc(-100, 3, GameData.HOTDOGS, 1f, game , new Quest() , true , 1);
 
         game.batch.setColor(1, 1, 1, 1);
+        paper = new Paper(game, world.getPlayer());
     }
 
     @Override
