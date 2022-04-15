@@ -10,9 +10,6 @@ import com.oxology.findyourway.GameData;
 import com.oxology.findyourway.utils.Quest;
 import com.oxology.findyourway.utils.blocksystem.Paper;
 import com.oxology.findyourway.utils.Background;
-import com.oxology.findyourway.utils.blocksystem.TextCard;
-import com.oxology.findyourway.utils.menuComponents.Button;
-import com.oxology.findyourway.utils.menuComponents.Clickable;
 import com.oxology.findyourway.world.World;
 import com.oxology.findyourway.world.entities.Barrel;
 import com.oxology.findyourway.world.entities.Entity;
@@ -67,16 +64,17 @@ public class MainGameScreen implements Screen {
         camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
         camera.update();
 
-        if(!firstRun) {
+        if(!firstRun && !PauseScreen.PAUSE) {
             world.getPlayer().setX(300);
             camera.position.set(240, camera.position.y, 0);
         }
 
+        if(PauseScreen.PAUSE)
+            PauseScreen.PAUSE = false;
+
         if(firstRun) {
             firstRun = false;
         }
-
-        System.out.println(world.getPlayer().getX());
     }
 
     @Override
@@ -128,8 +126,10 @@ public class MainGameScreen implements Screen {
     public void update(float deltaTime) {
         paper.update(deltaTime);
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.E))
-            game.setScreen(new MainMenuScreen(game));
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+            PauseScreen.PAUSE = true;
+            game.setScreen(new PauseScreen(game, 0));
+        }
 
         if(!paper.isVisible()) {
             world.update(deltaTime);
