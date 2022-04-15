@@ -9,12 +9,8 @@ import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
 import com.oxology.findyourway.utils.Book;
 import com.oxology.findyourway.utils.GameObject;
-import com.oxology.findyourway.utils.blocksystem.Paper;
 import com.oxology.findyourway.utils.menuComponents.Button;
 import com.oxology.findyourway.utils.menuComponents.Clickable;
-import com.oxology.findyourway.world.entities.Barrel;
-import com.oxology.findyourway.world.entities.Entity;
-import com.oxology.findyourway.world.entities.Player;
 
 import java.util.List;
 
@@ -28,7 +24,7 @@ public class GameIntroScreen implements Screen {
     Button toGame;
     Button black;
 
-    private boolean paperVisibility;
+    private boolean paperVisible;
 
     private Book book;
 
@@ -38,9 +34,6 @@ public class GameIntroScreen implements Screen {
 
     @Override
     public void show() {
-
-        // game.setScreen(new MainGameScreen(game));
-
         camera = new OrthographicCamera(480, 270);
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
@@ -59,18 +52,14 @@ public class GameIntroScreen implements Screen {
         toGame = new Button(game,  (int)(camera.viewportWidth - 10 - GameData.MENU_BUTTON.getWidth()), 15, 0.7f, "Start", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
             @Override
             public void onClick() {
-                game.setScreen(new MainGameScreen(game));
+                game.setScreen(game.mainGameScreen);
             }
         });
 
         black = new Button(game, (int)(camera.viewportWidth / 2 - GameData.BLACK.getWidth()  / 2), (int)(camera.viewportHeight / 2 - GameData.BLACK.getHeight() / 2) + 10, 1f, "", GameData.BLACK, GameData.BLACK, new Clickable() {
             @Override
             public void onClick() {
-                if(paperVisibility){
-                    paperVisibility = false;
-                } else {
-                    paperVisibility = true;
-                }
+                paperVisible = !paperVisible;
             }
         });
     }
@@ -97,10 +86,12 @@ public class GameIntroScreen implements Screen {
         book.draw(game.batch);
 
         toMenu.draw(game.batch);
-        toGame.draw(game.batch);
 
-        if(paperVisibility){
-            game.batch.draw(GameData.INTRO_PAPER , camera.viewportWidth / 2 - GameData.INTRO_PAPER.getWidth() / 2 , camera.viewportHeight / 2 - GameData.INTRO_PAPER.getHeight() / 2);
+        if(paperVisible)
+            toGame.draw(game.batch);
+
+        if(paperVisible){
+            game.batch.draw(GameData.INTRO_PAPER , camera.viewportWidth / 2 - GameData.INTRO_PAPER.getWidth() / 2f , camera.viewportHeight / 2 - GameData.INTRO_PAPER.getHeight() / 2f);
         }
 
         game.batch.end();
@@ -110,7 +101,10 @@ public class GameIntroScreen implements Screen {
 
     public void update(){
         toMenu.update();
-        toGame.update();
+
+        if(paperVisible)
+            toGame.update();
+
         black.update();
     }
 
