@@ -15,6 +15,7 @@ import com.oxology.findyourway.utils.menuComponents.Button;
 import com.oxology.findyourway.utils.menuComponents.Clickable;
 import com.oxology.findyourway.world.World;
 import com.oxology.findyourway.world.entities.Barrel;
+import com.oxology.findyourway.world.entities.Entity;
 import com.oxology.findyourway.world.entities.Npc;
 
 public class MainGameScreen implements Screen {
@@ -52,6 +53,7 @@ public class MainGameScreen implements Screen {
         world = new World(game, 3, (int) (GameData.BG_GRADIENT.getWidth()/2f - GameData.MAIN_CHAR_IDLE_1.getWidth()/9f/2f));
 
         world.addGameObject(barrel);
+        world.addGameObject(new Entity(-120, 7, GameData.HOTDOGS, 1, 6, true, game));
         cameraSpeed = world.getPlayer().getxSpeed()/2f;
         background = new Background(cameraSpeed);
         npc = new Npc(20, 3, GameData.MAIN_CHAR_IDLE_1, 1f, game , new Quest() , true);
