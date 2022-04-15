@@ -153,4 +153,8 @@ public class Entity extends GameObject {
     public void setAnimationPaused(boolean animationPaused) {
         this.animationPaused = animationPaused;
     }
+
+    public float getDistanceTo(Entity other) {
+        return Math.abs(this.getX()+this.frameWidth/2f - other.getX()+other.frameWidth/2f);
+    }
 }
