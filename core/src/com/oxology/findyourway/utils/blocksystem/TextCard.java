@@ -2,7 +2,9 @@ package com.oxology.findyourway.utils.blocksystem;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.oxology.findyourway.GameData;
 
 public class TextCard {
     private float x, y;
@@ -21,6 +23,17 @@ public class TextCard {
         this.texture = texture;
         this.text = text;
 
+        this.font = new BitmapFont(GameData.FONT);
+        font.getData().setScale(this.scale/6f);
+
+        this.text = text;
+
+        GlyphLayout layout = new GlyphLayout();
+        layout.setText(font, text);
+
+        this.textWidth = (int) layout.width;
+        this.textHeight = (int) layout.height;
+
         calculateSize();
     }
 
@@ -33,8 +46,8 @@ public class TextCard {
         batch.draw(this.texture, posX, posY, this.width, this.height);
 
         if(font != null) {
-            float textX = this.x + this.width / 2f - textWidth / 2f;
-            float textY = this.y + this.height / 2f + textHeight / 2f;
+            float textX = posX + this.width / 2f - textWidth / 2f;
+            float textY = posY + this.height / 2f + textHeight / 2f;
             font.draw(batch, text, textX, textY);
         }
     }
