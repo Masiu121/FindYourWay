@@ -47,11 +47,15 @@ public class Entity extends GameObject {
         this.frameHeight = getTexture().getHeight();
 
         animationFrames = TextureRegion.split(super.getTexture(), frameWidth, frameHeight);
-        animation = new Animation<TextureRegion>(1f / 4f, animationFrames[0]);
+        animation = new Animation<TextureRegion>(1f/4f, animationFrames[0]);
 
         super.setSize(animationFrames[0][0].getRegionWidth(), animationFrames[0][0].getRegionHeight());
 
         this.looping = looping;
+    }
+
+    public void setTiming(float timing) {
+        animation = new Animation<TextureRegion>(timing, animationFrames[0]);
     }
 
     public Entity(int x, int y, Texture texture, float scale, FindYourWay game) {
