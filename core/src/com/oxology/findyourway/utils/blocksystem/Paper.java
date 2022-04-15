@@ -5,7 +5,12 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.oxology.findyourway.FindYourWay;
 import com.oxology.findyourway.GameData;
+import com.oxology.findyourway.screens.GameIntroScreen;
+import com.oxology.findyourway.screens.MainGameScreen;
 import com.oxology.findyourway.utils.blocksystem.blocks.*;
+import com.oxology.findyourway.utils.menuComponents.Button;
+import com.oxology.findyourway.utils.menuComponents.Clickable;
+import com.oxology.findyourway.world.entities.Player;
 import com.oxology.findyourway.world.entities.Npc;
 
 import java.util.ArrayList;
@@ -19,16 +24,27 @@ public class Paper {
     private List<Block> blocks;
     private TextCard card;
 
+    Player player;
+
     private boolean visible;
 
     private float x, y;
 
-    public Paper(FindYourWay game) {
+    public Paper(FindYourWay game, Player player) {
         this.game = game;
 
-        card = new TextCard(1f, GameData.TEXT_CARD, "sdaasd");
+        this.player = player;
+
+        card = new TextCard(1f, GameData.TEXT_CARD, "Nacisnij ENTER", "aby kontynuowac");
 
         this.blocks = new ArrayList<>();
+
+
+        addBlock(new StartBlock((int) x, (int) y+70, this, game));
+        addBlock(new StopBlock((int) x, (int) y+55, this, game));
+        addBlock(new DivideBlock((int) x, (int) y+40, this, game));
+        addBlock(new ADeclarationBlock((int) x, (int) y+25, this, game));
+        addBlock(new BDeclarationBlock((int) x, (int) y+10, this, game));
     }
 
     public void setPos(float x, float y) {
@@ -45,7 +61,7 @@ public class Paper {
         if (visible) {
             batch.draw(GameData.BLACK, x-122f, 0, 241, 135);
             batch.draw(GameData.PAPER, x, y);
-            card.draw(batch, x - 108, 70);
+            card.draw(batch, x - 108, 30);
 
             for (Block block : blocks) {
                 Block toConnect = block.getToConnect();
@@ -77,24 +93,11 @@ public class Paper {
         }
 
         if (visible) {
-            if (Gdx.input.isKeyJustPressed(Input.Keys.M)) {
-                addBlock(new StartBlock((int) x, (int) y, this, game));
-            }
-
-            if (Gdx.input.isKeyJustPressed(Input.Keys.N)) {
-                addBlock(new StopBlock((int) x, (int) y, this, game));
-            }
-
-            if (Gdx.input.isKeyJustPressed(Input.Keys.B)) {
-                addBlock(new DivideBlock((int) x, (int) y, this, game));
-            }
-
-            if (Gdx.input.isKeyJustPressed(Input.Keys.V)) {
-                addBlock(new ADeclarationBlock((int) x, (int) y, this, game));
-            }
-
-            if (Gdx.input.isKeyJustPressed(Input.Keys.COMMA)) {
-                addBlock(new BDeclarationBlock((int) x, (int) y, this, game));
+            if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
+                if(checkBlocks()) {
+                    player.setTicket(true);
+                    visible = false;
+                }
             }
 
             for (Block block : blocks) {
@@ -114,5 +117,38 @@ public class Paper {
 
     public float getX() {
         return x;
+    }
+
+    private boolean checkBlocks() {
+        Block startBlock = null;
+        for(Block block : blocks) {
+            if(block instanceof StartBlock) {
+                startBlock = block;
+            }
+        }
+
+        try {
+            if (startBlock.getNextBlock() instanceof ADeclarationBlock) {
+                if (startBlock.getNextBlock().getNextBlock() instanceof BDeclarationBlock) {
+                    if (startBlock.getNextBlock().getNextBlock().getNextBlock() instanceof DivideBlock) {
+                        if (startBlock.getNextBlock().getNextBlock().getNextBlock().getNextBlock() instanceof StopBlock) {
+                            return true;
+                        }
+                    }
+                }
+            } else if (startBlock.getNextBlock() instanceof BDeclarationBlock) {
+                if (startBlock.getNextBlock().getNextBlock() instanceof ADeclarationBlock) {
+                    if (startBlock.getNextBlock().getNextBlock().getNextBlock() instanceof DivideBlock) {
+                        if (startBlock.getNextBlock().getNextBlock().getNextBlock().getNextBlock() instanceof StopBlock) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }
