@@ -156,4 +156,12 @@ public class Player extends Entity {
 
         super.update(deltaTime);
     }
+
+    public void setTicket(boolean ticket) {
+        this.ticket = ticket;
+    }
+
+    public boolean isTicket() {
+        return ticket;
+    }
 }
