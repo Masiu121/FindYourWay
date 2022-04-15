@@ -25,7 +25,7 @@ public class CharacterScreen implements Screen {
 
     float scale = 3f;
 
-    public int heroCount = 2;
+    public int heroCount = 3;
 
     public CharacterScreen(FindYourWay game) {
         this.game = game;
@@ -97,6 +97,8 @@ public class CharacterScreen implements Screen {
             player = GameData.MAIN_CHAR_IDLE_CHOOSE_1;
         } else if (game.mainCharacter == 1) {
             player = GameData.MAIN_CHAR_IDLE_CHOOSE_2;
+        } else if(game.mainCharacter == 2){
+            player = GameData.MAIN_CHAR_IDLE_CHOOSE_3;
         }
 
     }
@@ -112,7 +114,7 @@ public class CharacterScreen implements Screen {
         if (game.mainCharacter - 1 >= 0)
             game.mainCharacter--;
         else
-            game.mainCharacter = 1;
+            game.mainCharacter = 2;
     }
 
     public void update() {
