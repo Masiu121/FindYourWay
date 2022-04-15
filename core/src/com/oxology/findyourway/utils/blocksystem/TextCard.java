@@ -14,17 +14,19 @@ public class TextCard {
 
     private BitmapFont font;
     private String text;
+    private String text2;
     private int textWidth;
     private int textHeight;
 
 
-    public TextCard(float scale, Texture texture, String text) {
+    public TextCard(float scale, Texture texture, String text, String text2) {
         this.scale = scale;
         this.texture = texture;
         this.text = text;
+        this.text2 = text2;
 
         this.font = new BitmapFont(GameData.FONT);
-        font.getData().setScale(this.scale/6f);
+        font.getData().setScale(this.scale/7f);
 
         this.text = text;
 
@@ -48,7 +50,8 @@ public class TextCard {
         if(font != null) {
             float textX = posX + this.width / 2f - textWidth / 2f;
             float textY = posY + this.height / 2f + textHeight / 2f;
-            font.draw(batch, text, textX, textY);
+            font.draw(batch, text, textX-3, textY-10);
+            font.draw(batch, text2, textX-3, textY-15);
         }
     }
 }
