@@ -67,9 +67,9 @@ public class PauseScreen implements Screen {
         int buttonX = (int) camera.viewportWidth/2-resumeButton.getWidth()/2;
         int buttonY = (int) camera.viewportHeight / 2 - resumeButton.getHeight() / 2;
 
-        resumeButton.move(buttonX, buttonY - 50);
+        resumeButton.move(buttonX, buttonY + 35);
         menuButton.move(buttonX, buttonY);
-        exitButton.move(buttonX, buttonY + 50);
+        exitButton.move(buttonX, buttonY - 35);
     }
 
     @Override
