@@ -26,7 +26,7 @@ public class Player extends Entity {
     TextureRegion[][] walkAnimationFrames2;
     Animation<TextureRegion> walkAnimation2;
 
-
+    private boolean ticket;
 
     private int animationStatus;
     /*
