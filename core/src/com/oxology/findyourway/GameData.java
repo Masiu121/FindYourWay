@@ -96,9 +96,9 @@ public interface GameData {
 
     Texture STORY_PAPER = new Texture("Game/Sprites/Paper.png");
 
-    Texture BOOK_OPEN_ANIMATION = new Texture("Game/Sprites/book.png");
+    Texture BOOK_OPEN_ANIMATION = new Texture("Game/Sprites/book1.png");
     Texture INTRO_BG = new Texture("Game/Sprites/stol.png");
-    Texture BOOK_NEXT_PAGE_ANIMATION = new Texture("Game/Sprites/nextpage.png");
+    Texture BOOK_NEXT_PAGE_ANIMATION = new Texture("Game/Sprites/nextpage1.png");
 
     Texture BLACK = new Texture("Game/Black2.png");
 }

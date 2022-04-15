@@ -45,9 +45,9 @@ public class GameIntroScreen implements Screen {
         camera.position.set(camera.viewportWidth/2f, camera.viewportHeight/2f, 0);
         camera.update();
 
-        book = new Book(GameData.INTRO_BG.getWidth() / 2 - 220 / 2,
-                GameData.INTRO_BG.getHeight() / 2 + 20 - GameData.BOOK_OPEN_ANIMATION.getHeight() / 2 ,
-                GameData.BOOK_NEXT_PAGE_ANIMATION , 2f , game);
+        book = new Book(GameData.INTRO_BG.getWidth() / 2 - 245 / 2,
+                GameData.INTRO_BG.getHeight() / 2 - 10 - GameData.BOOK_OPEN_ANIMATION.getHeight() / 2 ,
+                GameData.BOOK_NEXT_PAGE_ANIMATION , 4f , game);
 
         toMenu = new Button(game, 50, 15, 0.7f, "Menu", GameData.MENU_BUTTON, GameData.MENU_BUTTON_HOVER, new Clickable() {
             @Override

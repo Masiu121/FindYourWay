@@ -19,14 +19,14 @@ public class Book extends Entity {
 
     public Book(int x, int y, Texture texture, float scale, FindYourWay game) {
         super(x, y, texture, scale, 9, true, game);
-        this.bookAnimationFrames = TextureRegion.split(GameData.BOOK_OPEN_ANIMATION, 240, 135);
+        this.bookAnimationFrames = TextureRegion.split(GameData.BOOK_OPEN_ANIMATION, 121, 68);
         this.bookAnimation = new Animation<TextureRegion>(1f/4f, bookAnimationFrames[0]);
 
-        this.bookAnimationFrames2 = TextureRegion.split(GameData.BOOK_NEXT_PAGE_ANIMATION, 240, 135);
+        this.bookAnimationFrames2 = TextureRegion.split(GameData.BOOK_NEXT_PAGE_ANIMATION, 121, 68);
         this.bookAnimation2 = new Animation<TextureRegion>(1f/4f, bookAnimationFrames2[0]);
 
         setAnimationPaused(true);
-        setAnimation(bookAnimation, 240, 135, false);
+        setAnimation(bookAnimation, 121, 68, false);
     }
 
     public void update(float deltaTime){
